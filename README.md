@@ -64,7 +64,7 @@ This guide draws from our experience coaching and working with engineers coming 
 
 ### <a name='naming'>Naming Convention</a>
 
-We mostly follow Java's and Scala's standard naming convention. 
+We mostly follow Java's and Scala's standard naming conventions.
 
 - Classes, traits, objects should follow Java class convension, i.e. CamelCase style with the first letter capitalized.
   ```scala
@@ -177,13 +177,12 @@ In general:
   - Within method bodies, as needed to create logical groupings of statements.
   - Optionally before the first member or after the last member of the class (neither encouraged nor discouraged).
 - Use one or two blank line(s) to separate class definitions.
-- Excessive number of blank lines are discouraged. 
+- Excessive number of blank lines is discouraged.
 
 
 ### <a name='parentheses'>Parentheses</a>
 
 - Functions should be declared with parentheses, unless they are accessors that have no side-effect (state mutation, I/O operations are considered side-effects).
-- Callsite should follow function declaration, i.e. if a function is declared with parentheses, call with parentheses:
   ```scala
   class Job {
     // Wrong: killJob changes state. Should have ().
@@ -193,7 +192,8 @@ In general:
     def killJob(): Unit
   }
   ```
-  Note that this is not just syntatic. It can affect correctness when `apply` is defined in the return object:
+- Callsite should follow function declaration, i.e. if a function is declared with parentheses, call with parentheses.
+  Note that this is not just syntactic. It can affect correctness when `apply` is defined in the return object:
   ```scala
   class Foo {
     def apply(): Int
@@ -242,9 +242,9 @@ try foo() catch {
 
 Suffix long literal values with uppercase `L`. It is often hard to differentiate lowercase `l` from `1`.
 ```scala
-val longValue = 1234L  // Do this
+val longValue = 5432L  // Do this
 
-val longValue = 1234l  // Do NOT do this
+val longValue = 5432l  // Do NOT do this
 ```
 
 
@@ -286,10 +286,12 @@ class DataFrame {
 }
 ```
 
+Of course, the situation in which a class grows this long is strongly discouraged, and is generally reserved only for building certain public APIs.
+
 
 ### <a name='imports'>Imports</a>
 
-- __Do NOT use wildcard imports__, unless you are importing more than 6 entities. Wildcard imports make the code less robust to external changes.
+- __Do NOT use wildcard imports__, unless you are importing more than 6 entities, or implicit methods. Wildcard imports make the code less robust to external changes.
 - Always import packages using absolute paths (e.g. `scala.util.Random`) instead of relative ones (e.g. `util.Random`).
 - In addition, sort imports in the following order:
   * `java.*` and `javax.*`
@@ -299,14 +301,14 @@ class DataFrame {
 - Within each group, imports should be sorted in alphabetic ordering.
 - You can use IntelliJ's import organizer to handle this automatically, using the following config:
   ```scala
-  import java.*
-  import javax.*
-  
-  import scala.*
-  
-  import *
-  
-  import com.databricks.*  // or import org.apache.spark.* if you are working on Spark
+  java
+  javax
+  _______ blank line _______ 
+  scala
+  _______ blank line _______
+  all other imports
+  _______ blank line _______
+  com.databricks  // or org.apache.spark if you are working on Spark
   ```
 
 
@@ -369,7 +371,8 @@ val (a, b) = (1, 2)
 However, do NOT use them in constructors, especially when `a` and `b` need to be marked transient. The Scala compiler generates an extra Tuple2 field that will not be transient for the above example.
 ```scala
 class MyClass {
-  // This will NOT work because the compiler generates a non-transient Tuple2 that points to both a and b
+  // This will NOT work because the compiler generates a non-transient Tuple2
+  // that points to both a and b.
   @transient private val (a, b) = someFuncThatReturnsTuple2()
 }
 ```
@@ -379,7 +382,7 @@ class MyClass {
 
 __Do NOT use call by name__. Use `() => T` explicitly.
 
-Background: Scala allows function parameters to be defined by-name, e.g.
+Background: Scala allows function parameters to be defined by-name, e.g. the following would work:
 ```scala
 def print(value: => Int): Unit = {
   println(value)
@@ -399,7 +402,12 @@ in the above code, `inc()` is passed into `print` as a closure and is only execu
 
 ### <a name='multi-param-list'>Multiple Parameter Lists</a>
 
-__Do NOT use multiple parameter lists__. They complicate operator overloading, and can confuse programmers less familiar with Scala.
+__Do NOT use multiple parameter lists__. They complicate operator overloading, and can confuse programmers less familiar with Scala. For example:
+
+```scala
+// Avoid this!
+case class Person(name: String, age: Int)(secret: String)
+```
 
 
 ### <a name='symbolic_methods'>Symbolic Methods (Operator Overloading)</a>
@@ -422,7 +430,7 @@ Scala type inference, especially left-side type inference and closure inference,
 
 - __Public methods should be explicitly typed__, otherwise the compiler's inferred type can often surprise you.
 - __Implicit methods should be explicitly typed__, otherwise it can crash the Scala compiler with incremental compilation.
-- __Variables, closures with non-obvious types should be explicitly typed__. A good litmus test is that explicit types should be used if a code reviewer cannot determine the type in 3 seconds.
+- __Variables or closures with non-obvious types should be explicitly typed__. A good litmus test is that explicit types should be used if a code reviewer cannot determine the type in 3 seconds.
 
 
 ### <a name='return'>Return Statements</a>
@@ -430,18 +438,18 @@ Scala type inference, especially left-side type inference and closure inference,
 __Do NOT use return in closures__. `return` is turned into ``try/catch`` of ``scala.runtime.NonLocalReturnControl`` by the compiler. This can lead to unexpected behaviors. Consider the following example:
   ```scala
   def receive(rpc: WebSocketRPC): Option[Response] = {
-    tableFut.waitForReady { table =>
-      if (table.hasError) {
+    tableFut.onComplete { table =>
+      if (table.isFailure) {
         return None // Do not do that!
       } else { ... }
     }
   }
   ```
-  the `.waitForReady` function takes the anonymous closure `{ table => ... }` and passes it to a future which then passes it to a different thread. This closure eventually throws the `NonLocalReturnControl` exception that is captured __in a different thread__ . It has no effect on the poor function being executed here.
+  the `.onComplete` function takes the anonymous closure `{ table => ... }` and passes it to a a different thread. This closure eventually throws the `NonLocalReturnControl` exception that is captured __in a different thread__ . It has no effect on the poor function being executed here.
   
 However, there are a few cases where `return` is preferred.
 
-- Use `return` as a guard to simplify control flow
+- Use `return` as a guard to simplify control flow without adding a level of indentation
   ```scala
   def doSomething(obj: Any): Any = {
     if (obj eq null) {
@@ -506,7 +514,7 @@ When implicits are used, we must ensure that another engineer who did not author
 
 If you must use them (e.g. enriching some DSL), do not overload implicit methods, i.e. make sure each implicit method has distinct names, so users can selectively import them.
 ```scala
-// Don't do the following, as users cannot selectively import only one of the implicit methods.
+// Don't do the following, as users cannot selectively import only one of the methods.
 object ImplicitHolder {
   def toRdd(seq: Seq[Int]): RDD[Int] = ...
   def toRdd(seq: Seq[Long]): RDD[Long] = ...
@@ -552,7 +560,7 @@ object ImplicitHolder {
     /**
      * Look up a user's profile in the user database.
      * @return None if the user is not found.
-     * Throws DatabaseConnectionException when we have trouble connecting to the database/
+     * @throws DatabaseConnectionException when we have trouble connecting to the database/
      */
     @throws(DatabaseConnectionException)
     def get(userId: Int): Option[User]
@@ -568,7 +576,8 @@ object ImplicitHolder {
   ```scala
   def myMethod1(input: String): Option[String] = Option(transform(input))
   
-  // This is not as robust because transform can return null, and then myMethod2 will return Some(null).
+  // This is not as robust because transform can return null, and then 
+  // myMethod2 will return Some(null).
   def myMethod2(input: String): Option[String] = Some(transform(input))
   ```
 - Do not use None to represent exceptions. Instead, throw exceptions explicitly.
@@ -579,9 +588,9 @@ object ImplicitHolder {
 
 One of Scala's powerful features is monadic chaining. Almost everything (e.g. collections, Option, Future, Try) is a monad (don't ask me what this means) and operations on them can be chained together. This is an incredibly powerful concept, but chaining should be used sparingly. In particular:
 
-- Do NOT chain (and/or nest) more than 3 operations
-- If it takes more than 2 seconds to figure out what the logic is, try hard to think about how you can expression the same functionality without using monadic chaining. As a general rule, watch out for flatMaps.
-- A chain should almost always be broken after a flatMap (because of the type change)
+- Do NOT chain (and/or nest) more than 3 operations.
+- If it takes more than 5 seconds to figure out what the logic is, try hard to think about how you can expression the same functionality without using monadic chaining. As a general rule, watch out for flatMaps and folds.
+- A chain should almost always be broken after a flatMap (because of the type change).
 
 A chain can often be made more understandable by giving the intermediate result a variable name, by explicitly typing the variable, and by breaking it down into more procedural style. As a contrived example:
 ```scala
@@ -641,7 +650,7 @@ There are 3 recommended ways to make concurrent accesses to shared states safe. 
   class Manager {
     private[this] var count = 0
     private[this] val map = new java.util.HashMap[String, String]
-    def update(key: String, value: String) = synchronized {
+    def update(key: String, value: String): Unit = synchronized {
       map.put(key, value)
       count += 1
     }
@@ -670,14 +679,17 @@ Prefer Atomic varibles over explicit synchronization when: (1) all critical upda
   ```scala
   // good: clearly and efficiently express only-once execution of concurrent code
   val initialized = new AtomicBoolean(false)
+  ...
   if (!initialized.getAndSet(true)) {
     ...
   }
   
   // poor: less clear what is guarded by synchronization, may unnecessarily synchronize
   val initialized = false
+  ...
+  var wasInitialized = false
   synchronized {
-    val wasInitialized = initialized
+    wasInitialized = initialized
     initialized = true
   }
   if (!wasInitialized) {
@@ -687,30 +699,20 @@ Prefer Atomic varibles over explicit synchronization when: (1) all critical upda
 
 ### <a name='concurrency-private-this'>Private Fields</a>
 
-Note that `private` fields are still accessible by other instances of the same class, so protecting it with `this.synchronized` (or just `synchronized`) is not sufficient. Make the field `private[this]` instead.
+Note that `private` fields are still accessible by other instances of the same class, so protecting it with `this.synchronized` (or just `synchronized`) is not technically sufficient. Make the field `private[this]` instead.
 ```scala
 // The following is still unsafe.
 class Foo {
-  @volatile private var count: Int = 0
+  private var count: Int = 0
   def inc(): Unit = synchronized { count + 1 }
 }
 
 // The following is safe.
 class Foo {
-  @volatile private[this] var count: Int = 0
+  private[this] var count: Int = 0
   def inc(): Unit = synchronized { count + 1 }
 }
 ```
-
-
-### <a name='concurrency-futures'>Futures</a>
-
-Work in progress section
-
-- If you are creating a new future yourself, make sure the block of code can timeout. Otherwise, the task may never complete and leak a thread, or even worse, never release a lock.
-- onComplete => andThen to guarantee ordering
-- thread pool creation
-
 
 ## <a name='perf'>Performance</a>
 
@@ -780,7 +782,7 @@ class MyClass {
 
 ## <a name='java'>Java Interoperability</a>
 
-This section covers guidelines for building Java compatible APIs. These do not apply if the component you are building do not require interoperability with Java. It is mostly drawn from our experience in developing the Java APIs for Spark.
+This section covers guidelines for building Java compatible APIs. These do not apply if the component you are building does not require interoperability with Java. It is mostly drawn from our experience in developing the Java APIs for Spark.
 
 
 ### <a name='java-missing-features'>Java Features Missing from Scala</a>
@@ -937,7 +939,7 @@ When computing a *duration* or checking for a *timeout*, avoid using `System.cur
 Caveats:
 - Never serialize an absolute `nanoTime()` value or pass it to another system. The absolute value is meaningless, system-specific and reset when the system reboots.
 - The absolute `nanoTime()` value is not guranteed to be positive (but `t2 - t1` is guaranteed to yield the right result)
-- `nanoTime()` rolls over every 292 years. So if your spark Job is going to take a really long time, you may need something else :)
+- `nanoTime()` rolls over every 292 years. So if your Spark job is going to take a really long time, you may need something else :)
 
 
 ### <a name='misc_uri_url'>Prefer URI over URL</a>
