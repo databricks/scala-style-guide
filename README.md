@@ -177,7 +177,7 @@ In general:
   - Within method bodies, as needed to create logical groupings of statements.
   - Optionally before the first member or after the last member of the class (neither encouraged nor discouraged).
 - Use one or two blank line(s) to separate class definitions.
-- Excessive number of blank lines is discouraged.
+- Excessive number of blank lines are discouraged.
 
 
 ### <a name='parentheses'>Parentheses</a>
