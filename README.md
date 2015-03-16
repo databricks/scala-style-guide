@@ -1,8 +1,8 @@
 # Databricks Scala Guide
 
-Code is __written once__ by its author, but __read and modified multiple times__ by lots of other engineers. As most bugs actually come from future modification of the code, we need to optimize our codebase for long-term, global readability and maintainability. The best way to achieve this is to write simple code.
+Spark has over 500 contributors, making it the largest open-source project in Big Data and the most active project written in Scala (to the best of our knowledge). This guide draws from our experience coaching and working with engineers contributing to Spark as well as our Databricks engineering team.
 
-This guide draws from our experience coaching and working with engineers coming from a wide variety of backgrounds (Haskell hackers, Java programmers, high school students), including the 500+ Spark contributors and the Databricks engineering team.
+Code is __written once__ by its author, but __read and modified multiple times__ by lots of other engineers. As most bugs actually come from future modification of the code, we need to optimize our codebase for long-term, global readability and maintainability. The best way to achieve this is to write simple code.
 
 
 ## <a name='TOC'>Table of Contents</a>
