@@ -56,7 +56,7 @@ Code is __written once__ by its author, but __read and modified multiple times__
     - [Implicits](#java-implicits)
     - [Companion Objects, Static Methods and Fields](#java-companion-object)
   6. [Miscellaneous](#misc)
-    - [Prefer nanoTime over currentTimeInMillis](#misc_currentTimeInMillis_vs_nanoTime)
+    - [Prefer nanoTime over currentTimeMillis](#misc_currentTimeMillis_vs_nanoTime)
     - [Prefer URI over URL](#misc_uri_url)
 
 
@@ -948,11 +948,11 @@ There are a few things to watch out for when it comes to companion objects and s
 
 ## <a name='misc'>Miscellaneous</a>
 
-### <a name='misc_currentTimeInMillis_vs_nanoTime'>Prefer nanoTime over currentTimeInMillis</a>
+### <a name='misc_currentTimeMillis_vs_nanoTime'>Prefer nanoTime over currentTimeMillis</a>
 
-When computing a *duration* or checking for a *timeout*, avoid using `System.currentTimeInMillis()`. Use `System.nanoTime()` instead, even if you are not interested in sub-millisecond precision.
+When computing a *duration* or checking for a *timeout*, avoid using `System.currentTimeMillis()`. Use `System.nanoTime()` instead, even if you are not interested in sub-millisecond precision.
 
-`System.currentTimeInMillis()` returns current wallclock time and will follow changes to the system clock. Thus, negative wallclock adjustments can cause timeouts to "hang" for a long time (until wallclock time has caught up to its previous value again).  This can happen when ntpd does a "step" after the network has been disconnected for some time. The most canonoical example is during system bootup when DHCP takes longer than usual. This can lead to failures that are really hard to understand/reproduce. `System.nanoTime()` it is guaranteed to be monotonically increasing irrespective of wallclock changes.
+`System.currentTimeMillis()` returns current wallclock time and will follow changes to the system clock. Thus, negative wallclock adjustments can cause timeouts to "hang" for a long time (until wallclock time has caught up to its previous value again).  This can happen when ntpd does a "step" after the network has been disconnected for some time. The most canonoical example is during system bootup when DHCP takes longer than usual. This can lead to failures that are really hard to understand/reproduce. `System.nanoTime()` it is guaranteed to be monotonically increasing irrespective of wallclock changes.
 
 Caveats:
 - Never serialize an absolute `nanoTime()` value or pass it to another system. The absolute value is meaningless, system-specific and reset when the system reboots.
