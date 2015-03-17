@@ -3,7 +3,7 @@
 Spark has over 500 contributors, making it the largest open-source project in Big Data and the most active project written in Scala (to the best of our knowledge). This guide draws from our experience coaching and working with engineers contributing to Spark as well as our Databricks engineering team.
 
 Code is __written once__ by its author, but __read and modified multiple times__ by lots of other engineers. As most bugs actually come from future modification of the code, we need to optimize our codebase for long-term, global readability and maintainability. The best way to achieve this is to write simple code.
-f
+
 
 ## <a name='TOC'>Table of Contents</a>
 
@@ -39,7 +39,7 @@ f
     - [Explicit Synchronization vs Concurrent Collections](#concurrency-sync-vs-map)
     - [Explicit Synchronization vs Atomic Variables vs @volatile](#concurrency-sync-vs-atomic)
     - [Private Fields](#concurrency-private-this)
-    - [Responsibility](#concurrency-responsibility)
+    - [Isolation](#concurrency-isolation)
   4. [Performance](#perf)
     - [Microbenchmarks](#perf-microbenchmarks)
     - [Traversal and zipWithIndex](#perf-whileloops)
@@ -715,7 +715,7 @@ class Foo {
 ```
 
 
-### <a name='concurrency-responsibility'>Responsibility</a>
+### <a name='concurrency-isolation'>Isolation</a>
 
 In general, concurrency and synchronization logic should be isolated and contained as much as possible. This effectively means:
 
