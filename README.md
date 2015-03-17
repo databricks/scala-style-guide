@@ -720,7 +720,7 @@ class Foo {
 In general, concurrency and synchronization logic should be isolated and contained as much as possible. This effectively means:
 
 - Avoid surfacing the internals of synchronization primitives in APIs, in user-facing functions, callbacks.
-- For complex modules, createa small, inner module that capture the concurrency primitives.
+- For complex modules, create a small, inner module that capture the concurrency primitives.
 
 
 ## <a name='perf'>Performance</a>
