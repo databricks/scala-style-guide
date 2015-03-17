@@ -886,6 +886,12 @@ Do NOT use multi-parameter lists.
 ### <a name='java-implicits'>Implicits</a>
 
 Do NOT use implicits, for a class or function. This includes `ClassTag`, `TypeTag`.
+```scala
+class JavaFriendlyAPI {
+  // This is NOT Java friendly, since the function contains an implicit parameter (ClassTag).
+  def convertTo[T: ClassTag](): T
+}
+```
 
 ### <a name='java-companion-object'>Companion Objects, Static Methods and Fields</a>
 
