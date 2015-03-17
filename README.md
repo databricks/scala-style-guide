@@ -66,7 +66,7 @@ Code is __written once__ by its author, but __read and modified multiple times__
 
 We mostly follow Java's and Scala's standard naming conventions.
 
-- Classes, traits, objects should follow Java class convension, i.e. CamelCase style with the first letter capitalized.
+- Classes, traits, objects should follow Java class convention, i.e. CamelCase style with the first letter capitalized.
   ```scala
   class ClusterManager
 
@@ -397,7 +397,7 @@ def inc(): Int = {
 
 print(inc())
 ```
-in the above code, `inc()` is passed into `print` as a closure and is only executed (twice) in the print method, rather than being passed in as a value `1`. The main problem with call-by-name is that the caller cannot diffentiate between call-by-name and call-by-value, and thus cannot know for sure whether the expression will be executed or not (or maybe worse, multiple times). This is especially dangerous for expressions that have side-effect.
+in the above code, `inc()` is passed into `print` as a closure and is only executed (twice) in the print method, rather than being passed in as a value `1`. The main problem with call-by-name is that the caller cannot differentiate between call-by-name and call-by-value, and thus cannot know for sure whether the expression will be executed or not (or maybe worse, multiple times). This is especially dangerous for expressions that have side-effect.
 
 
 ### <a name='multi-param-list'>Multiple Parameter Lists</a>
@@ -547,7 +547,7 @@ object ImplicitHolder {
 
 - Do NOT use `Try` in APIs, i.e. do NOT return Try in any methods.Prefer explicitly throwing exceptions for abnormal execution and Java style try/catch for exception handling.
 
-  Background information: Scala provides monadic error handling (through `Try`, `Success`, and `Failure`) that facilitates chaining of actions. However, we found from our experience that the use of it often leads to more levels of nesting that are harder to read. In addition, it is often unclear what the semantics are for expected errors vs exceptions because those are not encoded in `Try`. As a result, we discouarge the use of `Try` for error handling. In particular:
+  Background information: Scala provides monadic error handling (through `Try`, `Success`, and `Failure`) that facilitates chaining of actions. However, we found from our experience that the use of it often leads to more levels of nesting that are harder to read. In addition, it is often unclear what the semantics are for expected errors vs exceptions because those are not encoded in `Try`. As a result, we discourage the use of `Try` for error handling. In particular:
   
   As a contrived example:
   ```scala
@@ -660,7 +660,7 @@ There are 3 recommended ways to make concurrent accesses to shared states safe. 
   }
   ```
 
-Note that for case 1 and case 2, do not let views or iterators of the collections escape the protected area. This can happen in non-obvious ways, e.g. when returning `Map.keySet` or `Map.values`. If views or values are requried to pass around, make a copy of the data.
+Note that for case 1 and case 2, do not let views or iterators of the collections escape the protected area. This can happen in non-obvious ways, e.g. when returning `Map.keySet` or `Map.values`. If views or values are required to pass around, make a copy of the data.
   ```scala
   val map = java.util.Collections.synchronizedMap(new java.util.HashMap[String, String]) 
   
@@ -677,7 +677,7 @@ The `java.util.concurrent.atomic` package provides primitives for lock-free acce
 
 Always prefer Atomic variables over `@volatile`. They have a strict superset of the functionality and are more visible in code. Atomic variables are implemented using `@volatile` under the hood.
 
-Prefer Atomic varibles over explicit synchronization when: (1) all critical updates for an object are confined to a *single* variable and contention is expected. Atomic variables are lock-free and permit more efficient contention. Or (2) synchronization is clearly expressed as a `getAndSet` operation. For example:
+Prefer Atomic variables over explicit synchronization when: (1) all critical updates for an object are confined to a *single* variable and contention is expected. Atomic variables are lock-free and permit more efficient contention. Or (2) synchronization is clearly expressed as a `getAndSet` operation. For example:
   ```scala
   // good: clearly and efficiently express only-once execution of concurrent code
   val initialized = new AtomicBoolean(false)
@@ -738,7 +738,7 @@ Use [jmh](http://openjdk.java.net/projects/code-tools/jmh/) if you are writing m
 
 ### <a name='perf-whileloops'>Traversal and zipWithIndex</a>
 
-Use `while` loops intead of `for` loops or functional transformations (e.g. `map`, `foreach`). For loops and functional transformations are very slow (due to virtual function calls and boxing).
+Use `while` loops instead of `for` loops or functional transformations (e.g. `map`, `foreach`). For loops and functional transformations are very slow (due to virtual function calls and boxing).
 ```scala
 
 val arr = // array of ints
@@ -769,7 +769,7 @@ class Foo {
 
 ### <a name='perf-collection'>Scala Collection Library</a>
 
-For performance sensitive code, prefer Java collection library over Scala ones. The Scala collection library often is slower than Java's, and some operations can have surpringly bad asympotic performance (i.e. seemingly O(1) operations are turned into O(n)). An especially bad offender of this is `Seq#size()` being O(n).
+For performance sensitive code, prefer Java collection library over Scala ones. The Scala collection library often is slower than Java's, and some operations can have surprisingly bad asymptotic performance (i.e. seemingly O(1) operations might be turned into O(n)). An especially bad offender of this is `Seq#size()` being O(n) in some cases.
 
 ### <a name='perf-private'>private[this]</a>
 
@@ -951,11 +951,11 @@ There are a few things to watch out for when it comes to companion objects and s
 
 When computing a *duration* or checking for a *timeout*, avoid using `System.currentTimeInMillis()`. Use `System.nanoTime()` instead, even if you are not interested in sub-millisecond precision.
 
-`System.currentTimeInMillis()` returns current wallclock time and will follow changes to the system clock. Thus, negative wallclock adjustments can cause timeouts to "hang" for a long time (until wallclock time has caught up to its previous value again).  This can happen when ntpd does a "step" after the network has been disconncted for some time. The most canonoical example is during system bootup when DHCP takes longer than usual. This can lead to failures that are really hard to understand/reproduce. `System.nanoTime()` it is guaranteed to be monotonically increasing irrespective of wallclock changes.
+`System.currentTimeInMillis()` returns current wallclock time and will follow changes to the system clock. Thus, negative wallclock adjustments can cause timeouts to "hang" for a long time (until wallclock time has caught up to its previous value again).  This can happen when ntpd does a "step" after the network has been disconnected for some time. The most canonoical example is during system bootup when DHCP takes longer than usual. This can lead to failures that are really hard to understand/reproduce. `System.nanoTime()` it is guaranteed to be monotonically increasing irrespective of wallclock changes.
 
 Caveats:
 - Never serialize an absolute `nanoTime()` value or pass it to another system. The absolute value is meaningless, system-specific and reset when the system reboots.
-- The absolute `nanoTime()` value is not guranteed to be positive (but `t2 - t1` is guaranteed to yield the right result)
+- The absolute `nanoTime()` value is not guaranteed to be positive (but `t2 - t1` is guaranteed to yield the right result)
 - `nanoTime()` rolls over every 292 years. So if your Spark job is going to take a really long time, you may need something else :)
 
 
