@@ -300,7 +300,8 @@ Of course, the situation in which a class grows this long is strongly discourage
   * Project classes (`com.databricks.*` or `org.apache.spark` if you are working on Spark)
 - Within each group, imports should be sorted in alphabetic ordering.
 - You can use IntelliJ's import organizer to handle this automatically, using the following config:
-  ```scala
+
+  ```
   java
   javax
   _______ blank line _______ 
