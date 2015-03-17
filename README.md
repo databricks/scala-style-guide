@@ -321,9 +321,9 @@ Of course, the situation in which a class grows this long is strongly discourage
   }
   ```
 
-- When calling a function with a closure, if there is only one case, put the case on the same line as the function invocation.
+- When calling a function with a closure (or partial function), if there is only one case, put the case on the same line as the function invocation.
   ```scala
-  list.zipWithIndex { case (elem, i) =>
+  list.zipWithIndex.map { case (elem, i) =>
     // ...
   }
   ```
@@ -397,7 +397,7 @@ def inc(): Int = {
 
 print(inc())
 ```
-in the above code, `inc()` is passed into `print` as a closure and is only executed (twice) in the print method, rather than being passed in as a value `1`. The main problem with call-by-name is that the caller cannot diffentiate between call-by-name and call-by-value, and thus cannot know for sure whether the expression will be executed or not (or maybe worse, multiple times). This is esepcially dangerous for expressions that have side-effect.
+in the above code, `inc()` is passed into `print` as a closure and is only executed (twice) in the print method, rather than being passed in as a value `1`. The main problem with call-by-name is that the caller cannot diffentiate between call-by-name and call-by-value, and thus cannot know for sure whether the expression will be executed or not (or maybe worse, multiple times). This is especially dangerous for expressions that have side-effect.
 
 
 ### <a name='multi-param-list'>Multiple Parameter Lists</a>
@@ -408,6 +408,8 @@ __Do NOT use multiple parameter lists__. They complicate operator overloading, a
 // Avoid this!
 case class Person(name: String, age: Int)(secret: String)
 ```
+
+One notable exception is the use of a 2nd parameter list for implicits when defining low-level libraries. That said, [implicits should be avoided](#implicits)!
 
 
 ### <a name='symbolic_methods'>Symbolic Methods (Operator Overloading)</a>
