@@ -594,8 +594,8 @@ One of Scala's powerful features is monadic chaining. Almost everything (e.g. co
 
 A chain can often be made more understandable by giving the intermediate result a variable name, by explicitly typing the variable, and by breaking it down into more procedural style. As a contrived example:
 ```scala
-class People(val data: Map[String, String])
-val database = Map[String, People]
+class Person(val data: Map[String, String])
+val database = Map[String, Person]
 // Sometimes the client can store "null" value in the  store "address"
 
 // A monadic chaining approach
