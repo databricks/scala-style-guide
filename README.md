@@ -7,7 +7,7 @@ Code is __written once__ by its author, but __read and modified multiple times__
 
 ## <a name='TOC'>Table of Contents</a>
 
-  1. [Syntatic Style](#syntatic)
+  1. [Syntactic Style](#syntactic)
     - [Naming Convention](#naming)
     - [Line Length](#linelength)
     - [Rule of 30](#rule_of_30)
@@ -60,7 +60,7 @@ Code is __written once__ by its author, but __read and modified multiple times__
     - [Prefer URI over URL](#misc_uri_url)
 
 
-## <a name='syntatic'>Syntatic Style</a>
+## <a name='syntactic'>Syntactic Style</a>
 
 ### <a name='naming'>Naming Convention</a>
 
