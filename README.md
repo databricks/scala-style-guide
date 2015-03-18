@@ -146,7 +146,7 @@ In general:
   ```scala
   class Foo(
       val param1: String,  // 4 space indent for parameters
-      val param2: String
+      val param2: String,
       val param3: Array[Byte])
     extends FooInterface  // 2 space here
     with Logging {
