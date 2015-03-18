@@ -964,4 +964,4 @@ Caveats:
 
 When storing the URL of a service, you should use the `URI` representation.
 
-The [equality check](http://docs.oracle.com/javase/7/docs/api/java/net/URI.html#equals(java.lang.Object)) of `URL` actually performs a (blocking) network call to resolve the IP address. The `URI` class performs field equality and is a superset of `URL` as to what it can represent.
+The [equality check](http://docs.oracle.com/javase/7/docs/api/java/net/URL.html#equals(java.lang.Object)) of `URL` actually performs a (blocking) network call to resolve the IP address. The `URI` class performs field equality and is a superset of `URL` as to what it can represent.
