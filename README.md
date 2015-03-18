@@ -589,7 +589,7 @@ object ImplicitHolder {
 
 ### <a name='chaining'>Monadic Chaining</a>
 
-One of Scala's powerful features is monadic chaining. Almost everything (e.g. collections, Option, Future, Try) is a monad (don't ask me what this means) and operations on them can be chained together. This is an incredibly powerful concept, but chaining should be used sparingly. In particular:
+One of Scala's powerful features is monadic chaining. Almost everything (e.g. collections, Option, Future, Try) is a monad and operations on them can be chained together. This is an incredibly powerful concept, but chaining should be used sparingly. In particular:
 
 - Do NOT chain (and/or nest) more than 3 operations.
 - If it takes more than 5 seconds to figure out what the logic is, try hard to think about how you can expression the same functionality without using monadic chaining. As a general rule, watch out for flatMaps and folds.
