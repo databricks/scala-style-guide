@@ -4,6 +4,8 @@ With over 500 contributors, Spark is to the best of our knowledge the largest op
 
 Code is __written once__ by its author, but __read and modified multiple times__ by lots of other engineers. As most bugs actually come from future modification of the code, we need to optimize our codebase for long-term, global readability and maintainability. The best way to achieve this is to write simple code.
 
+Scala is an incredibly powerful language that is capable of many paradigms. We have found that the following guidelines work well for us on projects with high velocity. Depending on the needs of your team, your mileage might vary.
+
 
 ## <a name='TOC'>Table of Contents</a>
 
