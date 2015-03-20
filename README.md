@@ -627,12 +627,11 @@ def getAddress(name: String): Option[String] = {
 
 ## <a name='concurrency'>Concurrency</a>
 
-### <a name='concurrency-scala-collection'>Scala ConcurrentMap</a>
+### <a name='concurrency-scala-collection'>Scala concurrent.Map</a>
 
-__Do NOT use Scala's concurrent collections__. Many methods in Scala's `scala.mutable.ConcurrentMap` are not safe from a concurrency perspective. In particular, `getOrElseUpdate` is __not atomic__.
+__Prefer `java.util.concurrent.ConcurrentHashMap` over `scala.collection.concurrent.Map`__. This interface defines a number of atomic methods, but implementations (currently, the only one is `TrieMap`) may have other methods that are **not** atomic. In particular, `getOrElseUpdate` was not atomic in Scala versions prior to 2.11.6 (see [SI-7943](https://issues.scala-lang.org/browse/SI-7943)). However, `TrieMap` has a number of additional features (O(1), atomic, lock-free snapshots which are used to implement linearizable lock-free size, iterator and clear operations) that might make it a better choice.
 
-Instead, use Java's `java.util.concurrent.ConcurrentHashMap` and the `putIfAbsent` method.
-
+Make sure to always use `putIfAbsent` if unsure about the Scala version or use Java's `java.util.concurrent.ConcurrentHashMap`.
 
 ### <a name='concurrency-sync-vs-map'>Explicit Synchronization vs Concurrent Collections</a>
 
