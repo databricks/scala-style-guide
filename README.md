@@ -35,7 +35,7 @@ Code is __written once__ by its author, but __read and modified multiple times__
     - [Options](#option)
     - [Monadic Chaining](#chaining)
   3. [Concurrency](#concurrency)
-    - [Scala ConcurrentMap](#concurrency-scala-collection)
+    - [Scala concurrent.Map](#concurrency-scala-collection)
     - [Explicit Synchronization vs Concurrent Collections](#concurrency-sync-vs-map)
     - [Explicit Synchronization vs Atomic Variables vs @volatile](#concurrency-sync-vs-atomic)
     - [Private Fields](#concurrency-private-this)
@@ -629,9 +629,8 @@ def getAddress(name: String): Option[String] = {
 
 ### <a name='concurrency-scala-collection'>Scala concurrent.Map</a>
 
-__Prefer `java.util.concurrent.ConcurrentHashMap` over `scala.collection.concurrent.Map`__. This interface defines a number of atomic methods, but implementations (currently, the only one is `TrieMap`) may have other methods that are **not** atomic. In particular, `getOrElseUpdate` was not atomic in Scala versions prior to 2.11.6 (see [SI-7943](https://issues.scala-lang.org/browse/SI-7943)). However, `TrieMap` has a number of additional features (O(1), atomic, lock-free snapshots which are used to implement linearizable lock-free size, iterator and clear operations) that might make it a better choice.
+__Prefer `java.util.concurrent.ConcurrentHashMap` over `scala.collection.concurrent.Map`__. In particular the `getOrElseUpdate` method in `scala.collection.concurrent.Map` is not atomic (fixed in Scala 2.11.6, [SI-7943](https://issues.scala-lang.org/browse/SI-7943)). Since all the projects we work on require cross-building for both Scala 2.10 and Scala 2.11, `scala.collection.concurrent.Map` should be avoided.
 
-Make sure to always use `putIfAbsent` if unsure about the Scala version or use Java's `java.util.concurrent.ConcurrentHashMap`.
 
 ### <a name='concurrency-sync-vs-map'>Explicit Synchronization vs Concurrent Collections</a>
 
