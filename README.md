@@ -770,7 +770,7 @@ class Foo {
 
 ### <a name='perf-collection'>Scala Collection Library</a>
 
-For performance sensitive code, prefer Java collection library over Scala ones. The Scala collection library often is slower than Java's, and some operations can have surprisingly bad asymptotic performance (i.e. seemingly O(1) operations might be turned into O(n)). An especially bad offender of this is `Seq#size()` being O(n) in some cases.
+For performance sensitive code, prefer Java collection library over Scala ones, since the Scala collection library often is slower than Java's.
 
 ### <a name='perf-private'>private[this]</a>
 
