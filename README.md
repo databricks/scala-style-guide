@@ -752,7 +752,7 @@ val newArr = list.zipWithIndex.map { case (elem, i) =>
 val newArr = new Array[Int](arr.length)
 var i = 0
 val len = newArr.length 
-while (i < newArr.length) {
+while (i < len) {
   newArr(i) = if (i % 2 == 0) 0 else arr(i) 
   i += 1
 }
