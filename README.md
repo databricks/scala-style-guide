@@ -374,7 +374,7 @@ Avoid defining apply methods on classes. These methods tend to make the code les
 
 
 ### <a name='override_modifier'>override Modifier</a>
-Always add override modifier for methods, both for overriding concrete methods and implementing abstract methods. The Scala compiler does not require `override` for implementing abstract methods. However, we should always add `override` to make the override obvious, and to avoid accidental non-overrides.
+Always add override modifier for methods, both for overriding concrete methods and implementing abstract methods. The Scala compiler does not require `override` for implementing abstract methods. However, we should always add `override` to make the override obvious, and to avoid accidental non-overrides due to non-matching signatures.
 ```scala
 trait Parent {
   def hello(data: Map[String, String]): Unit = {
@@ -386,7 +386,7 @@ class Child extends Parent {
   import scala.collection.Map
 
   // The following method does NOT override Parent.hello,
-  // because the two Maps are off different types.
+  // because the two Maps have different types.
   // If we added "override" modifier, the compiler would've caught it.
   def hello(data: Map[String, String]): Unit = {
     print("This is supposed to override the parent method, but it is actually not!")
