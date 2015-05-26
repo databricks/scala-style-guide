@@ -9,6 +9,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 
 ## <a name='TOC'>Table of Contents</a>
 
+  0. [Document History](#history)
   1. [Syntactic Style](#syntactic)
     - [Naming Convention](#naming)
     - [Line Length](#linelength)
@@ -61,7 +62,13 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
   6. [Miscellaneous](#misc)
     - [Prefer nanoTime over currentTimeMillis](#misc_currentTimeMillis_vs_nanoTime)
     - [Prefer URI over URL](#misc_uri_url)
-  7. [Document History](#history)
+
+
+
+## <a name='history'>Document History</a>
+- 2015-03-16: initial version
+- 2015-05-25: added [override Modifier](#override_modifier) section
+
 
 
 ## <a name='syntactic'>Syntactic Style</a>
@@ -991,9 +998,4 @@ When storing the URL of a service, you should use the `URI` representation.
 
 The [equality check](http://docs.oracle.com/javase/7/docs/api/java/net/URL.html#equals(java.lang.Object)) of `URL` actually performs a (blocking) network call to resolve the IP address. The `URI` class performs field equality and is a superset of `URL` as to what it can represent.
 
-
-## <a name='history'>Document History</a>
-
-- 2015-03-16: initial version
-- 2015-05-25: added [override Modifier](#override_modifier] section
 
