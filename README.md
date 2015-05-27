@@ -9,6 +9,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 
 ## <a name='TOC'>Table of Contents</a>
 
+  0. [Document History](#history)
   1. [Syntactic Style](#syntactic)
     - [Naming Convention](#naming)
     - [Line Length](#linelength)
@@ -25,6 +26,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
     - [Infix Methods](#infix)
   2. [Scala Language Features](#lang)
     - [apply Method](#apply_method)
+    - [override Modifier](#override_modifier)
     - [Destructuring Binds](#destruct_bind)
     - [Call by Name](#call_by_name)
     - [Multiple Parameter Lists](#multi-param-list)
@@ -60,6 +62,13 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
   6. [Miscellaneous](#misc)
     - [Prefer nanoTime over currentTimeMillis](#misc_currentTimeMillis_vs_nanoTime)
     - [Prefer URI over URL](#misc_uri_url)
+
+
+
+## <a name='history'>Document History</a>
+- 2015-03-16: initial version
+- 2015-05-25: added [override Modifier](#override_modifier) section
+
 
 
 ## <a name='syntactic'>Syntactic Style</a>
@@ -362,6 +371,29 @@ arrayBuffer += elem
 ### <a name='apply_method'>apply Method</a>
 
 Avoid defining apply methods on classes. These methods tend to make the code less readable, especially for people less familiar with Scala. It is also harder for IDEs (or grep) to trace. In the worst case, it can also affect correctness of the code in surprising ways, as demonstrated in [Parentheses](#parentheses). It is however ok to define them in companion objects as factory methods. 
+
+
+### <a name='override_modifier'>override Modifier</a>
+Always add override modifier for methods, both for overriding concrete methods and implementing abstract methods. The Scala compiler does not require `override` for implementing abstract methods. However, we should always add `override` to make the override obvious, and to avoid accidental non-overrides due to non-matching signatures.
+```scala
+trait Parent {
+  def hello(data: Map[String, String]): Unit = {
+    print(data)
+  }
+}
+
+class Child extends Parent {
+  import scala.collection.Map
+
+  // The following method does NOT override Parent.hello,
+  // because the two Maps have different types.
+  // If we added "override" modifier, the compiler would've caught it.
+  def hello(data: Map[String, String]): Unit = {
+    print("This is supposed to override the parent method, but it is actually not!")
+  }
+}
+```
+
 
 
 ### <a name='destruct_bind'>Destructuring Binds</a>
@@ -965,3 +997,5 @@ Caveats:
 When storing the URL of a service, you should use the `URI` representation.
 
 The [equality check](http://docs.oracle.com/javase/7/docs/api/java/net/URL.html#equals(java.lang.Object)) of `URL` actually performs a (blocking) network call to resolve the IP address. The `URI` class performs field equality and is a superset of `URL` as to what it can represent.
+
+
