@@ -415,7 +415,7 @@ class MyClass {
 
 ### <a name='call_by_name'>Call by Name</a>
 
-__Do NOT use call by name__. Use `() => T` explicitly.
+__Avoid using call by name__. Use `() => T` explicitly.
 
 Background: Scala allows function parameters to be defined by-name, e.g. the following would work:
 ```scala
@@ -432,12 +432,12 @@ def inc(): Int = {
 
 print(inc())
 ```
-in the above code, `inc()` is passed into `print` as a closure and is only executed (twice) in the print method, rather than being passed in as a value `1`. The main problem with call-by-name is that the caller cannot differentiate between call-by-name and call-by-value, and thus cannot know for sure whether the expression will be executed or not (or maybe worse, multiple times). This is especially dangerous for expressions that have side-effect.
+in the above code, `inc()` is passed into `print` as a closure and is executed (twice) in the print method, rather than being passed in as a value `1`. The main problem with call-by-name is that the caller cannot differentiate between call-by-name and call-by-value, and thus cannot know for sure whether the expression will be executed or not (or maybe worse, multiple times). This is especially dangerous for expressions that have side-effect.
 
 
 ### <a name='multi-param-list'>Multiple Parameter Lists</a>
 
-__Do NOT use multiple parameter lists__. They complicate operator overloading, and can confuse programmers less familiar with Scala. For example:
+__Avoid using multiple parameter lists__. They complicate operator overloading, and can confuse programmers less familiar with Scala. For example:
 
 ```scala
 // Avoid this!
@@ -472,7 +472,7 @@ Scala type inference, especially left-side type inference and closure inference,
 
 ### <a name='return'>Return Statements</a>
 
-__Do NOT use return in closures__. `return` is turned into ``try/catch`` of ``scala.runtime.NonLocalReturnControl`` by the compiler. This can lead to unexpected behaviors. Consider the following example:
+__Avoid using return in closures__. `return` is turned into ``try/catch`` of ``scala.runtime.NonLocalReturnControl`` by the compiler. This can lead to unexpected behaviors. Consider the following example:
   ```scala
   def receive(rpc: WebSocketRPC): Option[Response] = {
     tableFut.onComplete { table =>
@@ -507,7 +507,7 @@ However, there are a few cases where `return` is preferred.
 
 ### <a name='recursion'>Recursion and Tail Recursion</a>
 
-__Do NOT use recursion__, unless the problem can be naturally framed recursively (e.g. graph traversal, tree traversal).
+__Avoid using recursion__, unless the problem can be naturally framed recursively (e.g. graph traversal, tree traversal).
 
 For functions that are meant to be tail recursive, apply `@tailrec` annotation to make sure the compiler can check it is tail recursive (you will be surprised how often seemingly tail recursive code is actually not tail recursive due to the use of closures and functional transformations.)
 
@@ -542,7 +542,7 @@ def max(data: Array[Int]): Int = {
 
 ### <a name='implicits'>Implicits</a>
 
-__Do NOT use implicits__, unless:
+__Avoid using implicits__, unless:
 - you are building a domain-specific language
 - you are using it for implicit type parameters (e.g. `ClassTag`, `TypeTag`)
 - you are using it private to your own class to reduce verbosity of converting from one type to another (e.g. Scala closure to Java closure)
@@ -625,7 +625,7 @@ object ImplicitHolder {
 
 One of Scala's powerful features is monadic chaining. Almost everything (e.g. collections, Option, Future, Try) is a monad and operations on them can be chained together. This is an incredibly powerful concept, but chaining should be used sparingly. In particular:
 
-- Do NOT chain (and/or nest) more than 3 operations.
+- Avoid chaining (and/or nesting) more than 3 operations.
 - If it takes more than 5 seconds to figure out what the logic is, try hard to think about how you can expression the same functionality without using monadic chaining. As a general rule, watch out for flatMaps and folds.
 - A chain should almost always be broken after a flatMap (because of the type change).
 
