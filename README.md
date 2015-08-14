@@ -116,7 +116,7 @@ We mostly follow Java's and Scala's standard naming conventions.
 
 "If an element consists of more than 30 subelements, it is highly probable that there is a serious problem" - [Refactoring in Large Software Projects](http://www.amazon.com/Refactoring-Large-Software-Projects-Restructurings/dp/0470858923).
 
-In general: 
+In general:
 
 - A method should contain less than 30 lines of code.
 - A class should contain less than 30 methods.
@@ -141,7 +141,7 @@ In general:
       conf: Configuration = hadoopConfiguration): RDD[(K, V)] = {
     // function body
   }
-  
+
   def newAPIHadoopFile[K, V, F <: NewInputFormat[K, V]](
       path: String,
       fClass: Class[F],
@@ -152,7 +152,7 @@ In general:
     // function body
   }
   ```
-  
+
 - For classes whose header doesn't fit in a single line, put the extend on the next line with 2 space indent, and add a blank line after class header.
   ```scala
   class Foo(
@@ -161,7 +161,7 @@ In general:
       val param3: Array[Byte])
     extends FooInterface  // 2 space here
     with Logging {
-    
+
     def firstMethod(): Unit = { ... }  // blank line above
   }
   ```
@@ -172,7 +172,7 @@ In general:
   val plus     = "+"
   val minus    = "-"
   val multiply = "*"
-  
+
   // Do the following
   val plus = "+"
   val minus = "-"
@@ -209,11 +209,11 @@ In general:
   class Foo {
     def apply(): Int
   }
-  
+
   class Bar {
     def foo: Foo
   }
-  
+
   new Bar().foo  // This returns a Foo
   new Bar().foo()  // This returns an Int!
   ```
@@ -227,7 +227,7 @@ Put curly braces even around one-line conditional or loop statements. The only e
 if (true) {
   println("Wow!")
 }
- 
+
 // Correct:
 if (true) statement1 else statement2
 
@@ -241,7 +241,7 @@ try {
 // Wrong:
 if (true)
   println("Wow!")
-  
+
 // Wrong:
 try foo() catch {
   ...
@@ -264,13 +264,13 @@ val longValue = 5432l  // Do NOT do this
 Use Java docs style instead of Scala docs style.
 ```scala
 /** This is a correct one-liner, short description. */
- 
+
 /**
  * This is correct multi-line JavaDoc comment. And
  * this is my second line, and if I keep typing, this would be
  * my third line.
  */
- 
+
 /** In Spark, we don't use the ScalaDoc style so this
   * is not correct.
   */
@@ -286,13 +286,13 @@ class DataFrame {
   ///////////////////////////////////////////////////////////////////////////
   // DataFrame operations
   ///////////////////////////////////////////////////////////////////////////
-  
+
   ...
-  
+
   ///////////////////////////////////////////////////////////////////////////
   // RDD operations
   ///////////////////////////////////////////////////////////////////////////
-  
+
   ...
 }
 ```
@@ -315,7 +315,7 @@ Of course, the situation in which a class grows this long is strongly discourage
   ```
   java
   javax
-  _______ blank line _______ 
+  _______ blank line _______
   scala
   _______ blank line _______
   all other imports
@@ -346,7 +346,7 @@ Of course, the situation in which a class grows this long is strongly discourage
     case b: Bar =>  ...
   }
   ```
- 
+
 
 ### <a name='infix'>Infix Methods</a>
 
@@ -370,7 +370,7 @@ arrayBuffer += elem
 
 ### <a name='apply_method'>apply Method</a>
 
-Avoid defining apply methods on classes. These methods tend to make the code less readable, especially for people less familiar with Scala. It is also harder for IDEs (or grep) to trace. In the worst case, it can also affect correctness of the code in surprising ways, as demonstrated in [Parentheses](#parentheses). It is however ok to define them in companion objects as factory methods. 
+Avoid defining apply methods on classes. These methods tend to make the code less readable, especially for people less familiar with Scala. It is also harder for IDEs (or grep) to trace. In the worst case, it can also affect correctness of the code in surprising ways, as demonstrated in [Parentheses](#parentheses). It is however ok to define them in companion objects as factory methods.
 
 
 ### <a name='override_modifier'>override Modifier</a>
@@ -452,7 +452,7 @@ One notable exception is the use of a 2nd parameter list for implicits when defi
 __Do NOT use symbolic method names__, unless you are defining them for natural arithmetic operations (e.g. `+`, `-`, `*`, `/`). Under no other circumstances should they be used. Symbolic method names make it very hard to understand the intent of the functions. Consider the following two examples:
 ```scala
 // symbolic method names are hard to understand
-channel ! msg  
+channel ! msg
 stream1 >>= stream2
 
 // self-evident what is going on
@@ -483,7 +483,7 @@ __Do NOT use return in closures__. `return` is turned into ``try/catch`` of ``sc
   }
   ```
   the `.onComplete` function takes the anonymous closure `{ table => ... }` and passes it to a a different thread. This closure eventually throws the `NonLocalReturnControl` exception that is captured __in a different thread__ . It has no effect on the poor function being executed here.
-  
+
 However, there are a few cases where `return` is preferred.
 
 - Use `return` as a guard to simplify control flow without adding a level of indentation
@@ -583,7 +583,7 @@ object ImplicitHolder {
 - Do NOT use `Try` in APIs, i.e. do NOT return Try in any methods.Prefer explicitly throwing exceptions for abnormal execution and Java style try/catch for exception handling.
 
   Background information: Scala provides monadic error handling (through `Try`, `Success`, and `Failure`) that facilitates chaining of actions. However, we found from our experience that the use of it often leads to more levels of nesting that are harder to read. In addition, it is often unclear what the semantics are for expected errors vs exceptions because those are not encoded in `Try`. As a result, we discourage the use of `Try` for error handling. In particular:
-  
+
   As a contrived example:
   ```scala
   class UserService {
@@ -612,14 +612,14 @@ object ImplicitHolder {
 - When constructing an `Option`, use `Option` rather than `Some` to guard against `null` values.
   ```scala
   def myMethod1(input: String): Option[String] = Option(transform(input))
-  
-  // This is not as robust because transform can return null, and then 
+
+  // This is not as robust because transform can return null, and then
   // myMethod2 will return Some(null).
   def myMethod2(input: String): Option[String] = Some(transform(input))
   ```
 - Do not use None to represent exceptions. Instead, throw exceptions explicitly.
 - Do not call `get` directly on an `Option`, unless you know absolutely for sure the `Option` has some value.
-  
+
 
 ### <a name='chaining'>Monadic Chaining</a>
 
@@ -648,7 +648,7 @@ def getAddress(name: String): Option[String] = {
   if (!database.contains(name)) {
     return None
   }
-  
+
   database(name).data.get("address") match {
     case Some(null) => None  // handle null value
     case Some(addr) => Option(addr)
@@ -668,7 +668,7 @@ __Prefer `java.util.concurrent.ConcurrentHashMap` over `scala.collection.concurr
 
 ### <a name='concurrency-sync-vs-map'>Explicit Synchronization vs Concurrent Collections</a>
 
-There are 3 recommended ways to make concurrent accesses to shared states safe. __Do NOT mix them__ because that could make the program very hard to reason about and lead to deadlocks. 
+There are 3 recommended ways to make concurrent accesses to shared states safe. __Do NOT mix them__ because that could make the program very hard to reason about and lead to deadlocks.
 
 1. `java.util.concurrent.ConcurrentHashMap`: Use when all states are captured in a map, and high degree of contention is expected.
   ```scala
@@ -677,7 +677,7 @@ There are 3 recommended ways to make concurrent accesses to shared states safe. 
 
 2. `java.util.Collections.synchronizedMap`: Use when all states are captured in a map, and contention is not expected but you still want to make code safe. In case of no contention, the JVM JIT compiler is able to remove the synchronization overhead via biased locking.
   ```scala
-  private[this] val map = java.util.Collections.synchronizedMap(new java.util.HashMap[String, String]) 
+  private[this] val map = java.util.Collections.synchronizedMap(new java.util.HashMap[String, String])
   ```
 
 3. Explicit synchronization by synchronizing all critical sections: can used to guard multiple variables. Similar to 2, the JVM JIT compiler can remove the synchronization overhead via biased locking.
@@ -695,11 +695,11 @@ There are 3 recommended ways to make concurrent accesses to shared states safe. 
 
 Note that for case 1 and case 2, do not let views or iterators of the collections escape the protected area. This can happen in non-obvious ways, e.g. when returning `Map.keySet` or `Map.values`. If views or values are required to pass around, make a copy of the data.
   ```scala
-  val map = java.util.Collections.synchronizedMap(new java.util.HashMap[String, String]) 
-  
+  val map = java.util.Collections.synchronizedMap(new java.util.HashMap[String, String])
+
   // This is broken!
   def values: Iterable[String] = map.values
-  
+
   // Instead, copy the elements
   def values: Iterable[String] = map.synchronized { Seq(map.values: _*) }
   ```
@@ -718,7 +718,7 @@ Prefer Atomic variables over explicit synchronization when: (1) all critical upd
   if (!initialized.getAndSet(true)) {
     ...
   }
-  
+
   // poor: less clear what is guarded by synchronization, may unnecessarily synchronize
   val initialized = false
   ...
@@ -783,9 +783,9 @@ val newArr = list.zipWithIndex.map { case (elem, i) =>
 // This is a high performance version of the above
 val newArr = new Array[Int](arr.length)
 var i = 0
-val len = newArr.length 
+val len = newArr.length
 while (i < len) {
-  newArr(i) = if (i % 2 == 0) 0 else arr(i) 
+  newArr(i) = if (i % 2 == 0) 0 else arr(i)
   i += 1
 }
 ```
@@ -894,21 +894,21 @@ Do NOT use multi-parameter lists.
   class Database {
     @scala.annotation.varargs
     def remove(elems: String*): Unit = ...
-    
+
     // Adding this will break source compatibility for no-arg remove() call.
     @scala.annotation.varargs
     def remove(elems: People*): Unit = ...
   }
-  
+
   // This won't compile anymore because it is ambiguous
-  new Database().remove()  
+  new Database().remove()
   ```
   Instead, define an explicit first parameter followed by vararg:
   ```scala
   class Database {
     @scala.annotation.varargs
     def remove(elems: String*): Unit = ...
-    
+
     // The following is OK.
     @scala.annotation.varargs
     def remove(elem: People, elems: People*): Unit = ...
@@ -933,7 +933,7 @@ There are a few things to watch out for when it comes to companion objects and s
 - Companion objects are awkward to use in Java (a companion object `Foo` is a static field `MODULE$` of type `Foo$` in class `Foo$`).
   ```scala
   object Foo
-  
+
   // equivalent to the following Java code
   public class Foo$ {
     Foo$ MODULE$ = // instantiation of the object
@@ -947,12 +947,12 @@ There are a few things to watch out for when it comes to companion objects and s
   class Foo {
     def method2(): Unit = { ... }
   }
-  
+
   object Foo {
     def method1(): Unit = { ... }  // a static method Foo.method1 is created in bytecode
     def method2(): Unit = { ... }  // a static method Foo.method1 is NOT created in bytecode
   }
-  
+
   // FooJavaTest.java (in test/scala/com/databricks/...)
   public class FooJavaTest {
     public static compileTest() {
@@ -965,7 +965,7 @@ There are a few things to watch out for when it comes to companion objects and s
 - A case object (or even just plain companion object) MyClass is actually not of type MyClass
   ```scala
   case object MyClass
-  
+
   // Test.java
   if (MyClass$.MODULE instanceof MyClass) {
     // The above condition is always false
