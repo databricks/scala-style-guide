@@ -350,7 +350,7 @@ Of course, the situation in which a class grows this long is strongly discourage
 
 ### <a name='infix'>Infix Methods</a>
 
-__Do NOT use infix notation__ for methods that aren't symbolic methods (i.e. operator overloading).
+__Avoid infix notation__ for methods that aren't symbolic methods (i.e. operator overloading).
 ```scala
 // Correct
 list.map(func)
