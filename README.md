@@ -302,7 +302,7 @@ Of course, the situation in which a class grows this long is strongly discourage
 
 ### <a name='imports'>Imports</a>
 
-- __Do NOT use wildcard imports__, unless you are importing more than 6 entities, or implicit methods. Wildcard imports make the code less robust to external changes.
+- __Avoid using wildcard imports__, unless you are importing more than 6 entities, or implicit methods. Wildcard imports make the code less robust to external changes.
 - Always import packages using absolute paths (e.g. `scala.util.Random`) instead of relative ones (e.g. `util.Random`).
 - In addition, sort imports in the following order:
   * `java.*` and `javax.*`
