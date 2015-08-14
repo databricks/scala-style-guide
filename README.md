@@ -68,7 +68,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 ## <a name='history'>Document History</a>
 - 2015-03-16: initial version
 - 2015-05-25: added [override Modifier](#override_modifier) section
-
+- 2015-08-23: downgraded the severity of some rules from "do NOT" to "avoid"
 
 
 ## <a name='syntactic'>Syntactic Style</a>
