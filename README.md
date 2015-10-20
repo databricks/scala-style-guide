@@ -131,7 +131,7 @@ In general:
   }
   ```
 
-- For function declarations, use 4 space indentation for its parameters when they don't fit in a single line. Return types can be either on the same line as the last parameter, or put to next line with 2 space indent.
+- For method declarations, use 4 space indentation for its parameters when they don't fit in a single line. Return types can be either on the same line as the last parameter, or put to next line with 2 space indent.
   ```scala
   def newAPIHadoopFile[K, V, F <: NewInputFormat[K, V]](
       path: String,
@@ -139,7 +139,7 @@ In general:
       kClass: Class[K],
       vClass: Class[V],
       conf: Configuration = hadoopConfiguration): RDD[(K, V)] = {
-    // function body
+    // method body
   }
 
   def newAPIHadoopFile[K, V, F <: NewInputFormat[K, V]](
@@ -149,7 +149,7 @@ In general:
       vClass: Class[V],
       conf: Configuration = hadoopConfiguration)
     : RDD[(K, V)] = {
-    // function body
+    // method body
   }
   ```
 
@@ -193,7 +193,7 @@ In general:
 
 ### <a name='parentheses'>Parentheses</a>
 
-- Functions should be declared with parentheses, unless they are accessors that have no side-effect (state mutation, I/O operations are considered side-effects).
+- Methods should be declared with parentheses, unless they are accessors that have no side-effect (state mutation, I/O operations are considered side-effects).
   ```scala
   class Job {
     // Wrong: killJob changes state. Should have ().
@@ -203,7 +203,7 @@ In general:
     def killJob(): Unit
   }
   ```
-- Callsite should follow function declaration, i.e. if a function is declared with parentheses, call with parentheses.
+- Callsite should follow method declaration, i.e. if a method is declared with parentheses, call with parentheses.
   Note that this is not just syntactic. It can affect correctness when `apply` is defined in the return object:
   ```scala
   class Foo {
@@ -326,7 +326,7 @@ Of course, the situation in which a class grows this long is strongly discourage
 
 ### <a name='pattern-matching'>Pattern Matching</a>
 
-- For functions whose entire body is a pattern match expression, put the match on the same line as the function declaration if possible to reduce one level of indentation.
+- For method whose entire body is a pattern match expression, put the match on the same line as the method declaration if possible to reduce one level of indentation.
   ```scala
   def test(msg: Message): Unit = msg match {
     case ...
@@ -417,7 +417,7 @@ class MyClass {
 
 __Avoid using call by name__. Use `() => T` explicitly.
 
-Background: Scala allows function parameters to be defined by-name, e.g. the following would work:
+Background: Scala allows method parameters to be defined by-name, e.g. the following would work:
 ```scala
 def print(value: => Int): Unit = {
   println(value)
@@ -449,7 +449,7 @@ One notable exception is the use of a 2nd parameter list for implicits when defi
 
 ### <a name='symbolic_methods'>Symbolic Methods (Operator Overloading)</a>
 
-__Do NOT use symbolic method names__, unless you are defining them for natural arithmetic operations (e.g. `+`, `-`, `*`, `/`). Under no other circumstances should they be used. Symbolic method names make it very hard to understand the intent of the functions. Consider the following two examples:
+__Do NOT use symbolic method names__, unless you are defining them for natural arithmetic operations (e.g. `+`, `-`, `*`, `/`). Under no other circumstances should they be used. Symbolic method names make it very hard to understand the intent of the methods. Consider the following two examples:
 ```scala
 // symbolic method names are hard to understand
 channel ! msg
@@ -482,7 +482,7 @@ __Avoid using return in closures__. `return` is turned into ``try/catch`` of ``s
     }
   }
   ```
-  the `.onComplete` function takes the anonymous closure `{ table => ... }` and passes it to a a different thread. This closure eventually throws the `NonLocalReturnControl` exception that is captured __in a different thread__ . It has no effect on the poor function being executed here.
+  the `.onComplete` method takes the anonymous closure `{ table => ... }` and passes it to a a different thread. This closure eventually throws the `NonLocalReturnControl` exception that is captured __in a different thread__ . It has no effect on the poor method being executed here.
 
 However, there are a few cases where `return` is preferred.
 
@@ -509,7 +509,7 @@ However, there are a few cases where `return` is preferred.
 
 __Avoid using recursion__, unless the problem can be naturally framed recursively (e.g. graph traversal, tree traversal).
 
-For functions that are meant to be tail recursive, apply `@tailrec` annotation to make sure the compiler can check it is tail recursive (you will be surprised how often seemingly tail recursive code is actually not tail recursive due to the use of closures and functional transformations.)
+For methods that are meant to be tail recursive, apply `@tailrec` annotation to make sure the compiler can check it is tail recursive (you will be surprised how often seemingly tail recursive code is actually not tail recursive due to the use of closures and functional transformations.)
 
 Most code is easier to reason about with a simple loop and explicit state machines. Expressing it with tail recursions (and accumulators) can make it more verbose and harder to understand.  For example, the following imperative code is more readable than the tail recursive version:
 
@@ -754,7 +754,7 @@ class Foo {
 
 In general, concurrency and synchronization logic should be isolated and contained as much as possible. This effectively means:
 
-- Avoid surfacing the internals of synchronization primitives in APIs, in user-facing functions, callbacks.
+- Avoid surfacing the internals of synchronization primitives in APIs, in user-facing methods, callbacks.
 - For complex modules, create a small, inner module that capture the concurrency primitives.
 
 
@@ -792,7 +792,7 @@ while (i < len) {
 
 ### <a name='perf-option'>Option and null</a>
 
-For performance sensitive code, prefer `null` over `Option`, in order to avoid virtual function calls and boxing. Label the nullable fields clearly with Nullable.
+For performance sensitive code, prefer `null` over `Option`, in order to avoid virtual method calls and boxing. Label the nullable fields clearly with Nullable.
 ```scala
 class Foo {
   @javax.annotation.Nullable
@@ -806,7 +806,7 @@ For performance sensitive code, prefer Java collection library over Scala ones, 
 
 ### <a name='perf-private'>private[this]</a>
 
-For performance sensitive code, prefer `private[this]` over `private`. `private[this]` generates a field, rather than creating an accessor method. In our experience, the JVM JIT compiler cannot always inline `private` field accessor methods, and thus it is safer to use `private[this]` to ensure no virtual function call for accessing a field.
+For performance sensitive code, prefer `private[this]` over `private`. `private[this]` generates a field, rather than creating an accessor method. In our experience, the JVM JIT compiler cannot always inline `private` field accessor methods, and thus it is safer to use `private[this]` to ensure no virtual method call for accessing a field.
 ```scala
 class MyClass {
   private val field1 = ...
@@ -815,7 +815,7 @@ class MyClass {
   def perfSensitiveMethod(): Unit = {
     var i = 0
     while (i < 1000000) {
-      field1  // This might invoke a virtual function call
+      field1  // This might invoke a virtual method call
       field2  // This is just a field access
       i += 1
     }
@@ -918,10 +918,10 @@ Do NOT use multi-parameter lists.
 
 ### <a name='java-implicits'>Implicits</a>
 
-Do NOT use implicits, for a class or function. This includes `ClassTag`, `TypeTag`.
+Do NOT use implicits, for a class or method. This includes `ClassTag`, `TypeTag`.
 ```scala
 class JavaFriendlyAPI {
-  // This is NOT Java friendly, since the function contains an implicit parameter (ClassTag).
+  // This is NOT Java friendly, since the method contains an implicit parameter (ClassTag).
   def convertTo[T: ClassTag](): T
 }
 ```
