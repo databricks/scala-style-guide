@@ -77,7 +77,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 
 We mostly follow Java's and Scala's standard naming conventions.
 
-- Classes, traits, objects should follow Java class convention, i.e. CamelCase style with the first letter capitalized.
+- Classes, traits, objects should follow Java class convention, i.e. PascalCase style.
   ```scala
   class ClusterManager
 
@@ -98,9 +98,9 @@ We mostly follow Java's and Scala's standard naming conventions.
   }
   ```
 
-- Enums should be CamelCase with first letter capitalized.
+- Enums should be PascalCase.
 
-- Annotations should also follow Java convention, i.e. CamelCase with first letter capitalized. Note that this differs from Scala's official guide.
+- Annotations should also follow Java convention, i.e. PascalCase. Note that this differs from Scala's official guide.
   ```scala
   final class MyAnnotation extends StaticAnnotation
   ```
