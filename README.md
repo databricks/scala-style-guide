@@ -208,7 +208,7 @@ In general:
   Note that this is not just syntactic. It can affect correctness when `apply` is defined in the return object:
   ```scala
   class Foo {
-    def apply(): Int
+    def apply(args: String*): Int
   }
 
   class Bar {
