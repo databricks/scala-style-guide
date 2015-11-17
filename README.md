@@ -382,6 +382,8 @@ object TreeNode {
   // This is bad because it does not return a TreeNode
   def apply(name: String): String = ...
 }
+```
+
 
 ### <a name='override_modifier'>override Modifier</a>
 Always add override modifier for methods, both for overriding concrete methods and implementing abstract methods. The Scala compiler does not require `override` for implementing abstract methods. However, we should always add `override` to make the override obvious, and to avoid accidental non-overrides due to non-matching signatures.
