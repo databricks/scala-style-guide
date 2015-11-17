@@ -69,6 +69,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 - 2015-03-16: initial version
 - 2015-05-25: added [override Modifier](#override_modifier) section
 - 2015-08-23: downgraded the severity of some rules from "do NOT" to "avoid"
+- 2015-11-17: updated [apply Method](#apply_method) section: apply on companion methods should return the companion class.
 
 
 ## <a name='syntactic'>Syntactic Style</a>
