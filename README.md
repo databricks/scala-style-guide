@@ -373,7 +373,7 @@ arrayBuffer += elem
 
 Avoid defining apply methods on classes. These methods tend to make the code less readable, especially for people less familiar with Scala. It is also harder for IDEs (or grep) to trace. In the worst case, it can also affect correctness of the code in surprising ways, as demonstrated in [Parentheses](#parentheses).
 
-A common pattern is to define apply methods on companion objects as factory methods. In these cases, the apply method should return the companion class type.
+It is acceptable to define apply methods on companion objects as factory methods. In these cases, the apply method should return the companion class type.
 ```scala
 object TreeNode {
   // This is OK
