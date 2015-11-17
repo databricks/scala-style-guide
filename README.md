@@ -370,8 +370,17 @@ arrayBuffer += elem
 
 ### <a name='apply_method'>apply Method</a>
 
-Avoid defining apply methods on classes. These methods tend to make the code less readable, especially for people less familiar with Scala. It is also harder for IDEs (or grep) to trace. In the worst case, it can also affect correctness of the code in surprising ways, as demonstrated in [Parentheses](#parentheses). It is however ok to define them in companion objects as factory methods.
+Avoid defining apply methods on classes. These methods tend to make the code less readable, especially for people less familiar with Scala. It is also harder for IDEs (or grep) to trace. In the worst case, it can also affect correctness of the code in surprising ways, as demonstrated in [Parentheses](#parentheses).
 
+A common pattern is to define apply methods on companion objects as factory methods. In these cases, the apply method should return the companion class type.
+```scala
+object TreeNode {
+  // This is OK
+  def apply(name: String): TreeNode = ...
+  
+  // This is bad because it does not return a TreeNode
+  def apply(name: String): String = ...
+}
 
 ### <a name='override_modifier'>override Modifier</a>
 Always add override modifier for methods, both for overriding concrete methods and implementing abstract methods. The Scala compiler does not require `override` for implementing abstract methods. However, we should always add `override` to make the override obvious, and to avoid accidental non-overrides due to non-matching signatures.
