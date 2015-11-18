@@ -1,6 +1,8 @@
 # Databricks Scala 编程风格指南
 
-## 声明
+## 声明 (Disclaimer)
+
+The Chinese version of the [Databricks Scala Guide](https://github.com/databricks/scala-style-guide) is contributed and maintained by community member [Hawstein](https://github.com/Hawstein). We do not guarantee that it will always be kept up-to-date. 
 
 本文档翻译自 [Databricks Scala Guide](https://github.com/databricks/scala-style-guide)，目前由 [Hawstein](https://github.com/Hawstein) 进行维护。由于是利用业余时间进行翻译并维护，因此该中文文档并不保证总是与[原文档](https://github.com/databricks/scala-style-guide)一样处于最新版本，不过我会尽可能及时地去更新它。
 
@@ -72,7 +74,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 - 2015-03-16: 最初版本
 - 2015-05-25: 增加 [override 修饰符](#override_modifier) 一节
 - 2015-08-23: 把一些规则的严重程度从「不要」降级到「避免」
-
+- 2015-11-17: 中文翻译版本
 
 ## <a name='syntactic'>语法风格</a>
 
