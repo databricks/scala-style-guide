@@ -2,7 +2,7 @@
 
 ## 声明 (Disclaimer)
 
-The Chinese version of the [Databricks Scala Guide](https://github.com/databricks/scala-style-guide) is contributed and maintained by community member [Hawstein](https://github.com/Hawstein). We do not guarantee that it will always be kept up-to-date. 
+The Chinese version of the [Databricks Scala Guide](https://github.com/databricks/scala-style-guide) is contributed and maintained by community member [Hawstein](https://github.com/Hawstein). We do not guarantee that it will always be kept up-to-date.
 
 本文档翻译自 [Databricks Scala Guide](https://github.com/databricks/scala-style-guide)，目前由 [Hawstein](https://github.com/Hawstein) 进行维护。由于是利用业余时间进行翻译并维护，因此该中文文档并不保证总是与[原文档](https://github.com/databricks/scala-style-guide)一样处于最新版本，不过我会尽可能及时地去更新它。
 
@@ -71,10 +71,11 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     - [优先使用 URI 而非 URL](#misc_uri_url)
 
 ## <a name='history'>文档历史</a>
-- 2015-03-16: 最初版本
-- 2015-05-25: 增加 [override 修饰符](#override_modifier) 一节
-- 2015-08-23: 把一些规则的严重程度从「不要」降级到「避免」
-- 2015-11-17: 中文翻译版本
+- 2015-03-16: 最初版本。
+- 2015-05-25: 增加 [override 修饰符](#override_modifier) 一节。
+- 2015-08-23: 把一些规则的严重程度从「不要」降级到「避免」。
+- 2015-11-17: 更新 [apply 方法](#apply_method) 一节：伴生对象中的 apply 方法应该返回其伴生类。
+- 2015-11-17: 该指南被翻译成[中文](README-ZH.md)，由 [Hawstein](https://github.com/Hawstein) 进行维护，中文文档并不保证总是与原文档一样处于最新版本。
 
 ## <a name='syntactic'>语法风格</a>
 
@@ -222,7 +223,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 
   ```scala
   class Foo {
-    def apply(): Int
+    def apply(args: String*): Int
   }
 
   class Bar {
@@ -393,7 +394,19 @@ arrayBuffer += elem
 
 ### <a name='apply_method'>apply 方法</a>
 
-避免在类里定义 apply 方法。这些方法往往会使代码的可读性变差，尤其是对于不熟悉 Scala 的人。它也难以被 IDE（或 grep）所跟踪。在最坏的情况下，它还可能影响代码的正确性，正如你在[括号](#parentheses)一节中看到的。然而，将它们作为工厂方法定义在伴生对象中却是 OK 的（也是常见的）。
+避免在类里定义 apply 方法。这些方法往往会使代码的可读性变差，尤其是对于不熟悉 Scala 的人。它也难以被 IDE（或 grep）所跟踪。在最坏的情况下，它还可能影响代码的正确性，正如你在[括号](#parentheses)一节中看到的。
+
+然而，将 apply 方法作为工厂方法定义在伴生对象中是可以接受的。在这种情况下，apply 方法应该返回其伴生类的类型。
+
+```scala
+object TreeNode {
+  // 下面这种定义是 OK 的
+  def apply(name: String): TreeNode = ...
+
+  // 不要像下面那样定义，因为它没有返回其伴生类的类型：TreeNode
+  def apply(name: String): String = ...
+}
+```
 
 
 ### <A name='override_modifier'>override 修饰符</a>
