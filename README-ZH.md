@@ -1,5 +1,11 @@
 # Databricks Scala 编程风格指南
 
+## 声明
+
+本文档翻译自 [Databricks Scala Guide](https://github.com/databricks/scala-style-guide)，目前由 [Hawstein](https://github.com/Hawstein) 进行维护。由于是利用业余时间进行翻译并维护，因此该中文文档并不保证总是与[原文档](https://github.com/databricks/scala-style-guide)一样处于最新版本，不过我会尽可能及时地去更新它。
+
+## 前言
+
 Spark 有超过 800 位贡献者，就我们所知，应该是目前大数据领域里最大的开源项目且是最活跃的 Scala 项目。这份指南是在我们指导，或是与 Spark 贡献者及 [Databricks](http://databricks.com/) 工程团队一起工作时总结出来的。
 
 代码由作者__一次编写__，然后由大量工程师__多次阅读并修改__。事实上，大部分的 bug 来源于后人对代码的修改，因此我们需要长期去优化我们的代码，提升代码的可读性和可维护性。达到这个目标最好的方式就是编写简单易懂的代码。
