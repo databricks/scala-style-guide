@@ -66,11 +66,11 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 
 
 ## <a name='history'>Document History</a>
-- 2015-03-16: Initial version
-- 2015-05-25: Added [override Modifier](#override_modifier) section
-- 2015-08-23: Downgraded the severity of some rules from "do NOT" to "avoid"
-- 2015-11-17: Updated [apply Method](#apply_method) section: apply on companion methods should return the companion class.
-- 2015-11-17: This guide has been [translated into Chinese](README-ZH.md). The Chinese translation was is contributed by community member [Hawstein](https://github.com/Hawstein). We do not guarantee that it will always be kept up-to-date. 
+- 2015-03-16: Initial version.
+- 2015-05-25: Added [override Modifier](#override_modifier) section.
+- 2015-08-23: Downgraded the severity of some rules from "do NOT" to "avoid".
+- 2015-11-17: Updated [apply Method](#apply_method) section: apply method in companion object should return the companion class.
+- 2015-11-17: This guide has been [translated into Chinese](README-ZH.md). The Chinese translation is contributed by community member [Hawstein](https://github.com/Hawstein). We do not guarantee that it will always be kept up-to-date.
 
 
 ## <a name='syntactic'>Syntactic Style</a>
@@ -379,7 +379,7 @@ It is acceptable to define apply methods on companion objects as factory methods
 object TreeNode {
   // This is OK
   def apply(name: String): TreeNode = ...
-  
+
   // This is bad because it does not return a TreeNode
   def apply(name: String): String = ...
 }
