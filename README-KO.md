@@ -1004,7 +1004,6 @@ class JavaFriendlyAPI {
 주의:
 - 절대 `nanoTime()` 값을 절대로 직렬화 하거나 다른 시스템으로 보내지 않습니다. 이 절대값은 의미가 없으며, 시스템 관련 값이고, 시스템에 재부팅 되면 리셋됩니다.
 - 절대 `nanoTime()` 값은 양수로 보장되지 않습니다(하지만 `t2 - t1` 는 올바른 값을 계산하도록 보장 됩니다).
-- `nanoTime()` rolls over every 292 years. So if your Spark job is going to take a really long time, you may need something else :)
 - `nanoTime()`은 292년을 주기로 다시 계산합니다. 따라서 만약 Spark 작업(job)이 아주 긴 시간이 걸릴 것으로 예상된다면, 다른 무언가를 찾아야 하겠죠 :)
 
 ### <a name='misc_uri_url'>URL 보다는 URI</a>
