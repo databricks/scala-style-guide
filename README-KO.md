@@ -593,9 +593,7 @@ object ImplicitHolder {
       // handle InterruptedException
   }
   ```
-  This ensures that we do not catch `NonLocalReturnControl` (as explained in [R  eturn Statements](#return-statements)).
-
-이것은 우리가 `NonLocalReturnControl`를 다루지 않도록 확신 할 수 있습니다 ([Return 예약어](#return-statements) 항목에 설명되어 있는 대로). 
+  이것은 우리가 `NonLocalReturnControl`를 다루지 않도록 확신 할 수 있습니다 ([Return 예약어](#return-statements) 항목에 설명되어 있는 대로). 
 
 - `Try` API 를 사용하지 않습니다. 예를 들어 어떤 함수에서도 Try를 반환값으로 사용하지 않습니다. 정상적으로 실행되지 않는 경우 명시적으로 예외를 던지고, Java의 try/catch 문을 사용하여 핸들링 하는 것이 권장됩니다. 
 
