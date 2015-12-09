@@ -374,7 +374,7 @@ arrayBuffer += elem
 
 ### <a name='apply_method'>apply 함수</a>
 
-Class에서 apply 함수 정의는 피하도록 합니다. 이런 함수들은 사람들 (특히 Scala에 익숙하지 않은 사람들) 코드를 읽기 어렵게 만드는 경향이 있습니다. 또한 IDE가 호출을 따라가기 어렵게 만듦니다. 최악의 경우, [괄호](#parentheses) 항목의 예제에서 보이듯 놀라운 방법으로 코드의 정확성에 영향을 미치게 할 수도 있습니다. 
+Class에서 apply 함수 정의는 피하도록 합니다. 이런 함수들은 사람들 (특히 Scala에 익숙하지 않은 사람들) 코드를 읽기 어렵게 만드는 경향이 있습니다. 또한 IDE가 호출을 따라가기 어렵게 만듭니다. 최악의 경우, [괄호](#parentheses) 항목의 예제에서 보이듯 놀라운 방법으로 코드의 정확성에 영향을 미치게 할 수도 있습니다. 
 
 같은 이름을 같는 객체에 펙토리 패턴으로써 apply 함수를 정의하는 것은 괜찮습니다. 이런 경우, apply 함수는 같은 이름의 class타입의 객체를 리턴해야 합니다.
 ```scala
@@ -488,7 +488,7 @@ Scala의 타입 추론 (특히 left-side 타입 추론) 과 함수 (closure) 추
 
 ### <a name='return'>Return 예약어</a>
 
-__Return을 함수(closure)에 사용하지 않도록 합니다__. `return` 은 컴파일러가 ``scala.runtime.NonLocalReturnControl`` 을 위해 ``try/catch`` 를 하도록 만듦니다. 이것은 예상치 못한 컴파일러의 행동으로 이어질 수 있습니다. 아래 예제를 참고해주시길 바랍니다:
+__Return을 함수(closure)에 사용하지 않도록 합니다__. `return` 은 컴파일러가 ``scala.runtime.NonLocalReturnControl`` 을 위해 ``try/catch`` 를 하도록 만듭니다. 이것은 예상치 못한 컴파일러의 행동으로 이어질 수 있습니다. 아래 예제를 참고해주시길 바랍니다:
   ```scala
   def receive(rpc: WebSocketRPC): Option[Response] = {
     tableFut.onComplete { table =>
@@ -562,7 +562,7 @@ __implicit의 사용은 피하도록 합니다__. 단, 아래 경우에 대해�
 - 암시적 타입의 인자를 사용하는 경우(예를 들어. `ClassTag`, `TypeTag`)
 - 특정 클래스 안에서 타입 변환의 코드를 줄이기 위해 사용되는 경우 (예를 들어. Scala 함수(closure) 에서 Java 함수(closure)로의 변환)
 
-우리는 코드를 작성한 사람이 아닌 다른 개발자가 코드를 implicit의 정의를 읽지 않고 쉽게 이해 할 수 있도록 합니다. implicit은 상당히 복잡하고 코드를 이해하기 어렵게 만듦니다. Twitter의 Scala 가이드라인에서는 이와 같이 얘기합니다:"만약 당신이 implicit을 사용 하고 있다는 것을 깨닮으면 항상 자신에게 같은 코드를 이를 사용하지 않고 작성할 수 있는 방법은 없는지 물어보세요"
+우리는 코드를 작성한 사람이 아닌 다른 개발자가 코드를 implicit의 정의를 읽지 않고 쉽게 이해 할 수 있도록 합니다. implicit은 상당히 복잡하고 코드를 이해하기 어렵게 만듭니다. Twitter의 Scala 가이드라인에서는 이와 같이 얘기합니다:"만약 당신이 implicit을 사용 하고 있다는 것을 깨닮으면 항상 자신에게 같은 코드를 이를 사용하지 않고 작성할 수 있는 방법은 없는지 물어보세요"
 
 만약 꼭 이를 사용해야 한다면 (예를 들어 DSL을 개선하기 위해), implicit 함수를 오버로드 하지 않습니다. 예를 들어 다른 유저가 손쉽게 골라서 import할 수 있도록 implicit 함수가 중복되지 않는 이름을 갖을 수 있도록 합니다.
 ```scala
@@ -597,7 +597,7 @@ object ImplicitHolder {
 
 - `Try` API 를 사용하지 않습니다. 예를 들어 어떤 함수에서도 Try를 반환값으로 사용하지 않습니다. 정상적으로 실행되지 않는 경우 명시적으로 예외를 던지고, Java의 try/catch 문을 사용하여 핸들링 하는 것이 권장됩니다. 
 
-  배경 지식: Scala는 모나딕한 에러 핸들링을 지원합니다(예를 들어 `Try`, `Success` 그리고 `Failure`). 이는 로직의 채이닝을 가능하게 합니다. 그러나, 우리는 경험적으로 이 것이 종종 다중 레벨의 복잡성을 주게 되고, 코드를 읽기 어렵게 만든다는 것을 알았습니다. 더욱이, 종종 어느 부분에서 알고 있는 에러가 나오고 예상치 못한 예외가 나오는지 확신 하기가 힘듦니다 왜냐하면 `Try` 안에서 이 에러와 예외가 인코딩 되지 않기 때문 입니다. 따라서, 우리는 에러 핸들링을 위해 `Try`의 사용을 권고하지 않습니다. 특히:
+  배경 지식: Scala는 모나딕한 에러 핸들링을 지원합니다(예를 들어 `Try`, `Success` 그리고 `Failure`). 이는 로직의 채이닝을 가능하게 합니다. 그러나, 우리는 경험적으로 이 것이 종종 다중 레벨의 복잡성을 주게 되고, 코드를 읽기 어렵게 만든다는 것을 알았습니다. 더욱이, 종종 어느 부분에서 알고 있는 에러가 나오고 예상치 못한 예외가 나오는지 확신 하기가 힘듭니다 왜냐하면 `Try` 안에서 이 에러와 예외가 인코딩 되지 않기 때문 입니다. 따라서, 우리는 에러 핸들링을 위해 `Try`의 사용을 권고하지 않습니다. 특히:
 
   이 예제의 경우:
   ```scala
@@ -677,7 +677,7 @@ def getAddress(name: String): Option[String] = {
 
 ### <a name='concurrency-scala-collection'>Scala concurrent.Map</a>
 
-__`java.util.concurrent.ConcurrentHashMap` 가  `scala.collection.concurrent.Map` 보다 권장됩니다__. 특히, `scala.collection.concurrent.Map`의 `getOrElseUpdate` 함수는 automic하지 않습니다 (이는 Scala 2.11.6에서 고쳐졌습니다. [SI-7943](https://issues.scala-lang.org/browse/SI-7943)). 우리가 관리하고 있는 모든 프로젝트에서는 Scala 2.10과 Scala 2.11의 크로스 빌딩을 하기 때문에 
+__`java.util.concurrent.ConcurrentHashMap` 가  `scala.collection.concurrent.Map` 보다 권장됩니다__. 특히, `scala.collection.concurrent.Map`의 `getOrElseUpdate` 함수는 atomic하지 않습니다 (이는 Scala 2.11.6에서 고쳐졌습니다. [SI-7943](https://issues.scala-lang.org/browse/SI-7943)). 우리가 관리하고 있는 모든 프로젝트에서는 Scala 2.10과 Scala 2.11의 크로스 빌딩을 하기 때문에 
 `scala.collection.concurrent.Map`의 사용은 피해져야 합니다.
 
 ### <a name='concurrency-sync-vs-map'>동기화(synchronized) 명시 vs Java 제공 동시성 라이브러리</a>
