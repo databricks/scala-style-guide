@@ -894,15 +894,15 @@ def sample(ratio: Double): RDD[T] = sample(ratio, withReplacement = false)
 
 ### <a name='java-varargs'>가변인자</a>
 
-- vararg 함수가 Java에서 사용 될 수 있도록 `@scala.annotation.varargs` 어노테이션을 적용합니다. Scala 컴파일러는 하나는 Scala를 위해(바이트코드 인자는 Seq 입니다) 다른 하나는 Java를 위해 (바이트코드 인자는 배열 입니다) 두 개의 함수를 만듭니다.
+- varargs 함수가 Java에서 사용 될 수 있도록 `@scala.annotation.varargs` 어노테이션을 적용합니다. Scala 컴파일러는 하나는 Scala를 위해(바이트코드 인자는 Seq 입니다) 다른 하나는 Java를 위해 (바이트코드 인자는 배열 입니다) 두 개의 함수를 만듭니다.
   ```scala
   @scala.annotation.varargs
   def select(exprs: Expression*): DataFrame = { ... }
   ```
 
-- 추상 vararg 함수는 Java에서 동작하지 않습니다. 이는 Scala의 버그 때문입니다([SI-1459](https://issues.scala-lang.org/browse/SI-1459), [SI-9013](https://issues.scala-lang.org/browse/SI-9013)).
+- 추상 varargs 함수는 Java에서 동작하지 않습니다. 이는 Scala의 버그 때문입니다([SI-1459](https://issues.scala-lang.org/browse/SI-1459), [SI-9013](https://issues.scala-lang.org/browse/SI-9013)).
 
-- vararg 함수들을 오버로딩할 때 조심하도록 합니다. vararg 함수를 다른 vararg 타입과 오버로딩 하는 것은 소스의 호환성을 보장하지 않을 수 있습니다. 
+- varargs 함수들을 오버로딩할 때 조심하도록 합니다. varargs 함수를 다른 varargs 타입과 오버로딩 하는 것은 소스의 호환성을 보장하지 않을 수 있습니다. 
   ```scala
   class Database {
     @scala.annotation.varargs
