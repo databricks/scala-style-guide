@@ -120,7 +120,7 @@ Scala는 믿을 수 없을 만큼 강력하고 여러가지 페러다임을 적�
 일반적으로:
 
 - 함수는 30줄 이상의 라인을 초과하지 않아야 합니다.
-- 하나의 클레스틑 30개 이상의 함수를 갖지 않도록 합니다.
+- 하나의 클래스당 30개 이상의 함수를 갖지 않도록 합니다.
 
 
 ### <a name='indent'>공백 및 들여쓰기</a>
@@ -188,7 +188,7 @@ Scala는 믿을 수 없을 만큼 강력하고 여러가지 페러다임을 적�
       - 예외: 연속되는 변수 선언 사이 아무런 코드도 없다면 빈 줄은 옵션입니다. 이런 빈 줄들은 논리적인 그룹을 만들 때 사용 될 수 있습니다.
   - 함수 안에서 빈 줄을 삽입하여 논리적인 그룹을 만들 수 있습니다.
   - 옵션으로써 첫 번째 맴버 앞이나 마지막 맴버 뒤에 빈 줄이 있을 수 있습니다.
-- 여러개의 Class 선언들을 분리 할 때에는 하나 또는 두게의 빈 줄을 사용합니다.
+- 여러개의 Class 선언들을 분리 할 때에는 하나 또는 두개의 빈 줄을 사용합니다.
 - 빈 줄의 개수가 많은 것은 권장하지 않습니다.
 
 
@@ -454,7 +454,7 @@ print(inc())
 
 ### <a name='multi-param-list'>다중 매개 변수 표기</a>
 
-__다중의 변수를 리스트로 묶어 표기하는 것을 피하도록 합니다__. 이는 연산자의 오버로딩을 복잡하게 하고, Scala에 익숙치 않은 개발자들을 햇갈리게 할 수 있습니다.
+__다중의 변수를 리스트로 묶어 표기하는 것을 피하도록 합니다__. 이는 연산자의 오버로딩을 복잡하게 하고, Scala에 익숙치 않은 개발자들을 헷갈리게 할 수 있습니다.
 
 ```scala
 // Avoid this!
@@ -562,7 +562,7 @@ __implicit의 사용은 피하도록 합니다__. 단, 아래 경우에 대해�
 - 암시적 타입의 인자를 사용하는 경우(예를 들어. `ClassTag`, `TypeTag`)
 - 특정 클래스 안에서 타입 변환의 코드를 줄이기 위해 사용되는 경우 (예를 들어. Scala 함수(closure) 에서 Java 함수(closure)로의 변환)
 
-우리는 코드를 작성한 사람이 아닌 다른 개발자가 코드를 implicit의 정의를 읽지 않고 쉽게 이해 할 수 있도록 합니다. implicit은 상당히 복잡하고 코드를 이해하기 어렵게 만듭니다. Twitter의 Scala 가이드라인에서는 이와 같이 얘기합니다:"만약 당신이 implicit을 사용 하고 있다는 것을 깨닮으면 항상 자신에게 같은 코드를 이를 사용하지 않고 작성할 수 있는 방법은 없는지 물어보세요"
+우리는 코드를 작성한 사람이 아닌 다른 개발자가 코드를 implicit의 정의를 읽지 않고 쉽게 이해 할 수 있도록 합니다. implicit은 상당히 복잡하고 코드를 이해하기 어렵게 만듭니다. Twitter의 Scala 가이드라인에서는 이와 같이 얘기합니다:"만약 당신이 implicit을 사용 하고 있다는 것을 깨달으면 항상 자신에게 같은 코드를 이를 사용하지 않고 작성할 수 있는 방법은 없는지 물어보세요"
 
 만약 꼭 이를 사용해야 한다면 (예를 들어 DSL을 개선하기 위해), implicit 함수를 오버로드 하지 않습니다. 예를 들어 다른 유저가 손쉽게 골라서 import할 수 있도록 implicit 함수가 중복되지 않는 이름을 갖을 수 있도록 합니다.
 ```scala
@@ -678,7 +678,7 @@ def getAddress(name: String): Option[String] = {
 ### <a name='concurrency-scala-collection'>Scala concurrent.Map</a>
 
 __`java.util.concurrent.ConcurrentHashMap` 가  `scala.collection.concurrent.Map` 보다 권장됩니다__. 특히, `scala.collection.concurrent.Map`의 `getOrElseUpdate` 함수는 atomic하지 않습니다 (이는 Scala 2.11.6에서 고쳐졌습니다. [SI-7943](https://issues.scala-lang.org/browse/SI-7943)). 우리가 관리하고 있는 모든 프로젝트에서는 Scala 2.10과 Scala 2.11의 크로스 빌딩을 하기 때문에 
-`scala.collection.concurrent.Map`의 사용은 피해져야 합니다.
+`scala.collection.concurrent.Map`의 사용은 피해야 합니다.
 
 ### <a name='concurrency-sync-vs-map'>동기화(synchronized) 명시 vs Java 제공 동시성 라이브러리</a>
 
@@ -689,7 +689,7 @@ __`java.util.concurrent.ConcurrentHashMap` 가  `scala.collection.concurrent.Map
   private[this] val map = new java.util.concurrent.ConcurrentHashMap[String, String]
   ```
 
-2. `java.util.Collections.synchronizedMap`: 모든 상태가 map에 저장되고, 빈번한 접근이 일어나지 않지만 코드를 안전하게 만들고 싶을 때 사용합니다. 만약 아무런 동시성 접근이 일어나지 않는다면, JVM JIT 컴파일러는 동기화의 오버해드를 지울 수 있을 것 입니다.
+2. `java.util.Collections.synchronizedMap`: 모든 상태가 map에 저장되고, 빈번한 접근이 일어나지 않지만 코드를 안전하게 만들고 싶을 때 사용합니다. 만약 아무런 동시성 접근이 일어나지 않는다면, JVM JIT 컴파일러는 동기화의 오버헤드를 지울 수 있을 것 입니다.
   ```scala
   private[this] val map = java.util.Collections.synchronizedMap(new java.util.HashMap[String, String])
   ```
@@ -820,7 +820,7 @@ class Foo {
 
 ### <a name='perf-private'>private[this]</a>
 
-성능을 고려한 코드를 위해, `private` 보다는 `private[this]`이 권장됩니다. `private[this]`는 접근자 함수를 생성하지 않고 하나의 변수만 생성합니다. 우리의 경험으로는 JVM JIT 컴파일러는 항상 `private` 변수를 한 번에 (한 줄로) 처리하지 못하였습니다. 따라서 해당 변수에 접근 할 가상 함수 호출을 없에기 위해서 `private[this]` 을 사용하는 것이 더 안전합니다.
+성능을 고려한 코드를 위해, `private` 보다는 `private[this]`이 권장됩니다. `private[this]`는 접근자 함수를 생성하지 않고 하나의 변수만 생성합니다. 우리의 경험으로는 JVM JIT 컴파일러는 항상 `private` 변수를 한 번에 (한 줄로) 처리하지 못하였습니다. 따라서 해당 변수에 접근 할 가상 함수 호출을 없애기 위해서 `private[this]` 을 사용하는 것이 더 안전합니다.
 ```scala
 class MyClass {
   private val field1 = ...
@@ -997,7 +997,7 @@ class JavaFriendlyAPI {
 
 *걸린 시간*을 계산할 때 혹은 *타임아웃*을 확인 할 때에는, 심지어 millisecond 이하의 숫자들이 필요 없는 경우에도  `System.currentTimeMillis()`의 사용을 피하시고 `System.nanoTime()`을 사용 하시길 바랍니다.   
 
-`System.currentTimeMillis()`는 현재 시간을 반환하고 현재 시스템의 클록을 뒤따라 바꿉니다. 따라서 이러한 네거티브 클록 조정은 긴 시간의 타임아웃을 초래할 수 있습니다(클록 시간 이전 값으로 잡을 때 까지). 이 것은 네트워크가 몇 시간 동안 중단 된 후에, 그 다음 "step"으로 진행할 때 발생 될 수 있습니다. 가장 전형적인 예로는 시스템 부팅 동안 DHCP 시간이 평소보다 오래 소요될 때 입니다. 이는, 이로 인한 문제를 이해하거나 재현하기 어려운 경우로 될 수도 있습니다. `System.nanoTime()`는 일정하게 증가하고, 시간 변동을 보장합니다.
+`System.currentTimeMillis()`는 현재 시간을 반환하고 현재 시스템의 클록을 뒤따라 바꿉니다. 따라서 이러한 네거티브 클록 조정은 긴 시간의 타임아웃을 초래할 수 있습니다(클록 시간 이전 값으로 잡을 때 까지). 이 것은 네트워크가 몇 시간 동안 중단 된 후에, 그 다음 "step"으로 진행할 때 발생 될 수 있습니다. 가장 전형적인 예로는 시스템 부팅 동안 DHCP 시간이 평소보다 오래 소요될 때 입니다. 이는, 이로 인한 문제를 이해하거나 재현하기 어려운 경우가 될 수 있습니다. `System.nanoTime()`는 일정하게 증가하고, 시간 변동을 보장합니다.
 
 주의:
 - 절대 `nanoTime()` 값을 절대로 직렬화 하거나 다른 시스템으로 보내지 않습니다. 이 절대값은 의미가 없으며, 시스템 관련 값이고, 시스템에 재부팅 되면 리셋됩니다.
