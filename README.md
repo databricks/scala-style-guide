@@ -71,7 +71,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 - 2015-08-23: Downgraded the severity of some rules from "do NOT" to "avoid".
 - 2015-11-17: Updated [apply Method](#apply_method) section: apply method in companion object should return the companion class.
 - 2015-11-17: This guide has been [translated into Chinese](README-ZH.md). The Chinese translation is contributed by community member [Hawstein](https://github.com/Hawstein). We do not guarantee that it will always be kept up-to-date.
-- 2015-12-14:  This guide has been [translated into Korean](README-KO.md). The Korean translation is contributed by [HyukjinKwon](https://github.com/HyukjinKwon) and reviewed by [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) and [Woochel Choi](https://github.com/socialpercon). We do not guarantee that it will always be kept up-to-date.
+- 2015-12-14:  This guide has been [translated into Korean](README-KO.md). The Korean translation is contributed by [Hyukjin Kwon](https://github.com/HyukjinKwon) and reviewed by [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) and [Woochel Choi](https://github.com/socialpercon). We do not guarantee that it will always be kept up-to-date.
 
 ## <a name='syntactic'>Syntactic Style</a>
 
