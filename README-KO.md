@@ -71,7 +71,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 - 2015-08-23: "do NOT"에서 "avoid"으로 심각도 낮춤.
 - 2015-11-17: [apply 함수](#apply_method) 섹션 추가:  한 객체의 apply 함수는 그 객체와 같은 이름을 가진 클래스를 반환해야 합니다.
 - 2015-11-17: 이 가이드라인이 [중국어로 번역되었습니다](README-ZH.md). 중국어 번역은 커뮤니티 맴버인 [Hawstein](https://github.com/Hawstein) 이 했습니다. 이 문서의 최신성을 보장하지 않습니다.
-- 2015-12-14: 이 가이드라인이 [한국어로 번역되었습니다](README-KO.md). 한국어 번역은 [HyukjinKwon](https://github.com/HyukjinKwon) 이 했습니다. 이 문서의 최신성을 보장하지 않습니다.
+- 2015-12-14: 이 가이드라인이 [한국어로 번역되었습니다](README-KO.md). 한국어 번역은 [HyukjinKwon](https://github.com/HyukjinKwon) 이 했으며, [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) 그리고 [Woochel Choi](https://github.com/socialpercon)이 검토를 했습니다. 이 문서의 최신성을 보장하지 않습니다.
 
 ## <a name='syntactic'>구문 스타일</a>
 
