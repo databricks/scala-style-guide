@@ -35,7 +35,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
     - [Return Statements](#return)
     - [Recursion and Tail Recursion](#recursion)
     - [Implicits](#implicits)
-    - [Exception Handling, i.e. Try vs try](#exception)
+    - [Exception Handling (Try vs try)](#exception)
     - [Options](#option)
     - [Monadic Chaining](#chaining)
   3. [Concurrency](#concurrency)
@@ -93,7 +93,7 @@ We mostly follow Java's and Scala's standard naming conventions.
 
 - Methods/functions should be named in camelCase style.
 
-- Constants should be all uppercase letters and be put in a companion object
+- Constants should be all uppercase letters and be put in a companion object.
   ```scala
   object Configuration {
     val DEFAULT_PORT = 10000
@@ -161,7 +161,7 @@ In general:
       val param1: String,  // 4 space indent for parameters
       val param2: String,
       val param3: Array[Byte])
-    extends FooInterface  // 2 space here
+    extends FooInterface  // 2 space indent here
     with Logging {
 
     def firstMethod(): Unit = { ... }  // blank line above
@@ -190,7 +190,7 @@ In general:
   - Within method bodies, as needed to create logical groupings of statements.
   - Optionally before the first member or after the last member of the class (neither encouraged nor discouraged).
 - Use one or two blank line(s) to separate class definitions.
-- Excessive number of blank lines are discouraged.
+- Excessive number of blank lines is discouraged.
 
 
 ### <a name='parentheses'>Parentheses</a>
@@ -206,7 +206,7 @@ In general:
   }
   ```
 - Callsite should follow method declaration, i.e. if a method is declared with parentheses, call with parentheses.
-  Note that this is not just syntactic. It can affect correctness when `apply` is defined in the return object:
+  Note that this is not just syntactic. It can affect correctness when `apply` is defined in the return object.
   ```scala
   class Foo {
     def apply(args: String*): Int
@@ -578,7 +578,7 @@ object ImplicitHolder {
 ```
 
 
-## <a name='exception'>Exception Handling, i.e. Try vs try</a>
+## <a name='exception'>Exception Handling (Try vs try)</a>
 
 - Do NOT catch Throwable or Exception. Use `scala.util.control.NonFatal`:
   ```scala
@@ -777,7 +777,7 @@ For the vast majority of the code you write, performance should not be a concern
 
 ### <a name='perf-microbenchmarks'>Microbenchmarks</a>
 
-It is ridiculously hard to write a good microbenchmark because the Scala compiler and the JVM JIT compiler does a lot of magic to the code. More often than not your microbenchmark code is not measuring the thing you want to measure.
+It is ridiculously hard to write a good microbenchmark because the Scala compiler and the JVM JIT compiler do a lot of magic to the code. More often than not your microbenchmark code is not measuring the thing you want to measure.
 
 Use [jmh](http://openjdk.java.net/projects/code-tools/jmh/) if you are writing microbenchmark code. Make sure you read through [all the sample microbenchmarks](http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/) so you understand the effect of deadcode elimination, constant folding, and loop unrolling on microbenchmarks.
 
@@ -975,7 +975,7 @@ There are a few things to watch out for when it comes to companion objects and s
   }
   ```
 
-- A case object (or even just plain companion object) MyClass is actually not of type MyClass
+- A case object (or even just plain companion object) MyClass is actually not of type MyClass.
   ```scala
   case object MyClass
 
