@@ -439,7 +439,7 @@ def print(value: => Int): Unit = {
 
 var a = 0
 def inc(): Int = {
-  a = a + 1
+  a += 1
   a
 }
 
@@ -752,13 +752,13 @@ Note that `private` fields are still accessible by other instances of the same c
 // The following is still unsafe.
 class Foo {
   private var count: Int = 0
-  def inc(): Unit = synchronized { count = count + 1 }
+  def inc(): Unit = synchronized { count += 1 }
 }
 
 // The following is safe.
 class Foo {
   private[this] var count: Int = 0
-  def inc(): Unit = synchronized { count = count + 1 }
+  def inc(): Unit = synchronized { count += 1 }
 }
 ```
 
