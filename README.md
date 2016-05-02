@@ -439,7 +439,7 @@ def print(value: => Int): Unit = {
 
 var a = 0
 def inc(): Int = {
-  a + 1
+  a = a + 1
   a
 }
 
@@ -495,7 +495,7 @@ __Avoid using return in closures__. `return` is turned into ``try/catch`` of ``s
     }
   }
   ```
-  the `.onComplete` method takes the anonymous closure `{ table => ... }` and passes it to a a different thread. This closure eventually throws the `NonLocalReturnControl` exception that is captured __in a different thread__ . It has no effect on the poor method being executed here.
+  the `.onComplete` method takes the anonymous closure `{ table => ... }` and passes it to a different thread. This closure eventually throws the `NonLocalReturnControl` exception that is captured __in a different thread__ . It has no effect on the poor method being executed here.
 
 However, there are a few cases where `return` is preferred.
 
@@ -522,7 +522,7 @@ However, there are a few cases where `return` is preferred.
 
 __Avoid using recursion__, unless the problem can be naturally framed recursively (e.g. graph traversal, tree traversal).
 
-For methods that are meant to be tail recursive, apply `@tailrec` annotation to make sure the compiler can check it is tail recursive (you will be surprised how often seemingly tail recursive code is actually not tail recursive due to the use of closures and functional transformations.)
+For methods that are meant to be tail recursive, apply `@tailrec` annotation to make sure the compiler can check it is tail recursive. (You will be surprised how often seemingly tail recursive code is actually not tail recursive due to the use of closures and functional transformations.)
 
 Most code is easier to reason about with a simple loop and explicit state machines. Expressing it with tail recursions (and accumulators) can make it more verbose and harder to understand.  For example, the following imperative code is more readable than the tail recursive version:
 
@@ -593,7 +593,7 @@ object ImplicitHolder {
   ```
   This ensures that we do not catch `NonLocalReturnControl` (as explained in [Return Statements](#return-statements)).
 
-- Do NOT use `Try` in APIs, i.e. do NOT return Try in any methods.Prefer explicitly throwing exceptions for abnormal execution and Java style try/catch for exception handling.
+- Do NOT use `Try` in APIs, that is, do NOT return Try in any methods. Instead, prefer explicitly throwing exceptions for abnormal execution and Java style try/catch for exception handling.
 
   Background information: Scala provides monadic error handling (through `Try`, `Success`, and `Failure`) that facilitates chaining of actions. However, we found from our experience that the use of it often leads to more levels of nesting that are harder to read. In addition, it is often unclear what the semantics are for expected errors vs exceptions because those are not encoded in `Try`. As a result, we discourage the use of `Try` for error handling. In particular:
 
@@ -639,7 +639,7 @@ object ImplicitHolder {
 One of Scala's powerful features is monadic chaining. Almost everything (e.g. collections, Option, Future, Try) is a monad and operations on them can be chained together. This is an incredibly powerful concept, but chaining should be used sparingly. In particular:
 
 - Avoid chaining (and/or nesting) more than 3 operations.
-- If it takes more than 5 seconds to figure out what the logic is, try hard to think about how you can expression the same functionality without using monadic chaining. As a general rule, watch out for flatMaps and folds.
+- If it takes more than 5 seconds to figure out what the logic is, try hard to think about how you can express the same functionality without using monadic chaining. As a general rule, watch out for flatMaps and folds.
 - A chain should almost always be broken after a flatMap (because of the type change).
 
 A chain can often be made more understandable by giving the intermediate result a variable name, by explicitly typing the variable, and by breaking it down into more procedural style. As a contrived example:
@@ -752,13 +752,13 @@ Note that `private` fields are still accessible by other instances of the same c
 // The following is still unsafe.
 class Foo {
   private var count: Int = 0
-  def inc(): Unit = synchronized { count + 1 }
+  def inc(): Unit = synchronized { count = count + 1 }
 }
 
 // The following is safe.
 class Foo {
   private[this] var count: Int = 0
-  def inc(): Unit = synchronized { count + 1 }
+  def inc(): Unit = synchronized { count = count + 1 }
 }
 ```
 
@@ -767,8 +767,8 @@ class Foo {
 
 In general, concurrency and synchronization logic should be isolated and contained as much as possible. This effectively means:
 
-- Avoid surfacing the internals of synchronization primitives in APIs, in user-facing methods, callbacks.
-- For complex modules, create a small, inner module that capture the concurrency primitives.
+- Avoid surfacing the internals of synchronization primitives in APIs, user-facing methods, and callbacks.
+- For complex modules, create a small, inner module that captures the concurrency primitives.
 
 
 ## <a name='perf'>Performance</a>
@@ -777,7 +777,7 @@ For the vast majority of the code you write, performance should not be a concern
 
 ### <a name='perf-microbenchmarks'>Microbenchmarks</a>
 
-It is ridiculously hard to write a good microbenchmark because the Scala compiler and the JVM JIT compiler do a lot of magic to the code. More often than not your microbenchmark code is not measuring the thing you want to measure.
+It is ridiculously hard to write a good microbenchmark because the Scala compiler and the JVM JIT compiler do a lot of magic to the code. More often than not, your microbenchmark code is not measuring the thing you want to measure.
 
 Use [jmh](http://openjdk.java.net/projects/code-tools/jmh/) if you are writing microbenchmark code. Make sure you read through [all the sample microbenchmarks](http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/) so you understand the effect of deadcode elimination, constant folding, and loop unrolling on microbenchmarks.
 
@@ -997,10 +997,10 @@ There are a few things to watch out for when it comes to companion objects and s
 
 When computing a *duration* or checking for a *timeout*, avoid using `System.currentTimeMillis()`. Use `System.nanoTime()` instead, even if you are not interested in sub-millisecond precision.
 
-`System.currentTimeMillis()` returns current wallclock time and will follow changes to the system clock. Thus, negative wallclock adjustments can cause timeouts to "hang" for a long time (until wallclock time has caught up to its previous value again).  This can happen when ntpd does a "step" after the network has been disconnected for some time. The most canonical example is during system bootup when DHCP takes longer than usual. This can lead to failures that are really hard to understand/reproduce. `System.nanoTime()` it is guaranteed to be monotonically increasing irrespective of wallclock changes.
+`System.currentTimeMillis()` returns current wallclock time and will follow changes to the system clock. Thus, negative wallclock adjustments can cause timeouts to "hang" for a long time (until wallclock time has caught up to its previous value again).  This can happen when ntpd does a "step" after the network has been disconnected for some time. The most canonical example is during system bootup when DHCP takes longer than usual. This can lead to failures that are really hard to understand/reproduce. `System.nanoTime()` is guaranteed to be monotonically increasing irrespective of wallclock changes.
 
 Caveats:
-- Never serialize an absolute `nanoTime()` value or pass it to another system. The absolute value is meaningless, system-specific and reset when the system reboots.
+- Never serialize an absolute `nanoTime()` value or pass it to another system. The absolute value is meaningless and system-specific and resets when the system reboots.
 - The absolute `nanoTime()` value is not guaranteed to be positive (but `t2 - t1` is guaranteed to yield the right result)
 - `nanoTime()` rolls over every 292 years. So if your Spark job is going to take a really long time, you may need something else :)
 
