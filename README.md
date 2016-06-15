@@ -371,7 +371,7 @@ arrayBuffer += elem
 
 ### <a name='anonymous'>Anonymous Methods</a>
 
-__Avoid extra parentheses and curly braces__ for anonymous methods.
+__Avoid excessive parentheses and curly braces__ for anonymous methods.
 ```scala
 // Correct
 list.map { item =>
