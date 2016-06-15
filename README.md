@@ -24,6 +24,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
     - [Imports](#imports)
     - [Pattern Matching](#pattern-matching)
     - [Infix Methods](#infix)
+    - [Anonymous Methods](#anonymous)
   2. [Scala Language Features](#lang)
     - [apply Method](#apply_method)
     - [override Modifier](#override_modifier)
@@ -72,6 +73,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 - 2015-11-17: Updated [apply Method](#apply_method) section: apply method in companion object should return the companion class.
 - 2015-11-17: This guide has been [translated into Chinese](README-ZH.md). The Chinese translation is contributed by community member [Hawstein](https://github.com/Hawstein). We do not guarantee that it will always be kept up-to-date.
 - 2015-12-14:  This guide has been [translated into Korean](README-KO.md). The Korean translation is contributed by [Hyukjin Kwon](https://github.com/HyukjinKwon) and reviewed by [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) and [Woochel Choi](https://github.com/socialpercon). We do not guarantee that it will always be kept up-to-date.
+- 2016-06-15: Added [Anonymous Methods](#anonymous) section.
 
 ## <a name='syntactic'>Syntactic Style</a>
 
@@ -364,6 +366,33 @@ string contains "foo"
 
 // But overloaded operators should be invoked in infix style
 arrayBuffer += elem
+```
+
+
+### <a name='anonymous'>Anonymous Methods</a>
+
+__Avoid excessive parentheses and curly braces__ for anonymous methods.
+```scala
+// Correct
+list.map { item =>
+  ...
+}
+
+// Correct
+list.map(item => ...)
+
+// Wrong
+list.map(item => {
+  ...
+})
+
+// Wrong
+list.map { item => {
+  ...
+}}
+
+// Wrong
+list.map({ item => ... })
 ```
 
 
