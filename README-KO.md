@@ -24,6 +24,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
     - [Imports](#imports)
     - [패턴 매칭](#pattern-matching)
     - [중위 표기](#infix)
+    - [익명 함수](#anonymous)
   2. [Scala 언어의 기능](#lang)
     - [apply 함수](#apply_method)
     - [override 수정자](#override_modifier)
@@ -69,9 +70,10 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 - 2015-03-16: 초기 버전.
 - 2015-05-25: [override 수정자](#override_modifier) 섹션 추가.
 - 2015-08-23: "do NOT"에서 "avoid"으로 심각도 낮춤.
-- 2015-11-17: [apply 함수](#apply_method) 섹션 추가:  한 객체의 apply 함수는 그 객체와 같은 이름을 가진 클래스를 반환해야 합니다.
+- 2015-11-17: [apply 함수](#apply_method) 섹션 갱신:  한 객체의 apply 함수는 그 객체와 같은 이름을 가진 클래스를 반환해야 합니다.
 - 2015-11-17: 이 가이드라인이 [중국어로 번역되었습니다](README-ZH.md). 중국어 번역은 커뮤니티 맴버인 [Hawstein](https://github.com/Hawstein) 이 했습니다. 이 문서의 최신성을 보장하지 않습니다.
 - 2015-12-14: 이 가이드라인이 [한국어로 번역되었습니다](README-KO.md). 한국어 번역은 [Hyukjin Kwon](https://github.com/HyukjinKwon) 이 했으며, [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) 그리고 [Woocheol Choi](https://github.com/socialpercon) 가 검토를 했습니다. 이 문서의 최신성을 보장하지 않습니다.
+- 2016-06-15: [익명 함수](#anonymous) 섹션 추가.
 
 ## <a name='syntactic'>구문 스타일</a>
 
@@ -367,6 +369,32 @@ string contains "foo"
 
 // But overloaded operators should be invoked in infix style
 arrayBuffer += elem
+```
+
+### <a name='anonymous'>익명 함수</a>
+
+익명 함수를 위한 __여분의 소괄호 및 중괄호를 피합니다__.
+```scala
+// Correct
+list.map { item =>
+  ...
+}
+
+// Correct
+list.map(item => ...)
+
+// Wrong
+list.map(item => {
+  ...
+})
+
+// Wrong
+list.map { item => {
+  ...
+}}
+
+// Wrong
+list.map({ item => ... })
 ```
 
 
