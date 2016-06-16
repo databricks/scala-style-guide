@@ -31,6 +31,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     - [Imports](#imports)
     - [模式匹配](#pattern-matching)
     - [中缀方法](#infix)
+    - [匿名方法](#anonymous)
   2. [Scala 语言特性](#lang)
     - [apply 方法](#apply_method)
     - [override 修饰符](#override_modifier)
@@ -42,7 +43,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     - [Return 语句](#return)
     - [递归及尾递归](#recursion)
     - [Implicits](#implicits)
-    - [异常处理，Try 还是 try](#exception)
+    - [异常处理 (Try 还是 try)](#exception)
     - [Options](#option)
     - [单子链接](#chaining)
   3. [并发](#concurrency)
@@ -76,6 +77,9 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 - 2015-08-23: 把一些规则的严重程度从「不要」降级到「避免」。
 - 2015-11-17: 更新 [apply 方法](#apply_method) 一节：伴生对象中的 apply 方法应该返回其伴生类。
 - 2015-11-17: 该指南被翻译成[中文](README-ZH.md)，由 [Hawstein](https://github.com/Hawstein) 进行维护，中文文档并不保证总是与原文档一样处于最新版本。
+- 2015-12-14: 该指南被翻译成[韩文](README-KO.md), 韩文版本由 [Hyukjin Kwon](https://github.com/HyukjinKwon) 进行翻译并且由 [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) 和 [Woochel Choi](https://github.com/socialpercon) 进行校对。韩文版本并不保证总是与原文档一样处于最新版本。
+- 2016-06-15: 增加 [匿名方法](#anonymous) 一节。
+
 
 ## <a name='syntactic'>语法风格</a>
 
@@ -388,6 +392,33 @@ string contains "foo"
 arrayBuffer += elem
 ```
 
+### <a name='anonymous'>匿名方法</a>
+
+对于匿名方法，__避免使用过多的小括号和花括号__。
+
+```scala
+// Correct
+list.map { item =>
+  ...
+}
+
+// Correct
+list.map(item => ...)
+
+// Wrong
+list.map(item => {
+  ...
+})
+
+// Wrong
+list.map { item => {
+  ...
+}}
+
+// Wrong
+list.map({ item => ... })
+```
+
 
 ## <a name='lang'>Scala 语言特性</a>
 
@@ -466,7 +497,7 @@ def print(value: => Int): Unit = {
 
 var a = 0
 def inc(): Int = {
-  a + 1
+  a += 1
   a
 }
 
@@ -798,13 +829,13 @@ __优先考虑使用 `java.util.concurrent.ConcurrentHashMap` 而非 `scala.coll
 // 以下代码仍然是不安全的。
 class Foo {
   private var count: Int = 0
-  def inc(): Unit = synchronized { count + 1 }
+  def inc(): Unit = synchronized { count += 1 }
 }
 
 // 以下代码是安全的。
 class Foo {
   private[this] var count: Int = 0
-  def inc(): Unit = synchronized { count + 1 }
+  def inc(): Unit = synchronized { count += 1 }
 }
 ```
 
