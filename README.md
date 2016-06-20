@@ -12,6 +12,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
   0. [Document History](#history)
   1. [Syntactic Style](#syntactic)
     - [Naming Convention](#naming)
+    - [Variable Naming Convention](#variable-naming)
     - [Line Length](#linelength)
     - [Rule of 30](#rule_of_30)
     - [Spacing and Indentation](#indent)
@@ -108,6 +109,17 @@ We mostly follow Java's and Scala's standard naming conventions.
   ```scala
   final class MyAnnotation extends StaticAnnotation
   ```
+
+
+### <a name='variable-naming'>Variable Naming Convention</a>
+
+- Variables should be named in camelCase style, and should have self-evident names.
+  ```scala
+  val serverPort = 1000
+  val clientPort = 2000
+  ```
+
+- It is OK to use one-character variable names for small, localized scope. For example, "i" is commonly used as the loop index. However, do NOT use "l" (as in Larry) as the identifier, because it is very difficult to differentiate "l" from "1", "|", "I".
 
 
 ### <a name='linelength'>Line Length</a>
