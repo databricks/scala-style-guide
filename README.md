@@ -119,7 +119,7 @@ We mostly follow Java's and Scala's standard naming conventions.
   val clientPort = 2000
   ```
 
-- It is OK to use one-character variable names for small, localized scope. For example, "i" is commonly used as the loop index. However, do NOT use "l" (as in Larry) as the identifier, because it is very difficult to differentiate "l" from "1", "|", "I".
+- It is OK to use one-character variable names in small, localized scope. For example, "i" is commonly used as the loop index for a small loop body (e.g. 10 lines of code). However, do NOT use "l" (as in Larry) as the identifier, because it is very difficult to differentiate "l" from "1", "|", "I".
 
 
 ### <a name='linelength'>Line Length</a>
