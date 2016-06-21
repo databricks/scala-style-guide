@@ -644,7 +644,7 @@ object ImplicitHolder {
 ```
 
 
-## <a name='exception'>异常处理，Try 还是 try</a>
+## <a name='exception'>异常处理 (Try 还是 try)</a>
 
 - 不要捕获 Throwable 或 Exception 类型的异常。请使用 `scala.util.control.NonFatal`：
 
