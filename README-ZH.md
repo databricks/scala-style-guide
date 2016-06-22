@@ -1057,7 +1057,7 @@ class JavaFriendlyAPI {
 
   // FooJavaTest.java (in test/scala/com/databricks/...)
   public class FooJavaTest {
-    public static compileTest() {
+    public static void compileTest() {
       Foo.method1();  // 正常编译
       Foo.method2();  // 编译失败，因为 method2 并没有生成
     }

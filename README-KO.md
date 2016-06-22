@@ -1006,12 +1006,12 @@ class JavaFriendlyAPI {
 
   object Foo {
     def method1(): Unit = { ... }  // a static method Foo.method1 is created in bytecode
-    def method2(): Unit = { ... }  // a static method Foo.method1 is NOT created in bytecode
+    def method2(): Unit = { ... }  // a static method Foo.method2 is NOT created in bytecode
   }
 
   // FooJavaTest.java (in test/scala/com/databricks/...)
   public class FooJavaTest {
-    public static compileTest() {
+    public static void compileTest() {
       Foo.method1();  // This one should compile fine
       Foo.method2();  // This one should fail because method2 is not generated.
     }
