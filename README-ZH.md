@@ -19,6 +19,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
   0. [文档历史](#history)
   1. [语法风格](#syntactic)
     - [命名约定](#naming)
+    - [变量命名约定](#variable-naming)
     - [一行长度](#linelength)
     - [30 法则](#rule_of_30)
     - [空格与缩进](#indent)
@@ -118,6 +119,16 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
   ```scala
   final class MyAnnotation extends StaticAnnotation
   ```
+
+### <a name='variable-naming'>变量命名约定</a>
+
+- 变量命名应当遵循驼峰式命名方法，并且变量名应当是不言而喻的，即变量名可以直观地反应它的涵义。
+  ```scala
+  val serverPort = 1000
+  val clientPort = 2000
+  ```
+
+- 可以在小段的局部代码中使用单字符的变量名，比如在小段的循环体中（例如 10 行以内的代码），“i” 常常被用作循环索引。然而，即使在小段的代码中，也不要使用 “l” （Larry 中的 l）作为标识符，因为它看起来和 “1”，“|”，“I” 很像，难以区分，容易搞错。
 
 
 ### <a name='linelength'>一行长度</a>
