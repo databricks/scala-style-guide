@@ -91,7 +91,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
   package com.databricks.resourcemanager
   ```
 
-- 메소드/함수는 낙타등 표기법 (PascalCase)을 사용해야 합니다.
+- 메소드/함수는 낙타등 표기법 (camelCase)을 사용해야 합니다.
 
 - 모든 상수는 대문자로 표기 하고, 연관된 객체에 배치합니다.
   ```scala
