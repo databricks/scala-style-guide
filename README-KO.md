@@ -1,11 +1,12 @@
 # Databricks Scala Guide
 
-800명이 넘는 contributor를 가진 Spark는 빅데이터 분야에서 가장 큰 오픈소스 프로젝트이며, Scala를 사용하는 프로젝트 중 가장 활성화된 프로젝트 입니다. 이 가이드라인은 [Databricks](http://databricks.com/) 엔지니어 팀 뿐 아니라, Spark에 기여하는 엔지니어들의 경험을 바탕으로 만들어 졌습니다.
+1000명이 넘는 contributor를 가진 Spark는 빅데이터 분야에서 가장 큰 오픈소스 프로젝트이며, Scala를 사용하는 프로젝트 중 가장 활성화된 프로젝트 입니다. 이 가이드라인은 [Databricks](http://databricks.com/) 엔지니어 팀 뿐 아니라, Spark에 기여하는 엔지니어들의 경험을 바탕으로 만들어 졌습니다.
 
 코드는 저자에 의해 __한 번 쓰여지지만__, 많은 다른 엔지니어들은 그 같은 코드를 __반복적으로 수정하고 읽습니다__. 대부분의 버그들은 보통 코드의 변경으로부터 나옵니다. 그래서 우리는 코드의 가독성과 유지 보수성을 향상시키기 위해 우리의 코드를 최적화 해야합니다. 이를 위한 최선의 방법은 간단한 코드를 작성하는 것입니다.
 
 Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언어입니다. 우리는 아래의 가이드라인을 통해 여러가지 프로젝트를 빠른 속도로 진행하고 있습니다. 팀이나 회사의 요구사항 등에 따라서 일부 다르게 적용 해야 할 수도 있습니다.
 
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
 ## <a name='TOC'>목차</a>
 
