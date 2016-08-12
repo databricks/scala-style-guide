@@ -121,6 +121,7 @@ We mostly follow Java's and Scala's standard naming conventions.
 
 - It is OK to use one-character variable names in small, localized scope. For example, "i" is commonly used as the loop index for a small loop body (e.g. 10 lines of code). However, do NOT use "l" (as in Larry) as the identifier, because it is very difficult to differentiate "l" from "1", "|", "I".
 
+- Underscores in names (_) are not actually forbidden by the compiler, but are strongly discouraged as they have special meaning within the Scala syntax.
 
 ### <a name='linelength'>Line Length</a>
 
