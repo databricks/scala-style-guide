@@ -702,14 +702,14 @@ def getAddress(name: String): Option[String] = {
 // A more readable approach, despite much longer
 def getAddress(name: String): Option[String] = {
   if (!database.contains(name)) {
-    return None
-  }
-
-  database(name).data.get("address") match {
-    case Some(null) => None  // handle null value
-    case Some(addr) => Option(addr)
-    case None => None
-  }
+     None
+  } else {
+   database(name).data.get("address") match {
+     case Some(null) => None  // handle null value
+     case Some(addr) => Option(addr)
+     case None => None
+   }
+ }
 }
 
 ```
