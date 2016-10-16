@@ -657,7 +657,7 @@ object ImplicitHolder {
 ```
 
 
-## <a name='exception'>异常处理，Try 还是 try</a>
+## <a name='exception'>异常处理 (Try 还是 try)</a>
 
 - 不要捕获 Throwable 或 Exception 类型的异常。请使用 `scala.util.control.NonFatal`：
 
@@ -1070,7 +1070,7 @@ class JavaFriendlyAPI {
 
   // FooJavaTest.java (in test/scala/com/databricks/...)
   public class FooJavaTest {
-    public static compileTest() {
+    public static void compileTest() {
       Foo.method1();  // 正常编译
       Foo.method2();  // 编译失败，因为 method2 并没有生成
     }

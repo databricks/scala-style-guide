@@ -77,6 +77,8 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 - 2015-11-17: This guide has been [translated into Chinese](README-ZH.md). The Chinese translation is contributed by community member [Hawstein](https://github.com/Hawstein). We do not guarantee that it will always be kept up-to-date.
 - 2015-12-14:  This guide has been [translated into Korean](README-KO.md). The Korean translation is contributed by [Hyukjin Kwon](https://github.com/HyukjinKwon) and reviewed by [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) and [Woochel Choi](https://github.com/socialpercon). We do not guarantee that it will always be kept up-to-date.
 - 2016-06-15: Added [Anonymous Methods](#anonymous) section.
+- 2016-06-21: Added [Variable Naming Convention](#variable-naming) section.
+
 
 ## <a name='syntactic'>Syntactic Style</a>
 
@@ -1006,12 +1008,12 @@ There are a few things to watch out for when it comes to companion objects and s
 
   object Foo {
     def method1(): Unit = { ... }  // a static method Foo.method1 is created in bytecode
-    def method2(): Unit = { ... }  // a static method Foo.method1 is NOT created in bytecode
+    def method2(): Unit = { ... }  // a static method Foo.method2 is NOT created in bytecode
   }
 
   // FooJavaTest.java (in test/scala/com/databricks/...)
   public class FooJavaTest {
-    public static compileTest() {
+    public static void compileTest() {
       Foo.method1();  // This one should compile fine
       Foo.method2();  // This one should fail because method2 is not generated.
     }

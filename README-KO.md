@@ -13,6 +13,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
   0. [문서 역사](#history)
   1. [구문 스타일](#syntactic)
     - [명명 규칙](#naming)
+    - [변수 명명 규칙](#variable-naming)
     - [라인 길이](#linelength)
     - [30 규칙](#rule_of_30)
     - [공백 및 들여쓰기](#indent)
@@ -37,7 +38,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
     - [Return 예약어](#return)
     - [재귀 용법과 꼬리 재귀 용법](#recursion)
     - [Implicits](#implicits)
-    - [예외 처리, i.e. Try vs try](#exception)
+    - [예외 처리 (Try vs try)](#exception)
     - [Options](#option)
     - [모나드 채이닝](#chaining)
   3. [동시성 제어](#concurrency)
@@ -75,6 +76,8 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 - 2015-11-17: 이 가이드라인이 [중국어로 번역되었습니다](README-ZH.md). 중국어 번역은 커뮤니티 맴버인 [Hawstein](https://github.com/Hawstein) 이 했습니다. 이 문서의 최신성을 보장하지 않습니다.
 - 2015-12-14: 이 가이드라인이 [한국어로 번역되었습니다](README-KO.md). 한국어 번역은 [Hyukjin Kwon](https://github.com/HyukjinKwon) 이 했으며, [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) 그리고 [Woocheol Choi](https://github.com/socialpercon) 가 검토를 했습니다. 이 문서의 최신성을 보장하지 않습니다.
 - 2016-06-15: [익명 함수](#anonymous) 섹션 추가.
+- 2016-06-21: [변수 명명 규칙](#variable-naming) 섹션 추가.
+
 
 ## <a name='syntactic'>구문 스타일</a>
 
@@ -109,6 +112,18 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
   ```scala
   final class MyAnnotation extends StaticAnnotation
   ```
+
+
+### <a name='variable-naming'>변수 명명 규칙</a>
+
+- 변수는 낙타등 표기법 (PascalCase)을 사용해야 하고, 명백히 변수의 의미가 설명 될 수 있는 자명한 이름을 사용 해야 합니다.
+
+  ```scala
+  val serverPort = 1000
+  val clientPort = 2000
+  ```
+
+- 지엽적인 공간에서 변수 이름이 하나의 글자로 명명 되는 것은 괜찮습니다. 예를 들어, "i" 는 길지 않은 순환문 에서 (예를 들어, 10 라인의 코드) 그 순환문 안에서의 인덱스를 나타내기 위해 자주 사용 됩니다. 그러나, "l" (Larry의 맨 앞자)를 식별자로 사용하지 않습니다. 왜냐하면, "l", "1", "|" 그리고 "I" 은 구분하기가 매우 어렵기 때문 입니다.
 
 
 ### <a name='linelength'>라인 길이</a>
@@ -472,7 +487,7 @@ def print(value: => Int): Unit = {
 
 var a = 0
 def inc(): Int = {
-  a + 1
+  a += 1
   a
 }
 
@@ -610,7 +625,7 @@ object ImplicitHolder {
 ```
 
 
-## <a name='exception'>예외 처리, i.e. )Try vs try</a>
+## <a name='exception'>예외 처리 (Try vs try)</a>
 
 - Throwable 또는 Exception 유형을 다루지 않도록 합니다. `scala.util.control.NonFatal` 를 사용합니다:
   ```scala
@@ -782,13 +797,13 @@ __`java.util.concurrent.ConcurrentHashMap` 이  `scala.collection.concurrent.Map
 // The following is still unsafe.
 class Foo {
   private var count: Int = 0
-  def inc(): Unit = synchronized { count + 1 }
+  def inc(): Unit = synchronized { count += 1 }
 }
 
 // The following is safe.
 class Foo {
   private[this] var count: Int = 0
-  def inc(): Unit = synchronized { count + 1 }
+  def inc(): Unit = synchronized { count += 1 }
 }
 ```
 
@@ -992,12 +1007,12 @@ class JavaFriendlyAPI {
 
   object Foo {
     def method1(): Unit = { ... }  // a static method Foo.method1 is created in bytecode
-    def method2(): Unit = { ... }  // a static method Foo.method1 is NOT created in bytecode
+    def method2(): Unit = { ... }  // a static method Foo.method2 is NOT created in bytecode
   }
 
   // FooJavaTest.java (in test/scala/com/databricks/...)
   public class FooJavaTest {
-    public static compileTest() {
+    public static void compileTest() {
       Foo.method1();  // This one should compile fine
       Foo.method2();  // This one should fail because method2 is not generated.
     }
@@ -1026,7 +1041,7 @@ class JavaFriendlyAPI {
 
 *지속 시간*을 계산할 때 혹은 *타임아웃*을 확인 할 때에는, 심지어 millisecond 이하의 숫자들이 필요 없는 경우에도  `System.currentTimeMillis()`의 사용을 피하시고 `System.nanoTime()`을 사용 하시길 바랍니다.   
 
-`System.currentTimeMillis()`는 현재 시간을 반환하고 현재 시스템의 클록을 뒤따라 바꿉니다. 따라서 이러한 네거티브 클록 조정은 긴 시간의 타임아웃을 초래할 수 있습니다(클록 시간 이전 값으로 잡을 때 까지). 이 것은 네트워크가 장 시간 중단 된 후에, ntpd가 다음 "step"으로 진행할 때 발생 될 수 있습니다. 가장 전형적인 예로는 시스템 부팅 동안 DHCP 시간이 평소보다 오래 소요될 때 입니다. 이는, 이는, 이해하거나 재현하기 힘든 에러를 초래 할수 있습니다. `System.nanoTime()`은 wall-clock에 상관 없이, 항상 일정하게 증가 합니다.
+`System.currentTimeMillis()`는 현재 시간을 반환하고 현재 시스템의 클록을 뒤따라 바꿉니다. 따라서 이러한 네거티브 클록 조정은 긴 시간의 타임아웃을 초래할 수 있습니다(클록 시간 이전 값으로 잡을 때 까지). 이 것은 네트워크가 장 시간 중단 된 후에, ntpd가 다음 "step"으로 진행할 때 발생 될 수 있습니다. 가장 전형적인 예로는 시스템 부팅 동안 DHCP 시간이 평소보다 오래 소요될 때 입니다. 이는, 이해하거나 재현하기 힘든 에러를 초래 할수 있습니다. `System.nanoTime()`은 wall-clock에 상관 없이, 항상 일정하게 증가 합니다.
 
 주의:
 - 절대 `nanoTime()`의 절대값을 절대로 직렬화 하거나 다른 시스템으로 보내지 않습니다. 이 절대값은 의미가 없으며, 시스템 관련 값이고, 시스템이 재부팅 되면 리셋됩니다.
