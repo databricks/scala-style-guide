@@ -29,6 +29,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
     - [Infix Methods](#infix)
     - [Anonymous Methods](#anonymous)
   2. [Scala Language Features](#lang)
+    - [Case Classes and Immutability](#case_class_immutability)
     - [apply Method](#apply_method)
     - [override Modifier](#override_modifier)
     - [Destructuring Binds](#destruct_bind)
@@ -411,6 +412,23 @@ list.map({ item => ... })
 
 
 ## <a name='lang'>Scala Language Features</a>
+
+### <a name='case_class_immutability'>Case Classes and Immutability</a>
+
+Case classes are regular classes but extended by the compiler to automatically support:
+- Public getters for constructor parameters
+- Copy constructor
+- Pattern matching on constructor parameters
+- Automatic toString/hash/equals implementation
+
+Constructor parameters should NOT be mutable for case classes.
+```scala
+// This is OK
+case class Person(name: String, age: Int)
+
+// This is NOT OK
+case class Person(name: String, var age: Int)
+```
 
 
 ### <a name='apply_method'>apply Method</a>
