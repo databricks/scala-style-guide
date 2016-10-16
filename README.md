@@ -365,6 +365,32 @@ Of course, the situation in which a class grows this long is strongly discourage
   }
   ```
 
+- If the only goal is to match on the type of the object, do NOT expand fully all the arguments, as it makes refactoring more difficult and the code more error prone.
+  ```scala
+  case class Pokemon(name: String, weight: Int, hp: Int, attack: Int, defense: Int)
+  case class Human(name: String, hp: Int)
+  
+  // Do NOT do the following, because
+  // 1. When a new field is added to Pokemon, we need to change this pattern matching as well
+  // 2. It is easy to mismatch the arguments, especially for the ones that have the same data types
+  targets.foreach {
+    case target @ Pokemon(_, _, hp, _, defense) =>
+      val loss = sys.min(0, myAttack - defense)
+      target.copy(hp = hp - loss)
+    case target @ Human(_, hp) =>
+      target.copy(hp = hp - myAttack)
+  }
+  
+  // Do this:
+  targets.foreach {
+    case target: Pokemon =>
+      val loss = sys.min(0, myAttack - target.defense)
+      target.copy(hp = target.hp - loss)
+    case target: Human =>
+      target.copy(hp = target.hp - myAttack)
+  }
+  ```
+
 
 ### <a name='infix'>Infix Methods</a>
 
