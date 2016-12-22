@@ -421,13 +421,17 @@ Case classes are regular classes but extended by the compiler to automatically s
 - Pattern matching on constructor parameters
 - Automatic toString/hash/equals implementation
 
-Constructor parameters should NOT be mutable for case classes.
+Constructor parameters should NOT be mutable for case classes. Instead, use copy constructor.
 ```scala
 // This is OK
 case class Person(name: String, age: Int)
 
 // This is NOT OK
 case class Person(name: String, var age: Int)
+
+// To change values, use the copy constructor to create a new instance
+val p1 = Person("Peter", 15)
+val p2 = p2.copy(age = 16)
 ```
 
 
