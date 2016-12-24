@@ -28,6 +28,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
     - [중위 표기](#infix)
     - [익명 함수](#anonymous)
   2. [Scala 언어의 기능](#lang)
+    - [케이스 클레스와 불변성](#case_class_immutability)
     - [apply 함수](#apply_method)
     - [override 수정자](#override_modifier)
     - [튜플 추출](#destruct_bind)
@@ -370,6 +371,32 @@ class DataFrame {
   }
   ```
 
+- 만약 어떤 객체의 타입을 패턴 매칭 하는 것이 목표라면, 전체 인자를 확장하지 않습니다. 왜냐하면, 이 것은 리펙토링을 더 힘들게 만들고 코드의 오류를 발생하기 쉽게 만듭니다.
+  ```scala
+  case class Pokemon(name: String, weight: Int, hp: Int, attack: Int, defense: Int)
+  case class Human(name: String, hp: Int)
+
+  // 아래와 같이 하지 않습니다. 왜냐하면,
+  // 1. 새로운 필드가 Pokemon에 추가가 될 때, 우리는 이 패턴 매칭 또한 바꿔야 합니다.
+  // 2. 특히, 같은 데이터 타입의 인자를 여러게 갖는 경우, 인자를 잘못 매칭 하기 쉬워집니다.
+  targets.foreach {
+    case target @ Pokemon(_, _, hp, _, defense) =>
+      val loss = sys.min(0, myAttack - defense)
+      target.copy(hp = hp - loss)
+    case target @ Human(_, hp) =>
+      target.copy(hp = hp - myAttack)
+  }
+
+  // Do this:
+  targets.foreach {
+    case target: Pokemon =>
+      val loss = sys.min(0, myAttack - target.defense)
+      target.copy(hp = target.hp - loss)
+    case target: Human =>
+      target.copy(hp = target.hp - myAttack)
+  }
+  ```
+
 
 ### <a name='infix'>중위 표기</a>
 
@@ -415,6 +442,27 @@ list.map({ item => ... })
 
 
 ## <a name='lang'>Scala 언어의 기능</a>
+
+### <a name='case_class_immutability'>케이스 클레스와 불변성</a>
+
+케이스 클레스는 일반 클레스 입니다만, 컴파일러가 자동으로 아래와 같은 항목들을 지원합니다.
+- 생성자의 파라메터들을 위한 퍼블릭 getter들
+- 복제 생성자
+- 자동 toString/hash/equals 구현
+
+케이스 클레스를 위한 생성자 파라메터들은 가변성을 갖지 않아야 합니다. 대신, 복제 생성자를 사용합니다. 이러한 가변 파라메터를 갖는 클레스들은 오류의 발생을 쉽게 만듭니다. 예를 들어, 해쉬맵은 변경 되기 전의 해쉬코드를 갖고 있는 잘못된 버킷에 객체를 놓을 수도 있습니다.
+
+```scala
+// This is OK
+case class Person(name: String, age: Int)
+
+// This is NOT OK
+case class Person(name: String, var age: Int)
+
+// 값을 바꾸기 위해서는, 새로운 객체를 생성하는 복제 생성자를 사용합니다.
+val p1 = Person("Peter", 15)
+val p2 = p2.copy(age = 16)
+```
 
 
 ### <a name='apply_method'>apply 함수</a>
