@@ -450,8 +450,7 @@ Case classes are regular classes but extended by the compiler to automatically s
 - Automatic toString/hash/equals implementation
 
 Constructor parameters should NOT be mutable for case classes. Instead, use copy constructor.
-Having mutable case classes can be error prone, e.g. hash maps might place the object in the wrong
-bucket using the old hash code.
+Having mutable case classes can be error prone, e.g. hash maps might place the object in the wrong bucket using the old hash code.
 ```scala
 // This is OK
 case class Person(name: String, age: Int)
