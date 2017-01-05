@@ -36,6 +36,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     - [中缀方法](#infix)
     - [匿名方法](#anonymous)
   2. [Scala 语言特性](#lang)
+    - [样例类与不可变性](#case_class_immutability)
     - [apply 方法](#apply_method)
     - [override 修饰符](#override_modifier)
     - [解构绑定](#destruct_bind)
@@ -387,6 +388,33 @@ class DataFrame {
   }
   ```
 
+- 如果唯一的目的就是想匹配某个对象的类型，那么不要展开所有的参数来做模式匹配，这样会使得重构变得更加困难，代码更容易出错。
+
+```scala
+case class Pokemon(name: String, weight: Int, hp: Int, attack: Int, defense: Int)
+case class Human(name: String, hp: Int)
+
+// 不要像下面那样做，因为
+// 1. 当 pokemon 加入一个新的字段，我们需要改变下面的模式匹配代码
+// 2. 非常容易发生误匹配，尤其是当所有字段的类型都一样的时候
+targets.foreach {
+  case target @ Pokemon(_, _, hp, _, defense) =>
+    val loss = sys.min(0, myAttack - defense)
+    target.copy(hp = hp - loss)
+  case target @ Human(_, hp) =>
+    target.copy(hp = hp - myAttack)
+}
+
+// 像下面这样做就好多了:
+targets.foreach {
+  case target: Pokemon =>
+    val loss = sys.min(0, myAttack - target.defense)
+    target.copy(hp = target.hp - loss)
+  case target: Human =>
+    target.copy(hp = target.hp - myAttack)
+}
+```
+
 
 ### <a name='infix'>中缀方法</a>
 
@@ -434,6 +462,28 @@ list.map({ item => ... })
 
 
 ## <a name='lang'>Scala 语言特性</a>
+
+### <a name='case_class_immutability'>样例类与不可变性</a>
+
+样例类（case class）本质也是普通的类，编译器会自动地为它加上以下支持：
+- 构造器参数的公有 getter 方法
+- 拷贝构造函数
+- 构造器参数的模式匹配
+- 默认的 toString/hash/equals 实现
+
+对于样例类来说，构造器参数不应设为可变的，可以使用拷贝构造函数达到同样的效果。使用可变的样例类容易出错，例如，哈希表中，对象根据旧的哈希值被放在错误的位置上。
+
+```scala
+// This is OK
+case class Person(name: String, age: Int)
+
+// This is NOT OK
+case class Person(name: String, var age: Int)
+
+// 通过拷贝构造函数创建一个新的实例来改变其中的值
+val p1 = Person("Peter", 15)
+val p2 = p2.copy(age = 16)
+```
 
 
 ### <a name='apply_method'>apply 方法</a>
