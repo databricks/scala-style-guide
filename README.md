@@ -64,8 +64,8 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
     - [Varargs](#java-varargs)
     - [Implicits](#java-implicits)
     - [Companion Objects, Static Methods and Fields](#java-companion-object)
-  1. [Tests] (#tests)
-    - [Intercepting Exceptions](#tests-intercepting)
+  1. [Testing] (#testing)
+    - [Intercepting Exceptions](#testing-intercepting)
   1. [Miscellaneous](#misc)
     - [Prefer nanoTime over currentTimeMillis](#misc_currentTimeMillis_vs_nanoTime)
     - [Prefer URI over URL](#misc_uri_url)
@@ -1086,9 +1086,9 @@ There are a few things to watch out for when it comes to companion objects and s
   case object MyClass extends MyClass
   ```
 
-## <a name='tests'>Tests</a>
+## <a name='testing'>Testing</a>
 
-### <a name='tests-intercepting'>Intercepting Exceptions</a>
+### <a name='testing-intercepting'>Intercepting Exceptions</a>
 
 When testing that performing a certain action (say, calling a function with an invalid argument) throws an exception, be as specific as possible about the type of exception you expect to be thrown. You should NOT simply `intercept[Exception]` or `intercept[Throwable]` (to use the ScalaTest syntax), as this will just assert that _any_ exception is thrown. Often times, this will just catch errors you made when setting up your testing mocks and your test will silently pass without actually checking the behavior you want to verify.
 
