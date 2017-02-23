@@ -11,7 +11,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 
 ## <a name='TOC'>Table of Contents</a>
 
-  0. [Document History](#history)
+  1. [Document History](#history)
   1. [Syntactic Style](#syntactic)
     - [Naming Convention](#naming)
     - [Variable Naming Convention](#variable-naming)
@@ -28,7 +28,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
     - [Pattern Matching](#pattern-matching)
     - [Infix Methods](#infix)
     - [Anonymous Methods](#anonymous)
-  2. [Scala Language Features](#lang)
+  1. [Scala Language Features](#lang)
     - [Case Classes and Immutability](#case_class_immutability)
     - [apply Method](#apply_method)
     - [override Modifier](#override_modifier)
@@ -43,19 +43,19 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
     - [Exception Handling (Try vs try)](#exception)
     - [Options](#option)
     - [Monadic Chaining](#chaining)
-  3. [Concurrency](#concurrency)
+  1. [Concurrency](#concurrency)
     - [Scala concurrent.Map](#concurrency-scala-collection)
     - [Explicit Synchronization vs Concurrent Collections](#concurrency-sync-vs-map)
     - [Explicit Synchronization vs Atomic Variables vs @volatile](#concurrency-sync-vs-atomic)
     - [Private Fields](#concurrency-private-this)
     - [Isolation](#concurrency-isolation)
-  4. [Performance](#perf)
+  1. [Performance](#perf)
     - [Microbenchmarks](#perf-microbenchmarks)
     - [Traversal and zipWithIndex](#perf-whileloops)
     - [Option and null](#perf-option)
     - [Scala Collection Library](#perf-collection)
     - [private[this]](#perf-private)
-  5. [Java Interoperability](#java)
+  1. [Java Interoperability](#java)
     - [Java Features Missing from Scala](#java-missing-features)
     - [Traits and Abstract Classes](#java-traits)
     - [Type Aliases](#java-type-alias)
@@ -64,7 +64,9 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
     - [Varargs](#java-varargs)
     - [Implicits](#java-implicits)
     - [Companion Objects, Static Methods and Fields](#java-companion-object)
-  6. [Miscellaneous](#misc)
+  1. [Testing] (#testing)
+    - [Intercepting Exceptions](#testing-intercepting)
+  1. [Miscellaneous](#misc)
     - [Prefer nanoTime over currentTimeMillis](#misc_currentTimeMillis_vs_nanoTime)
     - [Prefer URI over URL](#misc_uri_url)
 
@@ -79,6 +81,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 - 2015-12-14:  This guide has been [translated into Korean](README-KO.md). The Korean translation is contributed by [Hyukjin Kwon](https://github.com/HyukjinKwon) and reviewed by [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) and [Woochel Choi](https://github.com/socialpercon). We do not guarantee that it will always be kept up-to-date.
 - 2016-06-15: Added [Anonymous Methods](#anonymous) section.
 - 2016-06-21: Added [Variable Naming Convention](#variable-naming) section.
+- 2017-02-23: Added [Testing](#testing) section.
 
 
 ## <a name='syntactic'>Syntactic Style</a>
@@ -1084,6 +1087,25 @@ There are a few things to watch out for when it comes to companion objects and s
   case object MyClass extends MyClass
   ```
 
+## <a name='testing'>Testing</a>
+
+### <a name='testing-intercepting'>Intercepting Exceptions</a>
+
+When testing that performing a certain action (say, calling a function with an invalid argument) throws an exception, be as specific as possible about the type of exception you expect to be thrown. You should NOT simply `intercept[Exception]` or `intercept[Throwable]` (to use the ScalaTest syntax), as this will just assert that _any_ exception is thrown. Often times, this will just catch errors you made when setting up your testing mocks and your test will silently pass without actually checking the behavior you want to verify.
+
+  ```scala
+  // This is WRONG
+  intercept[Exception] {
+    thingThatThrowsException()
+  }
+
+  // This is CORRECT
+  intercept[MySpecificTypeOfException] {
+    thingThatThrowsException()
+  }
+  ```
+
+If you cannot be more specific about the type of exception that the code will throw, that is often a sign of code smell. You should either test at a lower level or modify the underlying code to throw a more specific exception.
 
 ## <a name='misc'>Miscellaneous</a>
 
