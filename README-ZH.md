@@ -18,7 +18,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 
 ## <a name='TOC'>目录</a>
 
-  0. [文档历史](#history)
+  1. [文档历史](#history)
   1. [语法风格](#syntactic)
     - [命名约定](#naming)
     - [变量命名约定](#variable-naming)
@@ -35,7 +35,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     - [模式匹配](#pattern-matching)
     - [中缀方法](#infix)
     - [匿名方法](#anonymous)
-  2. [Scala 语言特性](#lang)
+  1. [Scala 语言特性](#lang)
     - [样例类与不可变性](#case_class_immutability)
     - [apply 方法](#apply_method)
     - [override 修饰符](#override_modifier)
@@ -50,19 +50,19 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     - [异常处理 (Try 还是 try)](#exception)
     - [Options](#option)
     - [单子链接](#chaining)
-  3. [并发](#concurrency)
+  1. [并发](#concurrency)
     - [Scala concurrent.Map](#concurrency-scala-collection)
     - [显式同步 vs 并发集合](#concurrency-sync-vs-map)
     - [显式同步 vs 原子变量 vs @volatile](#concurrency-sync-vs-atomic)
     - [私有字段](#concurrency-private-this)
     - [隔离](#concurrency-isolation)
-  4. [性能](#perf)
+  1. [性能](#perf)
     - [Microbenchmarks](#perf-microbenchmarks)
     - [Traversal 与 zipWithIndex](#perf-whileloops)
     - [Option 与 null](#perf-option)
     - [Scala 集合库](#perf-collection)
     - [private[this]](#perf-private)
-  5. [与 Java 的互操作性](#java)
+  1. [与 Java 的互操作性](#java)
     - [Scala 中缺失的 Java 特性](#java-missing-features)
     - [Traits 与抽象类](#java-traits)
     - [类型别名](#java-type-alias)
@@ -71,7 +71,9 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     - [可变参数](#java-varargs)
     - [Implicits](#java-implicits)
     - [伴生对象, 静态方法与字段](#java-companion-object)
-  6. [其它](#misc)
+  1. [测试](#testing)
+    - [异常拦截](#testing-intercepting)
+  1. [其它](#misc)
     - [优先使用 nanoTime 而非 currentTimeMillis](#misc_currentTimeMillis_vs_nanoTime)
     - [优先使用 URI 而非 URL](#misc_uri_url)
 
@@ -83,6 +85,8 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 - 2015-11-17: 该指南被翻译成[中文](README-ZH.md)，由 [Hawstein](https://github.com/Hawstein) 进行维护，中文文档并不保证总是与原文档一样处于最新版本。
 - 2015-12-14: 该指南被翻译成[韩文](README-KO.md), 韩文版本由 [Hyukjin Kwon](https://github.com/HyukjinKwon) 进行翻译并且由 [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) 和 [Woochel Choi](https://github.com/socialpercon) 进行校对。韩文版本并不保证总是与原文档一样处于最新版本。
 - 2016-06-15: 增加 [匿名方法](#anonymous) 一节。
+- 2016-06-21: 增加 [变量命名约定](#variable-naming) 一节。
+- 2017-02-23: 增加 [测试](#testing) 一节。
 
 
 ## <a name='syntactic'>语法风格</a>
@@ -1143,6 +1147,27 @@ class JavaFriendlyAPI {
   class MyClass
   case object MyClass extends MyClass
   ```
+
+## <a name='testing'>测试</a>
+
+### <a name='testing-intercepting'>异常拦截</a>
+
+当测试某个操作（比如用无效的参数调用一个函数）是否会抛出异常时，对于抛出的异常类型指定得越具体越好。你不应该简单地使用 `intercept[Exception]` 或 `intercept[Throwable]`（ScalaTest 语法），这能拦截任意异常，只能断言有异常抛出，而不能确定是什么异常。这样做在测试中能捕获到代码中的异常并且通过测试，然而却没真正检验你想验证的行为。
+
+
+  ```scala
+  // 不要使用下面这种方式
+  intercept[Exception] {
+    thingThatThrowsException()
+  }
+
+  // 这才是推荐的做法
+  intercept[MySpecificTypeOfException] {
+    thingThatThrowsException()
+  }
+  ```
+
+如果你无法指定代码会抛出的异常的具体类型，说明你这段代码可能写得不好，需要重构。这种情况下，你要么测试更底层的代码，要么改写代码令其抛出类型更加具体的异常。
 
 
 ## <a name='misc'>其它</a>
