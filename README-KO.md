@@ -10,7 +10,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 
 ## <a name='TOC'>목차</a>
 
-  0. [문서 역사](#history)
+  1. [문서 역사](#history)
   1. [구문 스타일](#syntactic)
     - [명명 규칙](#naming)
     - [변수 명명 규칙](#variable-naming)
@@ -27,7 +27,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
     - [패턴 매칭](#pattern-matching)
     - [중위 표기](#infix)
     - [익명 함수](#anonymous)
-  2. [Scala 언어의 기능](#lang)
+  1. [Scala 언어의 기능](#lang)
     - [케이스 클레스와 불변성](#case_class_immutability)
     - [apply 함수](#apply_method)
     - [override 수정자](#override_modifier)
@@ -42,19 +42,19 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
     - [예외 처리 (Try vs try)](#exception)
     - [Options](#option)
     - [모나드 채이닝](#chaining)
-  3. [동시성 제어](#concurrency)
+  1. [동시성 제어](#concurrency)
     - [Scala concurrent.Map](#concurrency-scala-collection)
     - [동기화 (synchronized) 명시 vs Java 제공 동시성 라이브러리](#concurrency-sync-vs-map)
     - [동기화 (synchronized) 명시 vs Atomic 변수 vs @volatile](#concurrency-sync-vs-atomic)
     - [Private 변수](#concurrency-private-this)
     - [동시성 로직 분리](#concurrency-isolation)
-  4. [성능](#perf)
+  1. [성능](#perf)
     - [Microbenchmarks](#perf-microbenchmarks)
     - [순회와 zipWithIndex](#perf-whileloops)
     - [Option과 null](#perf-option)
     - [Scala Collection 라이브러리](#perf-collection)
     - [private[this]](#perf-private)
-  5. [Java 호환성](#java)
+  1. [Java 호환성](#java)
     - [Scala에서 사용 할 수 없는 Java 기능](#java-missing-features)
     - [Traits와 Abstract 클래스](#java-traits)
     - [Type 별칭](#java-type-alias)
@@ -63,7 +63,9 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
     - [가변인자](#java-varargs)
     - [Implicits](#java-implicits)
     - [관련 객체, 정적 함수 및 변수](#java-companion-object)
-  6. [기타](#misc)
+  1. [테스트](#testing)
+    - [예외 가로 채기](#testing-intercepting)
+  1. [기타](#misc)
     - [currentTimeMillis 보다는 nanoTime](#misc_currentTimeMillis_vs_nanoTime)
     - [URL 보다는 URI](#misc_uri_url)
 
@@ -78,6 +80,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 - 2015-12-14: 이 가이드라인이 [한국어로 번역되었습니다](README-KO.md). 한국어 번역은 [Hyukjin Kwon](https://github.com/HyukjinKwon) 이 했으며, [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) 그리고 [Woocheol Choi](https://github.com/socialpercon) 가 검토를 했습니다. 이 문서의 최신성을 보장하지 않습니다.
 - 2016-06-15: [익명 함수](#anonymous) 섹션 추가.
 - 2016-06-21: [변수 명명 규칙](#variable-naming) 섹션 추가.
+- 2017-02-23: [테스트](#testing) 섹션 추가.
 
 
 ## <a name='syntactic'>구문 스타일</a>
@@ -1082,6 +1085,25 @@ class JavaFriendlyAPI {
   case object MyClass extends MyClass
   ```
 
+## <a name='testing'>테스트</a>
+
+### <a name='testing-intercepting'>예외 가로 채기</a>
+
+특정한 예외를 발생 시키는 행동을 테스트 할 때는 (예를 들어, 잘못된 인자를 주어 함수를 호출 하는 것), 가능한 한 예외의 타입을 구체적으로 명시 하도록 합니다. (ScalaTest를 사용하는 경우) 단순히 `intercept[Exception]` 이나 `intercept[Throwable]` 을 해서는 안됩니다. 왜냐하면, 이 것은 _모든_ 타입의 예외가 발생 했다는 것을 체크하기 때문입니다. 이 경우, 만들어진 테스트들은 오류가 발생했다는 것만 확인 하고, 실제 확인해야 하는 행동을 확인하지 않은채 조용히 통과 할 것 입니다.
+
+  ```scala
+  // 잘못된 경우
+  intercept[Exception] {
+    thingThatThrowsException()
+  }
+
+  // 올바른 경우
+  intercept[MySpecificTypeOfException] {
+    thingThatThrowsException()
+  }
+  ```
+
+만약 예외의 타입이 구체적으로 명시 될 수 없다면, 코드 스멜의 징후일 수 있습니다. 낮은 레벨의 테스트를 하거나 구체적인 타입의 예외를 발생시키도록 해당 코드를 수정 해야 합니다.
 
 ## <a name='misc'>기타</a>
 
