@@ -64,7 +64,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
     - [Varargs](#java-varargs)
     - [Implicits](#java-implicits)
     - [Companion Objects, Static Methods and Fields](#java-companion-object)
-  1. [Testing] (#testing)
+  1. [Testing](#testing)
     - [Intercepting Exceptions](#testing-intercepting)
   1. [Miscellaneous](#misc)
     - [Prefer nanoTime over currentTimeMillis](#misc_currentTimeMillis_vs_nanoTime)
@@ -127,8 +127,7 @@ We mostly follow Java's and Scala's standard naming conventions.
   val clientPort = 2000
   ```
 
-- It is OK to use one-character variable names in small, localized scope. For example, "i" is commonly used as the loop index for a small loop body (e.g. 10 lines of code). However, do NOT use "l" (as in Larry) as the identifier, because it is very difficult to differentiate "l" from "1", "|", "I".
-
+- It is OK to use one-character variable names in small, localized scope. For example, "i" is commonly used as the loop index for a small loop body (e.g. 10 lines of code). However, do NOT use "l" (as in Larry) as the identifier, because it is difficult to differentiate "l" from "1", "|", and "I".
 
 ### <a name='linelength'>Line Length</a>
 
@@ -147,6 +146,34 @@ In general:
 
 
 ### <a name='indent'>Spacing and Indentation</a>
+
+- Put one space before and after operators, including the assignment operator.
+  ```scala
+  def add(int1: Int, int2: Int): Int = int1 + int2
+  ```
+
+- Put one space after commas.
+  ```scala
+  Seq("a", "b", "c") // do this
+
+  Seq("a","b","c") // don't omit spaces after commas
+  ```
+
+- Put one space after colons.
+  ```scala
+  // do this
+  def getConf(key: String, defaultValue: String): String = {
+    // some code
+  }
+
+  // don't put spaces before colons
+  def calculateHeaderPortionInBytes(count: Int) : Int = {
+    // some code
+  }
+
+  // don't omit spaces after colons
+  def multiply(int1:Int, int2:Int): Int = int1 * int2
+  ```
 
 - Use 2-space indentation in general.
   ```scala
