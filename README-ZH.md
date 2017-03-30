@@ -137,7 +137,6 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 
 - 可以在小段的局部代码中使用单字符的变量名，比如在小段的循环体中（例如 10 行以内的代码），“i” 常常被用作循环索引。然而，即使在小段的代码中，也不要使用 “l” （Larry 中的 l）作为标识符，因为它看起来和 “1”，“|”，“I” 很像，难以区分，容易搞错。
 
-
 ### <a name='linelength'>一行长度</a>
 
 - 一行长度的上限是 100 个字符。
@@ -155,6 +154,34 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 
 
 ### <a name='indent'>空格与缩进</a>
+
+- 运算符前后保留一个空格，包括赋值运算符。
+  ```scala
+  def add(int1: Int, int2: Int): Int = int1 + int2
+  ```
+
+- 逗号后保留一个空格。
+  ```scala
+  Seq("a", "b", "c") // 使用这种方式
+
+  Seq("a","b","c") // 不要忽略逗号后的空格
+  ```
+
+- 冒号后保留一个空格。
+  ```scala
+  // 使用这种方式
+  def getConf(key: String, defaultValue: String): String = {
+    // some code
+  }
+
+  // 冒号前不需要使用空格
+  def calculateHeaderPortionInBytes(count: Int) : Int = {
+    // some code
+  }
+
+  // 不要忽略冒号后的空格
+  def multiply(int1:Int, int2:Int): Int = int1 * int2
+  ```
 
 - 一般情况下，使用两个空格的缩进。
 
