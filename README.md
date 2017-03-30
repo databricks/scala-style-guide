@@ -129,6 +129,16 @@ We mostly follow Java's and Scala's standard naming conventions.
 
 - It is OK to use one-character variable names in small, localized scope. For example, "i" is commonly used as the loop index for a small loop body (e.g. 10 lines of code). However, do NOT use "l" (as in Larry) as the identifier, because it is difficult to differentiate "l" from "1", "|", and "I".
 
+- Private variables should not be prefixed with an underscore.  Scala [already uses underscores extensively](http://stackoverflow.com/questions/8000903/what-are-all-the-uses-of-an-underscore-in-scala).
+
+```scala
+// do this
+private val testRelation = LocalRelation()
+
+// don't do this
+private val _nextExecutionId = new AtomicLong(0)
+```
+
 ### <a name='linelength'>Line Length</a>
 
 - Limit lines to 100 characters.
