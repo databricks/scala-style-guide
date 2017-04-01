@@ -18,8 +18,9 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 
 ## <a name='TOC'>目录</a>
 
-  1. [文档历史](#history)
-  1. [语法风格](#syntactic)
+1. [文档历史](#history)
+
+1. [语法风格](#syntactic)
     - [命名约定](#naming)
     - [变量命名约定](#variable-naming)
     - [一行长度](#linelength)
@@ -35,7 +36,8 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     - [模式匹配](#pattern-matching)
     - [中缀方法](#infix)
     - [匿名方法](#anonymous)
-  1. [Scala 语言特性](#lang)
+
+1. [Scala 语言特性](#lang)
     - [样例类与不可变性](#case_class_immutability)
     - [apply 方法](#apply_method)
     - [override 修饰符](#override_modifier)
@@ -50,19 +52,22 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     - [异常处理 (Try 还是 try)](#exception)
     - [Options](#option)
     - [单子链接](#chaining)
-  1. [并发](#concurrency)
+
+1. [并发](#concurrency)
     - [Scala concurrent.Map](#concurrency-scala-collection)
     - [显式同步 vs 并发集合](#concurrency-sync-vs-map)
     - [显式同步 vs 原子变量 vs @volatile](#concurrency-sync-vs-atomic)
     - [私有字段](#concurrency-private-this)
     - [隔离](#concurrency-isolation)
-  1. [性能](#perf)
+
+1. [性能](#perf)
     - [Microbenchmarks](#perf-microbenchmarks)
     - [Traversal 与 zipWithIndex](#perf-whileloops)
     - [Option 与 null](#perf-option)
     - [Scala 集合库](#perf-collection)
     - [private[this]](#perf-private)
-  1. [与 Java 的互操作性](#java)
+
+1. [与 Java 的互操作性](#java)
     - [Scala 中缺失的 Java 特性](#java-missing-features)
     - [Traits 与抽象类](#java-traits)
     - [类型别名](#java-type-alias)
@@ -71,9 +76,11 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     - [可变参数](#java-varargs)
     - [Implicits](#java-implicits)
     - [伴生对象, 静态方法与字段](#java-companion-object)
-  1. [测试](#testing)
+
+1. [测试](#testing)
     - [异常拦截](#testing-intercepting)
-  1. [其它](#misc)
+    
+1. [其它](#misc)
     - [优先使用 nanoTime 而非 currentTimeMillis](#misc_currentTimeMillis_vs_nanoTime)
     - [优先使用 URI 而非 URL](#misc_uri_url)
 
