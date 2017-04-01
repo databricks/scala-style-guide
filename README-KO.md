@@ -10,8 +10,9 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 
 ## <a name='TOC'>목차</a>
 
-  1. [문서 역사](#history)
-  1. [구문 스타일](#syntactic)
+1. [문서 역사](#history)
+
+1. [구문 스타일](#syntactic)
     - [명명 규칙](#naming)
     - [변수 명명 규칙](#variable-naming)
     - [라인 길이](#linelength)
@@ -27,7 +28,8 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
     - [패턴 매칭](#pattern-matching)
     - [중위 표기](#infix)
     - [익명 함수](#anonymous)
-  1. [Scala 언어의 기능](#lang)
+
+1. [Scala 언어의 기능](#lang)
     - [케이스 클레스와 불변성](#case_class_immutability)
     - [apply 함수](#apply_method)
     - [override 수정자](#override_modifier)
@@ -42,19 +44,22 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
     - [예외 처리 (Try vs try)](#exception)
     - [Options](#option)
     - [모나드 채이닝](#chaining)
-  1. [동시성 제어](#concurrency)
+
+1. [동시성 제어](#concurrency)
     - [Scala concurrent.Map](#concurrency-scala-collection)
     - [동기화 (synchronized) 명시 vs Java 제공 동시성 라이브러리](#concurrency-sync-vs-map)
     - [동기화 (synchronized) 명시 vs Atomic 변수 vs @volatile](#concurrency-sync-vs-atomic)
     - [Private 변수](#concurrency-private-this)
     - [동시성 로직 분리](#concurrency-isolation)
-  1. [성능](#perf)
+
+1. [성능](#perf)
     - [Microbenchmarks](#perf-microbenchmarks)
     - [순회와 zipWithIndex](#perf-whileloops)
     - [Option과 null](#perf-option)
     - [Scala Collection 라이브러리](#perf-collection)
     - [private[this]](#perf-private)
-  1. [Java 호환성](#java)
+
+1. [Java 호환성](#java)
     - [Scala에서 사용 할 수 없는 Java 기능](#java-missing-features)
     - [Traits와 Abstract 클래스](#java-traits)
     - [Type 별칭](#java-type-alias)
@@ -63,13 +68,13 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
     - [가변인자](#java-varargs)
     - [Implicits](#java-implicits)
     - [관련 객체, 정적 함수 및 변수](#java-companion-object)
-  1. [테스트](#testing)
+
+1. [테스트](#testing)
     - [예외 가로 채기](#testing-intercepting)
-  1. [기타](#misc)
+
+1. [기타](#misc)
     - [currentTimeMillis 보다는 nanoTime](#misc_currentTimeMillis_vs_nanoTime)
     - [URL 보다는 URI](#misc_uri_url)
-
-
 
 ## <a name='history'>문서 역사</a>
 - 2015-03-16: 초기 버전.
