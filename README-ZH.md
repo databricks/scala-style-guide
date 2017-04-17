@@ -83,6 +83,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 1. [其它](#misc)
     - [优先使用 nanoTime 而非 currentTimeMillis](#misc_currentTimeMillis_vs_nanoTime)
     - [优先使用 URI 而非 URL](#misc_uri_url)
+    - [优先使用现存的经过良好测试的方法而非重新发明轮子](#misc_well_tested_method)
 
 ## <a name='history'>文档历史</a>
 - 2015-03-16: 最初版本。
@@ -1224,3 +1225,29 @@ class JavaFriendlyAPI {
 当存储服务的 URL 时，你应当使用 `URI` 来表示。
 
 `URL` 的[相等性检查](http://docs.oracle.com/javase/7/docs/api/java/net/URL.html#equals(java.lang.Object))实际上执行了一次网络调用（这是阻塞的）来解析 IP 地址。`URI` 类在表示能力上是 `URL` 的超集，并且它执行的是字段的相等性检查。
+
+### <a name='misc_well_tested_method'>优先使用现存的经过良好测试的方法而非重新发明轮子</a>
+
+当存在一个已经经过良好测试的方法，并且不会存在性能问题，那么优先使用这个方法。重新实现它可能会引入Bug，同时也需要花费时间来进行测试（也可能我们甚至忘记去测试这个方法！）。
+
+  ```scala
+  val beginNs = System.nanoTime()
+  // Do something
+  Thread.sleep(1000)
+  val elaspedNs = System.nanoTime() - beginNs
+
+  // 不要使用下面这种方式。这种方法容易出错
+  val elaspedMs = elaspedNs / 1000 / 1000
+
+  // 推荐方法：使用Java TimeUnit API
+  import java.util.concurrent.TimeUnit
+  val elaspedMs2 = TimeUnit.NANOSECONDS.toMillis(elaspedNs)
+
+  // 推荐方法：使用Scala Duration API
+  import scala.concurrent.duration._
+  val elaspedMs3 = elaspedNs.nanos.toMillis
+  ```
+
+例外：
+- 使用现存的方法需要引入新的依赖。如果一个方法特别简单，比起引入一个新依赖，重新实现它通常更好。但是记得进行测试。
+- 现存的方法没有针对我们的用法进行优化，性能达不到要求。但是首先做一下benchmark, 避免过早优化。
