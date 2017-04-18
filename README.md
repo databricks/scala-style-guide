@@ -76,6 +76,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 1. [Miscellaneous](#misc)
     * [Prefer nanoTime over currentTimeMillis](#misc_currentTimeMillis_vs_nanoTime)
     * [Prefer URI over URL](#misc_uri_url)
+    * [Prefer existing well-tested methods over reinventing the wheel](#misc_well_tested_method)
 
 
 
@@ -1161,4 +1162,28 @@ When storing the URL of a service, you should use the `URI` representation.
 
 The [equality check](http://docs.oracle.com/javase/7/docs/api/java/net/URL.html#equals(java.lang.Object)) of `URL` actually performs a (blocking) network call to resolve the IP address. The `URI` class performs field equality and is a superset of `URL` as to what it can represent.
 
+### <a name='misc_well_tested_method'>Prefer existing well-tested methods over reinventing the wheel</a>
 
+When there is an existing well-tesed method and it doesn't cause any performance issue, prefer to use it. Reimplementing such method may introduce bugs and requires spending time testing it (maybe we don't even remember to test it!).
+
+  ```scala
+  val beginNs = System.nanoTime()
+  // Do something
+  Thread.sleep(1000)
+  val elaspedNs = System.nanoTime() - beginNs
+
+  // This is WRONG. It uses magic numbers and is pretty easy to make mistakes
+  val elaspedMs = elaspedNs / 1000 / 1000
+
+  // Use the Java TimeUnit API. This is CORRECT
+  import java.util.concurrent.TimeUnit
+  val elaspedMs2 = TimeUnit.NANOSECONDS.toMillis(elaspedNs)
+
+  // Use the Scala Duration API. This is CORRECT
+  import scala.concurrent.duration._
+  val elaspedMs3 = elaspedNs.nanos.toMillis
+  ```
+
+Exceptions:
+- Using an existing well-tesed method requires adding a new dependency. If such method is pretty simple, reimplementing it is better than adding a dependency. But remember to test it.
+- The existing method is not optmized for our usage and is too slow. But benchmark it first, avoid premature optimization.
