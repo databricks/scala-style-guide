@@ -89,8 +89,9 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 - 2015-12-14:  This guide has been [translated into Korean](README-KO.md). The Korean translation is contributed by [Hyukjin Kwon](https://github.com/HyukjinKwon) and reviewed by [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) and [Woochel Choi](https://github.com/socialpercon). We do not guarantee that it will always be kept up-to-date.
 - 2016-06-15: Added [Anonymous Methods](#anonymous) section.
 - 2016-06-21: Added [Variable Naming Convention](#variable-naming) section.
+- 2016-12-24: Added [Case Classes and Immutability](#case_class_immutability) section.
 - 2017-02-23: Added [Testing](#testing) section.
-
+- 2017-04-18: Added [Prefer existing well-tested methods over reinventing the wheel](#misc_well_tested_method) section.
 
 ## <a name='syntactic'>Syntactic Style</a>
 
@@ -1186,4 +1187,4 @@ When there is an existing well-tesed method and it doesn't cause any performance
 
 Exceptions:
 - Using an existing well-tesed method requires adding a new dependency. If such method is pretty simple, reimplementing it is better than adding a dependency. But remember to test it.
-- The existing method is not optmized for our usage and is too slow. But benchmark it first, avoid premature optimization.
+- The existing method is not optimized for our usage and is too slow. But benchmark it first, avoid premature optimization.
