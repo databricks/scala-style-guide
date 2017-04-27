@@ -30,7 +30,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
     - [익명 함수](#anonymous)
 
 1. [Scala 언어의 기능](#lang)
-    - [케이스 클레스와 불변성](#case_class_immutability)
+    - [케이스 클래스와 불변성](#case_class_immutability)
     - [apply 함수](#apply_method)
     - [override 수정자](#override_modifier)
     - [튜플 추출](#destruct_bind)
@@ -75,6 +75,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 1. [기타](#misc)
     - [currentTimeMillis 보다는 nanoTime](#misc_currentTimeMillis_vs_nanoTime)
     - [URL 보다는 URI](#misc_uri_url)
+    - [이미 존재 하는 함수를 다시 개발하는 것 보다는 기존의 잘 테스트 된 함수 사용](#misc_well_tested_method)
 
 ## <a name='history'>문서 역사</a>
 - 2015-03-16: 초기 버전.
@@ -85,8 +86,9 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 - 2015-12-14: 이 가이드라인이 [한국어로 번역되었습니다](README-KO.md). 한국어 번역은 [Hyukjin Kwon](https://github.com/HyukjinKwon) 이 했으며, [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) 그리고 [Woocheol Choi](https://github.com/socialpercon) 가 검토를 했습니다. 이 문서의 최신성을 보장하지 않습니다.
 - 2016-06-15: [익명 함수](#anonymous) 섹션 추가.
 - 2016-06-21: [변수 명명 규칙](#variable-naming) 섹션 추가.
+- 2016-12-24: [케이스 클래스와 불변성](#case_class_immutability) 색션 추가.
 - 2017-02-23: [테스트](#testing) 섹션 추가.
-
+- 2017-04-18: [이미 존재 하는 함수를 다시 개발하는 것 보다는 기존의 잘 테스트 된 함수 사용](#misc_well_tested_method) 색션 추가.
 
 ## <a name='syntactic'>구문 스타일</a>
 
@@ -166,7 +168,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 
 - 콜론 뒤에는 1칸 공백을 두도록 합니다.
   ```scala
-  // 아래와 같이 하도록 합니다.
+  // 아래 예와 같이 하도록 합니다.
   def getConf(key: String, defaultValue: String): String = {
     // 코드
   }
@@ -411,7 +413,7 @@ class DataFrame {
   case class Pokemon(name: String, weight: Int, hp: Int, attack: Int, defense: Int)
   case class Human(name: String, hp: Int)
 
-  // 아래와 같이 하지 않습니다. 왜냐하면,
+  // 아래 예와 같이 하지 않습니다. 왜냐하면,
   // 1. 새로운 필드가 Pokemon에 추가가 될 때, 우리는 이 패턴 매칭 또한 바꿔야 합니다.
   // 2. 특히, 같은 데이터 타입의 인자를 여러게 갖는 경우, 인자를 잘못 매칭 하기 쉬워집니다.
   targets.foreach {
@@ -478,14 +480,14 @@ list.map({ item => ... })
 
 ## <a name='lang'>Scala 언어의 기능</a>
 
-### <a name='case_class_immutability'>케이스 클레스와 불변성</a>
+### <a name='case_class_immutability'>케이스 클래스와 불변성</a>
 
-케이스 클레스는 일반 클레스 입니다만, 컴파일러가 자동으로 아래와 같은 항목들을 지원합니다.
+케이스 클래스는 일반 클래스 입니다만, 컴파일러가 자동으로 아래와 같은 항목들을 지원합니다.
 - 생성자의 파라메터들을 위한 퍼블릭 getter들
 - 복제 생성자
 - 자동 toString/hash/equals 구현
 
-케이스 클레스를 위한 생성자 파라메터들은 가변성을 갖지 않아야 합니다. 대신, 복제 생성자를 사용합니다. 이러한 가변 파라메터를 갖는 클레스들은 오류의 발생을 쉽게 만듭니다. 예를 들어, 해쉬맵은 변경 되기 전의 해쉬코드를 갖고 있는 잘못된 버킷에 객체를 놓을 수도 있습니다.
+케이스 클래스를 위한 생성자 파라메터들은 가변성을 갖지 않아야 합니다. 대신, 복제 생성자를 사용합니다. 이러한 가변 파라메터를 갖는 클래스들은 오류의 발생을 쉽게 만듭니다. 예를 들어, 해쉬맵은 변경 되기 전의 해쉬코드를 갖고 있는 잘못된 버킷에 객체를 놓을 수도 있습니다.
 
 ```scala
 // This is OK
@@ -1156,4 +1158,29 @@ class JavaFriendlyAPI {
 
 `URL`의 [동일성 검사](http://docs.oracle.com/javase/7/docs/api/java/net/URL.html#equals(java.lang.Object)) 는 사실 IP 주소를 알아내기 위해 (블로킹) 네트워크 호출을 합니다.  `URI` 클래스는 필드의 동일성을 확인하고 `URL`의 상위 집합 입니다.
 
+### <a name='misc_well_tested_method'>이미 존재 하는 함수를 다시 개발하는 것 보다는 기존의 잘 테스트 된 함수 사용</a>
 
+이미 존재하며 잘 테스트 되어있는 함수가 있고 이 함수가 어떤 성능 문제도 갖고 있지 않을 때에는, 이를 사용 하도록 합니다. 이러한 함수를 다시 구현하면 버그가 발생할 수 있으며, 이를 테스트하는데 시간이 필요합니다 (어쩌면 이 함수를 테스트 해야 한다는 것을 잊어버릴 수도 있습니다!).
+
+
+  ```scala
+  val beginNs = System.nanoTime()
+  // 시간 측정을 위한 일을 합니다.
+  Thread.sleep(1000)
+  val elaspedNs = System.nanoTime() - beginNs
+
+  // 아래 예와 같이 하지 않습니다. 아래는 매직 넘버를 사용하고 있어서 쉽게 실수 할 수 있습니다.
+  val elaspedMs = elaspedNs / 1000 / 1000
+
+  // 아래 예와 같이 Java의 TimeUnit API 를 사용합니다.
+  import java.util.concurrent.TimeUnit
+  val elaspedMs2 = TimeUnit.NANOSECONDS.toMillis(elaspedNs)
+
+  // 아래 예와 같이 Scala의 Duration API를 사용합니다.
+  import scala.concurrent.duration._
+  val elaspedMs3 = elaspedNs.nanos.toMillis
+  ```
+
+예외 경우:
+- 이미 잘 테스트 되어있는 함수를 사용하기위해 새로운 종속성(dependency)을 추가해야 하는 경우, 만약 이러한 함수가 간단한 편이라면, 다시 구현하는 것이 새로운 종속성을 추가하는 것 보다 낫습니다. 하지만, 테스트를 해야 된다는 것을 잊지 말아야 합니다.
+- 기존의 함수가 사용 용도에 최적화 되어 있지 않고 느린 경우. 이러한 경우에는 벤치마킹을 먼저 하고, 너무 이른 최적화는 피하도록 합니다.

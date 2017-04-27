@@ -94,8 +94,9 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 - 2015-12-14: 该指南被翻译成[韩文](README-KO.md), 韩文版本由 [Hyukjin Kwon](https://github.com/HyukjinKwon) 进行翻译并且由 [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) 和 [Woochel Choi](https://github.com/socialpercon) 进行校对。韩文版本并不保证总是与原文档一样处于最新版本。
 - 2016-06-15: 增加 [匿名方法](#anonymous) 一节。
 - 2016-06-21: 增加 [变量命名约定](#variable-naming) 一节。
+- 2016-12-24: 增加 [样例类与不可变性](#case_class_immutability) 一节。
 - 2017-02-23: 增加 [测试](#testing) 一节。
-
+- 2017-04-18: 增加 [优先使用现存的经过良好测试的方法而非重新发明轮子](#misc_well_tested_method) 一节。
 
 ## <a name='syntactic'>语法风格</a>
 
