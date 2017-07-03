@@ -8,7 +8,7 @@ The Chinese version of the [Databricks Scala Guide](https://github.com/databrick
 
 ## 前言
 
-Spark 有超过 1000 位贡献者，就我们所知，应该是目前大数据领域里最大的开源项目且是最活跃的 Scala 项目。这份指南是在我们指导，或是与 Spark 贡献者及 [Databricks](http://databricks.com/) 工程团队一起工作时总结出来的。
+Spark 有超过 1100 位贡献者，就我们所知，应该是目前大数据领域里最大的开源项目且是最活跃的 Scala 项目。这份指南是在我们指导，或是与 Spark 贡献者及 [Databricks](http://databricks.com/) 工程团队一起工作时总结出来的。
 
 代码由作者 __一次编写__ ，然后由大量工程师 __多次阅读并修改__ 。事实上，大部分的 bug 来源于后人对代码的修改，因此我们需要长期去优化我们的代码，提升代码的可读性和可维护性。达到这个目标最好的方式就是编写简单易懂的代码。
 
