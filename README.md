@@ -1171,18 +1171,18 @@ When there is an existing well-tesed method and it doesn't cause any performance
   val beginNs = System.nanoTime()
   // Do something
   Thread.sleep(1000)
-  val elaspedNs = System.nanoTime() - beginNs
+  val elapsedNs = System.nanoTime() - beginNs
 
   // This is WRONG. It uses magic numbers and is pretty easy to make mistakes
-  val elaspedMs = elaspedNs / 1000 / 1000
+  val elapsedMs = elaspedNs / 1000 / 1000
 
   // Use the Java TimeUnit API. This is CORRECT
   import java.util.concurrent.TimeUnit
-  val elaspedMs2 = TimeUnit.NANOSECONDS.toMillis(elaspedNs)
+  val elapsedMs2 = TimeUnit.NANOSECONDS.toMillis(elaspedNs)
 
   // Use the Scala Duration API. This is CORRECT
   import scala.concurrent.duration._
-  val elaspedMs3 = elaspedNs.nanos.toMillis
+  val elapsedMs3 = elaspedNs.nanos.toMillis
   ```
 
 Exceptions:
