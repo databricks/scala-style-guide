@@ -1167,18 +1167,18 @@ class JavaFriendlyAPI {
   val beginNs = System.nanoTime()
   // 시간 측정을 위한 일을 합니다.
   Thread.sleep(1000)
-  val elaspedNs = System.nanoTime() - beginNs
+  val elapsedNs = System.nanoTime() - beginNs
 
   // 아래 예와 같이 하지 않습니다. 아래는 매직 넘버를 사용하고 있어서 쉽게 실수 할 수 있습니다.
-  val elaspedMs = elaspedNs / 1000 / 1000
+  val elapsedMs = elaspedNs / 1000 / 1000
 
   // 아래 예와 같이 Java의 TimeUnit API 를 사용합니다.
   import java.util.concurrent.TimeUnit
-  val elaspedMs2 = TimeUnit.NANOSECONDS.toMillis(elaspedNs)
+  val elapsedMs2 = TimeUnit.NANOSECONDS.toMillis(elaspedNs)
 
   // 아래 예와 같이 Scala의 Duration API를 사용합니다.
   import scala.concurrent.duration._
-  val elaspedMs3 = elaspedNs.nanos.toMillis
+  val elapsedMs3 = elaspedNs.nanos.toMillis
   ```
 
 예외 경우:
