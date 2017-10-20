@@ -1238,15 +1238,15 @@ class JavaFriendlyAPI {
   val elapsedNs = System.nanoTime() - beginNs
 
   // 不要使用下面这种方式。这种方法容易出错
-  val elapsedMs = elaspedNs / 1000 / 1000
+  val elapsedMs = elapsedNs / 1000 / 1000
 
   // 推荐方法：使用Java TimeUnit API
   import java.util.concurrent.TimeUnit
-  val elapsedMs2 = TimeUnit.NANOSECONDS.toMillis(elaspedNs)
+  val elapsedMs2 = TimeUnit.NANOSECONDS.toMillis(elapsedNs)
 
   // 推荐方法：使用Scala Duration API
   import scala.concurrent.duration._
-  val elapsedMs3 = elaspedNs.nanos.toMillis
+  val elapsedMs3 = elapsedNs.nanos.toMillis
   ```
 
 例外：
