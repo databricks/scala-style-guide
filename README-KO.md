@@ -148,25 +148,25 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 
 일반적으로:
 
-- 함수는 30줄 이상의 라인을 초과하지 않아야 합니다.
-- 하나의 클래스당 30개 이상의 함수를 갖지 않도록 합니다.
+- 메소드는 30줄 이상의 라인을 초과하지 않아야 합니다.
+- 하나의 클래스당 30개 이상의 메소드를 갖지 않도록 합니다.
 
 
 ### <a name='indent'>공백 및 들여쓰기</a>
 
-- 연산자 및 할당 연산자 앞 뒤에는 1칸 공백을 두도록 합니다.
+- 연산자 및 할당 연산자 앞 뒤에는 1칸 스페이스를 두도록 합니다.
   ```scala
   def add(int1: Int, int2: Int): Int = int1 + int2
   ```
 
-- 콤마 뒤에는 1칸 공백을 두도록 합니다.
+- 콤마 뒤에는 1칸 스페이스를 두도록 합니다.
   ```scala
   Seq("a", "b", "c") // 이와 같이 하도록 합니다.
 
-  Seq("a","b","c") // 콤마 뒤에는 공백을 생략히지 않습니다.
+  Seq("a","b","c") // 콤마 뒤에는 공백을 생략하지 않습니다.
   ```
 
-- 콜론 뒤에는 1칸 공백을 두도록 합니다.
+- 콜론 뒤에는 1칸 스페이스를 두도록 합니다.
   ```scala
   // 아래 예와 같이 하도록 합니다.
   def getConf(key: String, defaultValue: String): String = {
@@ -182,14 +182,14 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
   def multiply(int1:Int, int2:Int): Int = int1 * int2
   ```
 
-- 2칸 공백 들여쓰기를 합니다.
+- 기본적으로 2칸 스페이스 들여쓰기를 합니다.
   ```scala
   if (true) {
     println("Wow!")
   }
   ```
 
-- 함수 선언에서 파라메터가 한 줄에 맞지 않아 들여쓰기를 하는 경우, 4칸 공백을 합니다. 반환 타입은 다음 줄에 배치되거나 같은 라인에 배치될 수 있습니다. 다음 라인에 쓰는 경우, 2칸 들여쓰기를 합니다.
+- 메소드 선언에서 파라메터가 한 줄에 맞지 않아 들여쓰기를 하는 경우, 4칸 스페이스를 사용합니다. 반환 타입은 다음 줄에 배치되거나 같은 라인에 배치될 수 있습니다. 다음 라인에 쓰는 경우, 2칸 스페이스 들여쓰기를 합니다.
   ```scala
   def newAPIHadoopFile[K, V, F <: NewInputFormat[K, V]](
       path: String,
@@ -211,7 +211,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
   }
   ```
 
-- Class의 해더가 한 줄에 맞지 않을 때는 2칸 공백 들여쓰기를 합니다. 그리고 그 해더 뒤에 한 개의 빈 줄을 입력 합니다.
+- Class의 해더가 한 줄에 맞지 않을 때는 2칸 스페이스 들여쓰기를 합니다. 그리고 그 해더 뒤에 한 개의 빈 줄을 입력 합니다.
   ```scala
   class Foo(
       val param1: String,  // 4 space indent for parameters
@@ -241,9 +241,9 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 ### <a name='blanklines'>빈 줄</a>
 
 - 빈 줄은 아래의 경우에 사용합니다:
-    - 연속되는 변수, 생성자, 함수 또는 내부 클래스들 사이 빈 줄이 삽입 될 수 있습니다.
+    - 연속되는 변수, 생성자, 메소드 또는 내부 클래스들 사이 빈 줄이 삽입 될 수 있습니다.
       - 예외: 연속되는 변수 선언 사이 아무런 코드도 없다면 빈 줄은 옵션입니다. 이런 빈 줄들은 논리적인 그룹을 만들 때 사용 될 수 있습니다.
-  - 함수 안에서 빈 줄을 삽입하여 논리적인 그룹을 만들 수 있습니다.
+  - 메소드 안에서 빈 줄을 삽입하여 논리적인 그룹을 만들 수 있습니다.
   - 첫 번째 맴버 앞이나 마지막 맴버 뒤에 빈 줄이 있을 수 있습니다.
 - 한개 또는 두개의 빈 줄을 사용하여 Class 선언들을 분리합니다.
 - 과도한 수의 빈 줄은 권장하지 않습니다.
@@ -251,7 +251,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 
 ### <a name='parentheses'>괄호</a>
 
-- I/O 접근이나 상태 변형에 대한 접근을 갖고 있거나 side-effect를 줄 수 있는 함수는 괄호와 함께 선언되어야 합니다.
+- I/O 접근이나 상태 변형에 대한 접근을 갖고 있거나 side-effect를 줄 수 있는 메소드는 괄호와 함께 선언되어야 합니다.
   ```scala
   class Job {
     // Wrong: killJob changes state. Should have ().
@@ -262,7 +262,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
   }
   ```
 
-- 함수 호출자는 반드시 함수의 정의를 따라야 합니다. 예를 들어, 함수가 괄호 없이 선언되었다면 괄호 없이 호출되어야 합니다. 이 것은 단지 문법적인 문제일 뿐만 아니라 `apply`를 호출 할 때에도 문제가 될 수 있습니다.
+- 메소드 호출자는 반드시 메소드의 정의를 따라야 합니다. 예를 들어, 메소드가 괄호 없이 선언되었다면 괄호 없이 호출되어야 합니다. 이 것은 단지 문법적인 문제일 뿐만 아니라 `apply`를 호출 할 때에도 문제가 될 수 있습니다.
  
   ```scala
   class Foo {
@@ -340,7 +340,7 @@ Scala 주석 스타일 대신 Java 주석 스타일을 따릅니다.
 
 ### <a name='ordering_class'>클래스 내의 순서</a>
 
-만약 Class의 정의가 길고 많은 함수들을 포함하고 있다면, 논리적으로 분할 하고, 아래와 같은 주석 헤더를 이용하여 구분 합니다.
+만약 Class의 정의가 길고 많은 메소드들을 포함하고 있다면, 논리적으로 분할 하고, 아래와 같은 주석 헤더를 이용하여 구분 합니다.
 ```scala
 class DataFrame {
 
@@ -360,9 +360,9 @@ class DataFrame {
 
 물론, 이 예와 같은 Class의 길이는 권장하지 않습니다. 일반적으로 내부 구현이 아닌 공개되어있는 API를 만들 때 위와 같은 형식 사용 됩니다.
 
-### <a name='imports'>Imports</a>
+### <a name='imports'>Import구문</a>
 
-- __와일드 카드를 이용한 import는 피하도록 합니다__. 단, 6개 이상 같은 페키지에서 import하는 경우 혹은 implicit 함수들을 import하는 경우는 허용 됩니다. 와일드카드 import는 외부(import 된 페키지)의 변화에 약할 수 있습니다.
+- __와일드 카드를 이용한 import는 피하도록 합니다__. 단, 6개 이상 같은 페키지에서 import하는 경우 혹은 implicit 메소드들을 import하는 경우는 허용 됩니다. 와일드카드 import는 외부(import 된 페키지)의 변화에 약할 수 있습니다.
 - import를 할 때는 상대 경로가 아닌 절대 경로를 사용합니다. 예를 들어 상대경로 `util.Random` 가 아닌`scala.util.Random` 을 사용합니다.
 - 또한, import는 아래와 같은 순서로 정렬해야 합니다:
   * `java.*` 와 `javax.*`
@@ -387,14 +387,14 @@ class DataFrame {
 
 ### <a name='pattern-matching'>패턴 매칭</a>
 
-- 함수 전체가 패턴 매칭을 하는 함수라면 `match` 를 함수의 정의로써 같은 줄에 놓습니다. 이와 같이 들여쓰기의 레벨을 한단계 줄이도록 합니다.
+- 메소드 전체가 패턴 매칭을 하는 경우 라면 `match`문을 메소드 선언하는 곳과 동일한 라인에 놓습니다. 이와 같이하여 들여쓰기 레벨을 한단계 줄이도록 합니다.
   ```scala
   def test(msg: Message): Unit = msg match {
     case ...
   }
   ```
 
-- 함수를 호출 할 때, 아래와 같은 중괄호 안에 (혹은 partial function 안에) 한 개의 `case` 만 있다면, 같은 줄에 넣어 함수 호출을 합니다.
+- 클로저(또는 부분 함수)가 있는 함수를 호출 할 때, 한 개의 `case` 문만 있다면, 같은 라인에 넣어 함수 호출을 합니다.
   ```scala
   list.zipWithIndex.map { case (elem, i) =>
     // ...
@@ -451,9 +451,9 @@ string contains "foo"
 arrayBuffer += elem
 ```
 
-### <a name='anonymous'>익명 함수</a>
+### <a name='anonymous'>익명 메소드</a>
 
-익명 함수를 위한 __여분의 소괄호 및 중괄호를 피합니다__.
+익명 메소드에서는 __여분의 소괄호 및 중괄호 사용을 피합니다__.
 ```scala
 // Correct
 list.map { item =>
@@ -502,11 +502,11 @@ val p2 = p2.copy(age = 16)
 ```
 
 
-### <a name='apply_method'>apply 함수</a>
+### <a name='apply_method'>apply 메소드</a>
 
-Class 안에서의 apply 함수는 코드의 가독성을 저하 시킵니다. 특히, Scala에 익숙하지 않은 사람들에게는 더욱 생소 할수 있습니다. 또한 IDE가 호출을 따라가기 어렵게 만듭니다. 최악의 경우, [괄호](#parentheses) 항목의 예제에서 보이듯이 예상치 못 한 방향으로 코드의 정확성에 영향을 미칠 수 있습니다.
+Class 안에서의 apply 메소드는 코드의 가독성을 저하 시킵니다. 특히, Scala에 익숙하지 않은 사람들에게는 더욱 생소 할수 있습니다. 또한 IDE가 호출을 따라가기 어렵게 만듭니다. 최악의 경우, [괄호](#parentheses) 항목의 예제에서 보이듯이 예상치 못 한 방향으로 코드의 정확성에 영향을 미칠 수 있습니다.
 
-같은 이름을 갖는 객체에 펙토리 패턴으로써 apply 함수를 정의하는 것은 괜찮습니다. 이런 경우, apply 함수는 같은 이름의 class타입의 객체를 리턴해야 합니다.
+같은 이름을 갖는 객체에 펙토리 패턴으로써 apply 메소드를 정의하는 것은 괜찮습니다. 이런 경우, apply 메소드는 같은 이름의 class타입의 객체를 리턴해야 합니다.
 ```scala
 object TreeNode {
   // This is OK
@@ -519,7 +519,7 @@ object TreeNode {
 
 
 ### <a name='override_modifier'>override 수정자</a>
-항상 함수를 위한 override 수정자는 추상 함수를 오버라이드하는 경우이건 실제 함수를 오버라이드 하는 경우이건 항상 붙여줘야 합니다. Scala 컴파일러는 `override` 추상 함수들에 있어서는 수정자를 요구하지는 않습니다. 하지만 우리는 함수를 위한 override 수정자는 추상 함수를 오버라이드 하든 실제 함수를 오버라이드 하든 항상 붙여줘야 합니다.
+항상 메소드를 위한 override 수정자는 추상 메소드를 오버라이드하는 경우이건 실제 메소드를 오버라이드 하는 경우이건 항상 붙여줘야 합니다. Scala 컴파일러는 `override` 추상 메소드들에 있어서는 수정자를 요구하지는 않습니다. 하지만 우리는 메소드를 위한 override 수정자는 추상 메소드를 오버라이드 하든 실제 메소드를 오버라이드 하든 항상 붙여줘야 합니다.
 
 ```scala
 trait Parent {
@@ -544,12 +544,12 @@ class Child extends Parent {
 
 ### <a name='destruct_bind'>튜플 추출</a>
 
-튜플 추출은 (바인딩 제거) 두 개의 변수를 하나의 표현식에서 선언 및 대입 할 수 있는 편한 방법입니다.
+튜플 추출은 (바인딩 제거) 하나의 표현식에 두 개의 변수를 할당 할 수 있는 편리한 방법입니다.
 ```scala
 val (a, b) = (1, 2)
 ```
 
-그러나 생성자에서 이를 사용하지 말아야 합니다 (특히 `a` 와 `b` 가 `transient`의 어노테이션으로 표기되어 있는 경우). Scala 컴파일러는 여분의 Tuple2 필드를 하나 생성하게 되는데 이는 `transient`가 아래 예제에서 적용되지 않습니다.   
+그러나 생성자에서 이를 사용하지 말아야 합니다 (특히 `a` 와 `b` 가 `transient`의 어노테이션으로 표기되어 있는 경우). Scala 컴파일러는 아래 예제에서 처럼 `transient`가 적용되지 않는 여분의 Tuple2 필드 하나를 생성합니다.
 ```scala
 class MyClass {
   // This will NOT work because the compiler generates a non-transient Tuple2
@@ -563,7 +563,7 @@ class MyClass {
 
 __Call by name 은 피하도록 합니다__. `() => T`을 명시적으로 사용합니다.
 
-배경: Scala는 함수의 인자가 by-name으로 정의되는 것을 허용합니다. 예를 들어 아래와 같은 코드는 정상적으로 작동 합니다.
+배경: Scala는 메소드의 인자가 by-name으로 정의되는 것을 허용합니다. 예를 들어 아래와 같은 코드는 정상적으로 작동 합니다.
 ```scala
 def print(value: => Int): Unit = {
   println(value)
@@ -579,7 +579,7 @@ def inc(): Int = {
 print(inc())
 ```
 
-위의 예제에서는 `inc()`가 `print`에게 값 `1`이 아닌 함수 (closure) 로써 전달됩니다. 그리고 `print`에서 두 번 실행이 됩니다. 여기서 문제점은 호출하는 쪽에서는 call-by-name과 call-by-value를 구분 할 수 없다는 것 입니다. 따라서, 이 표현이 print가 호출 되기 전에 실행되었는지 아닌지(혹은 여러번 실행이 될 것이라는 것 까지도)를 확신 할 수 없게 됩니다. 이 것은 근본적으로 위험하고 side-effect가 있을 수 있게 됩니다.
+위의 예제에서는 `inc()`가 `print`에게 값 `1`이 아닌 메소드 (closure) 로써 전달됩니다. 그리고 `print`에서 두 번 실행이 됩니다. 여기서 문제점은 호출하는 쪽에서는 call-by-name과 call-by-value를 구분 할 수 없다는 것 입니다. 따라서, 이 표현이 print가 호출 되기 전에 실행되었는지 아닌지(혹은 여러번 실행이 될 것이라는 것 까지도)를 확신 할 수 없게 됩니다. 이 것은 근본적으로 위험하고 side-effect가 있을 수 있게 됩니다.
 
 
 ### <a name='multi-param-list'>다중 매개 변수 표기</a>
@@ -594,9 +594,9 @@ case class Person(name: String, age: Int)(secret: String)
 하나의 주의할 예외로는 implicit에서 낮은 레벨의 라이브러리를 정의 할 때 (리스트로 묶은) 사용 되는 두번째 인자 입니다. 하지만 되도록이면 [implicit은 피해야 합니다](#implicits).
 
 
-### <a name='symbolic_methods'>특수 문자 함수 (오퍼레이터 오버라이딩)</a>
+### <a name='symbolic_methods'>특수문자 메소드 (연산자 오버라이딩)</a>
 
-__특수 문자(오퍼레이터) 를 함수 이름으로 사용하지 않아야 합니다__. 단, 사칙연산에 있어서, 기호에 알맞게 작용 하는 경우는 허용합니다. (예를 들어 `+`, `-`, `*`, `/`). 그 외에는 어떤 환경에서도 이렇게 사용 되어선 안됩니다. 이런 함수들이 사용 되는 경우에는 가독성이 매우 떨어지고 함수들을 이해하기 힘들게 됩니다. 아래의 두 가지 예제를 참고하시기 바랍니다:
+__특수문자(연산자) 를 메소드 이름으로 사용하지 않아야 합니다__. 단, 사칙연산에 있어서, 기호에 알맞게 작용 하는 경우는 허용합니다. (예를 들어 `+`, `-`, `*`, `/`). 그 외에는 어떤 환경에서도 이렇게 사용 되어선 안됩니다. 이런 메소드들이 사용 되는 경우에는 가독성이 매우 떨어지고 메소드들을 이해하기 힘들게 됩니다. 아래의 두 가지 예제를 참고하시기 바랍니다:
 ```scala
 // symbolic method names are hard to understand
 channel ! msg
@@ -610,15 +610,15 @@ stream1.join(stream2)
 
 ### <a name='type_inference'>타입 추론</a>
 
-Scala의 타입 추론 (특히 left-side 타입 추론) 과 함수 (closure) 추론은 코드를 더 간결하게 만들 수 있습니다. 아래와 같은 몇 가지 경우는 명시적인 타입이 주어져야 합니다: 
+Scala의 타입 추론 (특히 left-side 타입 추론) 과 클로저(closure) 추론은 코드를 더 간결하게 만들 수 있습니다. 아래와 같은 몇 가지 경우는 명시적인 타입이 주어져야 합니다: 
 
-- __Public 함수는 명시적으로 타입이 주어져야 합니다__. 그렇지 않다면 컴파일러가 잘못된 타입을 추론 할 수 있습니다.
-- __Implicit 함수들은 명시적으로 타입이 주어져야 합니다__. 그렇지 않다면 Scala 컴파일러는 증분 컴파일에서 실패 할 수 있습니다.
-- __변수 혹은 타입이 생략된 함수(closure)는 명시적으로 타입이 주어져야합니다__. 좋은 리트머스 테스트는 명시적인 타입들이 사용되어야 합니다. 리뷰어들이 3초 내에 타입을 확인 할 수 없는 경우는 권장되지 않습니다.
+- __Public 메소드는 명시적으로 타입이 주어져야 합니다__. 그렇지 않다면 컴파일러가 잘못된 타입을 추론 할 수 있습니다.
+- __Implicit 메소드들은 명시적으로 타입이 주어져야 합니다__. 그렇지 않다면 Scala 컴파일러는 증분 컴파일에서 실패 할 수 있습니다.
+- __변수 혹은 타입이 생략된 클로저(closure)는 명시적으로 타입이 주어져야합니다__. 좋은 리트머스 테스트는 명시적인 타입들이 사용되어야 합니다. 리뷰어들이 3초 내에 타입을 확인 할 수 없는 경우는 권장되지 않습니다.
 
 ### <a name='return'>Return 예약어</a>
 
-__Return을 함수(closure)에 사용하지 않도록 합니다__. `return` 은 컴파일러가 ``scala.runtime.NonLocalReturnControl`` 을 위해 ``try/catch`` 를 하도록 만듭니다. 이것은 예상치 못한 컴파일러의 행동으로 이어질 수 있습니다. 아래 예제를 참고해주시길 바랍니다:
+__Return을 클로저(closure)에 사용하지 않도록 합니다__. `return` 은 컴파일러가 ``scala.runtime.NonLocalReturnControl`` 을 위해 ``try/catch`` 를 하도록 만듭니다. 이것은 예상치 못한 컴파일러의 행동으로 이어질 수 있습니다. 아래 예제를 참고해주시길 바랍니다:
   ```scala
   def receive(rpc: WebSocketRPC): Option[Response] = {
     tableFut.onComplete { table =>
@@ -628,7 +628,7 @@ __Return을 함수(closure)에 사용하지 않도록 합니다__. `return` 은 
     }
   }
   ```
-  이 `.onComplete` 함수는 익명의 함수(closure) `{ table => ... }`를 받고 그 것을 다른 스레드로 보냅니다. 이 함수(closure)는 결국 `NonLocalReturnControl` 을 내뿜게 되고, 이 것은 __다른 스레드__ 에서 잡히게 됩니다. 이 것은 여기서 실행된 함수에게 아무런 영향을 미치지 않게 됩니다.
+  이 `.onComplete` 메소드는 익명의 클로저(closure) `{ table => ... }`를 받고 그 것을 다른 스레드로 보냅니다. 이 클로저(closure)는 결국 `NonLocalReturnControl` 을 내뿜게 되고, 이 것은 __다른 스레드__ 에서 잡히게 됩니다. 이 것은 여기서 실행된 메소드에게 아무런 영향을 미치지 않게 됩니다.
 
 그러나 몇 가지 경우에는 `return` 키워드의 사용이 권고됩니다.
 
@@ -655,9 +655,9 @@ __Return을 함수(closure)에 사용하지 않도록 합니다__. `return` 은 
 
 __재귀는 피하도록 합니다__. 단, 이 문제가 자연적으로 재귀로 해결되어야 하는 경우는 사용합니다(예를 들어, 그래프 순회 혹은 트리 순회). 
 
-꼬리 재귀 용법이 적용되어야 하는 함수에 있어서는, `@tailrec` 어노태이션을 사용합니다. 이는 컴파일러가 이 것이 꼬리 재귀 용법이 적용 되어야 한다는 것을 확인 할 수 있도록 합니다 (사실은, 함수(closure)의 사용과 functional transformation등 으로 많은 꼬리 재귀 용법이 사용 되지 않을 수 있습니다)).
+꼬리 재귀 용법이 적용되어야 하는 메소드에 있어서는, `@tailrec` 어노태이션을 사용합니다. 이는 컴파일러가 이 것이 꼬리 재귀 용법이 적용 되어야 한다는 것을 확인 할 수 있도록 합니다 (사실은, 클로저(closure)의 사용과 functional transformation등 으로 많은 꼬리 재귀 용법이 사용 되지 않을 수 있습니다)).
 
-대부분의 코드는 간단한 루프를 통해 추론하는 것이 더 쉽습니다. 꼬리 재귀를 통해 만들어진 함수는 길고 이해하기 어렵습니다. 예를 들어서 아래 예제는 꼬리 재귀용법보다는 간단한 루프를 사용해서 쉽게 만들 수 있습니다.
+대부분의 코드는 간단한 루프를 통해 추론하는 것이 더 쉽습니다. 꼬리 재귀(및 어큐뮬레이터)를 사용하여 메소드를 표현하면 길고 이해하기 어렵습니다. 예를 들어서 아래 예제는 꼬리 재귀용법보다는 간단한 루프를 사용해서 쉽게 만들 수 있습니다.
 ```scala
 // Tail recursive version.
 def max(data: Array[Int]): Int = {
@@ -690,11 +690,11 @@ def max(data: Array[Int]): Int = {
 __implicit의 사용은 피하도록 합니다__. 단, 아래 경우에 대해서는 예외일 수 있습니다.
 - 도메인-특정-언어(DSL)를 빌드 하는 경우
 - 암시적 타입의 인자를 사용하는 경우(예를 들어. `ClassTag`, `TypeTag`)
-- 특정 클래스 안에서 타입 변환의 코드를 줄이기 위해 사용되는 경우 (예를 들어,Scala 함수(closure) 에서 Java 함수(closure)로의 변환)
+- 특정 클래스 안에서 타입 변환의 코드를 줄이기 위해 사용되는 경우 (예를 들어,Scala 클로저(closure) 에서 Java 클로저(closure)로의 변환)
 
 우리는 코드를 작성한 사람이 아닌 다른 개발자가 이 코드를 implicit의 정의를 읽지 않고 이해 할 수 있도록 합니다. implicit은 상당히 복잡하고 코드를 이해하기 어렵게 만듭니다. Twitter의 Scala 가이드라인에서는 이와 같이 얘기합니다:"만약 당신이 implicit을 사용 하고 있다면, 이를 사용 하지 않고 같은 목적을 달성 할수 없는지 확인하세요."
 
-만약 꼭 이를 사용해야 한다면 (예를 들어 DSL을 개선하기 위해), implicit 함수를 오버로드 하지 않습니다. 예를 들어 다른 유저가 손쉽게 골라서 import할 수 있도록 implicit 함수가 중복되지 않는 이름을 갖게 합니다.
+만약 꼭 이를 사용해야 한다면 (예를 들어 DSL을 개선하기 위해), implicit 메소드를 오버로드 하지 않습니다. 예를 들어 다른 유저가 손쉽게 골라서 import할 수 있도록 implicit 메소드가 중복되지 않는 이름을 갖게 합니다.
 ```scala
 // Don't do the following, as users cannot selectively import only one of the methods.
 object ImplicitHolder {
@@ -725,9 +725,9 @@ object ImplicitHolder {
   ```
   이것은 우리가 `NonLocalReturnControl`를 에러 처리 하지 않도록 해 줍니다([Return 예약어](#return) 항목에 설명되어 있는 대로). 
 
-- API 안에서 `Try` 를 사용 하지 않습니다. 예를 들어 어떤 함수에서도 Try를 반환값으로 사용하지 않습니다. 정상적으로 실행되지 않는 경우 명시적으로 예외를 던지고, Java의 try/catch 문을 사용하여 핸들링 하는 것이 권장됩니다. 
+- API 안에서 `Try` 를 사용 하지 않습니다. 예를 들어 어떤 메소드에서도 Try를 반환값으로 사용하지 않습니다. 정상적으로 실행되지 않는 경우 명시적으로 예외를 던지고, Java의 try/catch 문을 사용하여 핸들링 하는 것이 권장됩니다. 
 
-  배경: Scala는 `Try`, `Success` 그리고 `Failure`를 통해서 모나딕한 에러 핸들리을 지원합니다. 이는 로직의 체이닝을 가능하게 합니다. 그러나, 이 모나딕한 에러 핸들링은 종종 다중 레벨의 복잡성을 가하고, 코드의 가독성을 저하 시킨다는 것을 경험을 통해 알게 됐습니다. 더군다나, 종종 어느 부분에서 에러가 나오고, 예상치 못 한 예외가 나오는지 알기가 힘듭니다. 그 이유는 `Try` 안에서 이 에러와 예외가 인코딩 되지 않기 때문 입니다. 따라서, 우리는 에러 핸들링을 위해 `Try`의 사용을 권고하지 않습니다. 특히:
+  배경: Scala는 `Try`, `Success` 그리고 `Failure`를 통해서 모나딕한 에러 핸들링을 지원합니다. 이는 로직의 체이닝을 가능하게 합니다. 그러나, 이 모나딕한 에러 핸들링은 종종 다중 레벨의 복잡성을 가하고, 코드의 가독성을 저하 시킨다는 것을 경험을 통해 알게 됐습니다. 더군다나, 종종 어느 부분에서 에러가 나오고, 예상치 못 한 예외가 나오는지 알기가 힘듭니다. 그 이유는 `Try` 안에서 이 에러와 예외가 인코딩 되지 않기 때문 입니다. 따라서, 우리는 에러 핸들링을 위해 `Try`의 사용을 권고하지 않습니다. 특히:
 
   이 예제의 경우:
   ```scala
@@ -807,7 +807,7 @@ def getAddress(name: String): Option[String] = {
 
 ### <a name='concurrency-scala-collection'>Scala concurrent.Map</a>
 
-__`java.util.concurrent.ConcurrentHashMap` 이  `scala.collection.concurrent.Map` 보다 권장됩니다__. 특히, `scala.collection.concurrent.Map`의 `getOrElseUpdate` 함수는 atomic하지 않습니다 (이는 Scala 2.11.6에서 고쳐졌습니다. [SI-7943](https://issues.scala-lang.org/browse/SI-7943)). 우리가 관리하고 있는 모든 프로젝트에서는 Scala 2.10과 Scala 2.11의 크로스 빌딩을 하기 때문에 `scala.collection.concurrent.Map`의 사용은 피해야 합니다.
+__`java.util.concurrent.ConcurrentHashMap` 이  `scala.collection.concurrent.Map` 보다 권장됩니다__. 특히, `scala.collection.concurrent.Map`의 `getOrElseUpdate` 메소드는 atomic하지 않습니다 (이는 Scala 2.11.6에서 고쳐졌습니다. [SI-7943](https://issues.scala-lang.org/browse/SI-7943)). 우리가 관리하고 있는 모든 프로젝트에서는 Scala 2.10과 Scala 2.11의 크로스 빌딩을 하기 때문에 `scala.collection.concurrent.Map`의 사용은 피해야 합니다.
 
 ### <a name='concurrency-sync-vs-map'>동기화(synchronized) 명시 vs Java 제공 동시성 라이브러리</a>
 
@@ -853,7 +853,7 @@ __`java.util.concurrent.ConcurrentHashMap` 이  `scala.collection.concurrent.Map
 
 항상 `@volatile` 보다는 이를 사용한 변수들을 사용 하는 것이 권고됩니다. 이들은 많은 기능들을 제공하며, 코드의 가독성을 증가시켜 줍니다. 이 변수들은 내부적으로 `@volatile`을 사용하여 구현되어있습니다.
 
-이 명시적인 동기화 보다는 Atomic 변수를 사용하는 것이 권장되는 경우가 몇 가지 있습니다: (1) 어떤 객체의 모든 중요한 갱신이 하나의 *단일* 변수에 존재 할 때 그리고 동시성 접근이 예상 될 때. 이 변수들은 원자적으로 동작하기 때문에 효과적인 동시성 제어를 제공합니다. 혹은 (2) 동기화가 명확하게 `getAndSet` 함수로 표현 될 수 있을 때. 예를 들어:
+이 명시적인 동기화 보다는 Atomic 변수를 사용하는 것이 권장되는 경우가 몇 가지 있습니다: (1) 어떤 객체의 모든 중요한 갱신이 하나의 *단일* 변수에 존재 할 때 그리고 동시성 접근이 예상 될 때. 이 변수들은 원자적으로 동작하기 때문에 효과적인 동시성 제어를 제공합니다. 혹은 (2) 동기화가 명확하게 `getAndSet` 오퍼레이션으로 표현 될 수 있을 때. 예를 들어:
   ```scala
   // good: clearly and efficiently express only-once execution of concurrent code
   val initialized = new AtomicBoolean(false)
@@ -897,7 +897,7 @@ class Foo {
 
 일반적으로, 동시성과 동기화 로직은 최대한 분리되고 독립적이어야 합니다. 이 것은 다음을 의미합니다:
  
-- API레벨에서 유저에게 노출된 함수나 콜백함수에 이 동기화 변수들을 노출 하는 것을 피합니다.
+- API레벨에서 유저에게 노출된 메소드나 콜백들에 이 동기화 변수들을 노출 하는 것을 피합니다.
 - 복잡한 모듈에서는 작은 내부 모듈을 만들어 동시성을 위한 변수들을 갖고 있도록 합니다.
 
 
@@ -934,7 +934,7 @@ while (i < len) {
 
 ### <a name='perf-option'>Option 과 null</a>
 
-성능을 고려한 코드를 위해, 가상 함수 호출과 boxing을 피하는 `Option`보다는 `null`의 사용이 권장됩니다. Null을 갖을 수 있는 변수에는 Nullable 이라고 label을 확실히 하도록 합니다.
+성능을 고려한 코드를 위해, 가상 메소드 호출 및 boxing을 피하기 위하여 `Option`보다는 `null`의 사용이 권장됩니다. Null을 갖을 수 있는 변수에는 Nullable 이라고 label을 확실히 하도록 합니다.
 
 ```scala
 class Foo {
@@ -949,7 +949,7 @@ class Foo {
 
 ### <a name='perf-private'>private[this]</a>
 
-성능을 고려한 코드를 위해, `private` 보다는 `private[this]`이 권장됩니다. `private[this]`는 접근자 함수를 생성하지 않고 하나의 변수만 생성합니다. 우리의 경험으로는 JVM JIT 컴파일러는 항상 `private` 변수를 한 번에 (하나의 정의로) 처리하지 못하였습니다. 따라서 해당 변수에 접근 할 가상 함수 호출을 없애기 위해서 `private[this]` 을 사용하는 것이 더 안전합니다.
+성능을 고려한 코드를 위해, `private` 보다는 `private[this]`이 권장됩니다. `private[this]`는 접근자 메소드를 생성하지 않고 하나의 변수만 생성합니다. 우리의 경험으로는 JVM JIT 컴파일러는 항상 `private` 변수를 한 번에 (하나의 정의로) 처리하지 못하였습니다. 따라서 해당 변수에 접근 할 가상 메소드 호출을 없애기 위해서 `private[this]` 을 사용하는 것이 더 안전합니다.
 ```scala
 class MyClass {
   private val field1 = ...
@@ -975,7 +975,7 @@ class MyClass {
 
 아래의 Java특징들은 Scala에 없습니다. 만약 아래의 기능이 필요하다면 Java에서 정의하여 사용하시기 바랍니다. 그러나 Scala 문서를 보시면 Java로 정의된 파일에 대한 보장은 하지 않는다고 명시되어 있습니다.
 
-- Static 변수
+- Static 필드
 - Static 내부 클래스
 - Java enum
 - Annotation
@@ -985,7 +985,7 @@ class MyClass {
 
 외부에서 구현 될 수 있는 인터페이스의 경우 아래의 항목을 명심하시길 바랍니다:
 
-- Trait에 있는 기본으로 정의되어 있는 함수들은 Java에서 사용 할 수 없습니다. 대신 추상 클래스를 사용하시기 바랍니다.
+- Trait에 있는 기본으로 정의되어 있는 메소드들은 Java에서 사용 할 수 없습니다. 대신 추상 클래스를 사용하시기 바랍니다.
 - 일반적으로 trait의 사용을 피하시길 바랍니다. 단, 인터페이스가 미래의 어떤 경우에도 어떠한 정의된 구현을 사용하지 않는 다는 것을 확신 할 수 있다면 사용 할 수 있습니다.
 ```scala
 // The default implementation doesn't work in Java
@@ -1007,7 +1007,7 @@ abstract class Listener {
 
 ### <a name='java-default-param-values'>기본 매개변수 값</a>
 
-인자에 기본값을 주어 사용하지 않습니다. 대신 함수를 오버로드 합니다.
+인자에 기본값을 주어 사용하지 않습니다. 대신 메소드를 오버로드 합니다.
 ```scala
 // Breaks Java interoperability
 def sample(ratio: Double, withReplacement: Boolean = false): RDD[T] = { ... }
@@ -1023,15 +1023,15 @@ def sample(ratio: Double): RDD[T] = sample(ratio, withReplacement = false)
 
 ### <a name='java-varargs'>가변인자</a>
 
-- varargs 함수가 Java에서 사용 될 수 있도록 `@scala.annotation.varargs` 어노테이션을 적용합니다. Scala 컴파일러는 하나는 Scala를 위해(바이트코드 인자는 Seq 입니다) 다른 하나는 Java를 위해 (바이트코드 인자는 배열 입니다) 총 두개의 함수를 만듭니다.
+- varargs 메소드가 Java에서 사용 될 수 있도록 `@scala.annotation.varargs` 어노테이션을 적용합니다. Scala 컴파일러는 하나는 Scala를 위해(바이트코드 인자는 Seq 입니다) 다른 하나는 Java를 위해 (바이트코드 인자는 배열 입니다) 총 두개의 메소드를 만듭니다.
   ```scala
   @scala.annotation.varargs
   def select(exprs: Expression*): DataFrame = { ... }
   ```
 
-- 추상 varargs 함수는 Java에서 작동하지 않습니다. 이는 Scala의 버그 때문입니다([SI-1459](https://issues.scala-lang.org/browse/SI-1459), [SI-9013](https://issues.scala-lang.org/browse/SI-9013)).
+- 추상 varargs 메소드는 Java에서 작동하지 않습니다. 이는 Scala의 버그 때문입니다([SI-1459](https://issues.scala-lang.org/browse/SI-1459), [SI-9013](https://issues.scala-lang.org/browse/SI-9013)).
 
-- varargs 함수들을 오버로딩할 때 조심하도록 합니다. varargs 함수를 다른 varargs 타입과 오버로딩 하는 것은 소스의 호환성을 보장하지 않습니다. 
+- varargs 메소드들을 오버로딩할 때 조심하도록 합니다. varargs 메소드를 다른 varargs 타입과 오버로딩 하는 것은 소스의 호환성을 보장하지 않습니다. 
   ```scala
   class Database {
     @scala.annotation.varargs
@@ -1060,7 +1060,7 @@ def sample(ratio: Double): RDD[T] = sample(ratio, withReplacement = false)
 
 ### <a name='java-implicits'>Implicits</a>
 
-클래스나 함수를 위해 implicit을 사용하지 않습니다. 이는 `ClassTag`, `TypeTag` 를 포함합니다.
+클래스나 메소드를 위해 implicit을 사용하지 않습니다. 이는 `ClassTag`, `TypeTag` 를 포함합니다.
 ```scala
 class JavaFriendlyAPI {
   // This is NOT Java friendly, since the method contains an implicit parameter (ClassTag).
@@ -1068,9 +1068,9 @@ class JavaFriendlyAPI {
 }
 ```
 
-### <a name='java-companion-object'>관련 객체, 정적 함수 및 변수</a>
+### <a name='java-companion-object'>관련 객체, 정적 메소드 및 변수</a>
 
-동반하는 객체들과 정적 함수/변수 들을 사용 할 때, 몇 가지 조심해야 할 부분이 있습니다.
+동반하는 객체들과 정적 메소드/필드 들을 사용 할 때, 몇 가지 조심해야 할 부분이 있습니다.
 
 - 동반(companion) 객체들은 Java에서 사용하기에는 조금 어색합니다(동반(companion) 객체 `Foo` 는 `Foo$` 클래스의 `Foo$` 타입의 `MODULE$` 정적 변수 입니다).
   ```scala
@@ -1084,7 +1084,7 @@ class JavaFriendlyAPI {
   만약 동반(companion) 객체를 사용해야 한다면, Java 정적 변수를 다른 클래스에 만듭니다.
 
 - 불행히도, JVM 정적 변수를 Scala에서 정의하는 방법은 없습니다. Java파일을 만들어 이를 정의하는데 사용하도록 합니다.
-- 동반(companion) 객체의 함수들은 자동으로 동반(companion) 클래스의 정적 함수로 변하게 됩니다. 단, 같은 함수가 존재하지 않아야 합니다. 정적 함수의 생성이 보장 되도록 하는 가장 좋은 방법은 Java테스트 파일을 작성하여 이 정적 함수를 호출하는 것 입니다.
+- 동반(companion) 객체의 메소드들은 자동으로 동반(companion) 클래스의 정적 메소드로 변하게 됩니다. 단, 같은 메소드가 존재하지 않아야 합니다. 정적 메소드의 생성이 보장 되도록 하는 가장 좋은 방법은 Java테스트 파일을 작성하여 이 정적 메소드를 호출하는 것 입니다.
   ```scala
   class Foo {
     def method2(): Unit = { ... }
@@ -1158,9 +1158,9 @@ class JavaFriendlyAPI {
 
 `URL`의 [동일성 검사](http://docs.oracle.com/javase/7/docs/api/java/net/URL.html#equals(java.lang.Object)) 는 사실 IP 주소를 알아내기 위해 (블로킹) 네트워크 호출을 합니다.  `URI` 클래스는 필드의 동일성을 확인하고 `URL`의 상위 집합 입니다.
 
-### <a name='misc_well_tested_method'>이미 존재 하는 함수를 다시 개발하는 것 보다는 기존의 잘 테스트 된 함수 사용</a>
+### <a name='misc_well_tested_method'>이미 존재 하는 메소드를 다시 개발하는 것 보다는 기존의 잘 테스트 된 메소드 사용</a>
 
-이미 존재하며 잘 테스트 되어있는 함수가 있고 이 함수가 어떤 성능 문제도 갖고 있지 않을 때에는, 이를 사용 하도록 합니다. 이러한 함수를 다시 구현하면 버그가 발생할 수 있으며, 이를 테스트하는데 시간이 필요합니다 (어쩌면 이 함수를 테스트 해야 한다는 것을 잊어버릴 수도 있습니다!).
+이미 존재하며 잘 테스트 되어있는 메소드가 있고 이 메소드가 어떤 성능 문제도 갖고 있지 않을 때에는, 이를 사용 하도록 합니다. 이러한 메소드를 다시 구현하면 버그가 발생할 수 있으며, 이를 테스트하는데 시간이 필요합니다 (어쩌면 이 메소드를 테스트 해야 한다는 것을 잊어버릴 수도 있습니다!).
 
 
   ```scala
@@ -1182,5 +1182,5 @@ class JavaFriendlyAPI {
   ```
 
 예외 경우:
-- 이미 잘 테스트 되어있는 함수를 사용하기위해 새로운 종속성(dependency)을 추가해야 하는 경우, 만약 이러한 함수가 간단한 편이라면, 다시 구현하는 것이 새로운 종속성을 추가하는 것 보다 낫습니다. 하지만, 테스트를 해야 된다는 것을 잊지 말아야 합니다.
-- 기존의 함수가 사용 용도에 최적화 되어 있지 않고 느린 경우. 이러한 경우에는 벤치마킹을 먼저 하고, 너무 이른 최적화는 피하도록 합니다.
+- 이미 잘 테스트 되어있는 메소드를 사용하기위해 새로운 종속성(dependency)을 추가해야 하는 경우, 만약 이러한 메소드가 간단한 편이라면, 다시 구현하는 것이 새로운 종속성을 추가하는 것 보다 낫습니다. 하지만, 테스트를 해야 된다는 것을 잊지 말아야 합니다.
+- 기존의 메소드가 사용 용도에 최적화 되어 있지 않고 느린 경우. 이러한 경우에는 벤치마킹을 먼저 하고, 너무 이른 최적화는 피하도록 합니다.
