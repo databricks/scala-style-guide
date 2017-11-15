@@ -189,7 +189,8 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
   }
   ```
 
-- 함수 선언에서 파라메터가 한 줄에 맞지 않아 들여쓰기를 하는 경우, 4칸 공백을 합니다. 반환 타입은 다음 줄에 배치되거나 같은 라인에 배치될 수 있습니다. 다음 라인에 쓰는 경우, 2칸 들여쓰기를 합니다.
+- 함수 선언에서 파라메터가 두 줄에 맞지 않아 들여쓰기를 하는 경우, 각 인자에 4칸 공백을 사용하고 각 라인에 배치 합니다. 반환 타입은 다음 줄에 배치되거나 같은 라인에 배치될 수 있습니다. 다음 라인에 쓰는 경우, 2칸 들여쓰기를 합니다.
+
   ```scala
   def newAPIHadoopFile[K, V, F <: NewInputFormat[K, V]](
       path: String,
@@ -211,7 +212,8 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
   }
   ```
 
-- Class의 해더가 한 줄에 맞지 않을 때는 2칸 공백 들여쓰기를 합니다. 그리고 그 해더 뒤에 한 개의 빈 줄을 입력 합니다.
+- 클래스의 해더가 두 줄에 맞지 않을 때는, 각 인자에 4칸 공백을 사용하고 각 라인에 배치 합니다. 또한, extend를 2칸 공백 뒤에 배치하고, 그 뒤에 한 개의 빈 줄을 입력 합니다.
+
   ```scala
   class Foo(
       val param1: String,  // 4 space indent for parameters
@@ -222,6 +224,22 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 
     def firstMethod(): Unit = { ... }  // blank line above
   }
+  ```
+
+- 함수와 클래스 생성자 호출이 두 줄에 맞지 않는 경우는, 각 인자에 2칸 공백을 사용하고 각 라인에 배치 합니다.
+
+  ```scala
+  foo(
+    someVeryLongFieldName,  // 2 space indent here
+    andAnotherVeryLongFieldName,
+    "this is a string",
+    3.1415)
+
+  new Bar(
+    someVeryLongFieldName,  // 2 space indent here
+    andAnotherVeryLongFieldName,
+    "this is a string",
+    3.1415)
   ```
 
 - 수직 정렬을 사용하지 않습니다. 이것은 중요치 않은 코드에 집중하게 하고, 차후에 코드 수정을 어렵게 만듭니다.
