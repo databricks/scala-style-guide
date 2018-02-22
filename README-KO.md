@@ -86,9 +86,9 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 - 2015-12-14: 이 가이드라인이 [한국어로 번역되었습니다](README-KO.md). 한국어 번역은 [Hyukjin Kwon](https://github.com/HyukjinKwon) 이 했으며, [Yun Park](https://github.com/yunpark93), [Kevin (Sangwoo) Kim](https://github.com/swkimme), [Hyunje Jo](https://github.com/RetrieverJo) 그리고 [Woocheol Choi](https://github.com/socialpercon) 가 검토를 했습니다. 이 문서의 최신성을 보장하지 않습니다.
 - 2016-06-15: [익명 함수](#anonymous) 섹션 추가.
 - 2016-06-21: [변수 명명 규칙](#variable-naming) 섹션 추가.
-- 2016-12-24: [케이스 클래스와 불변성](#case_class_immutability) 색션 추가.
+- 2016-12-24: [케이스 클래스와 불변성](#case_class_immutability) 섹션 추가.
 - 2017-02-23: [테스트](#testing) 섹션 추가.
-- 2017-04-18: [이미 존재 하는 함수를 다시 개발하는 것 보다는 기존의 잘 테스트 된 함수 사용](#misc_well_tested_method) 색션 추가.
+- 2017-04-18: [이미 존재 하는 함수를 다시 개발하는 것 보다는 기존의 잘 테스트 된 함수 사용](#misc_well_tested_method) 섹션 추가.
 
 ## <a name='syntactic'>구문 스타일</a>
 
