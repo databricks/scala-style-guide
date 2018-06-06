@@ -200,7 +200,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
   }
   ```
 
-- 对于方法声明，如果一行无法容纳下所有的参数，那么使用 4 个空格来缩进它们。返回类型可以与最后一个参数在同一行，也可以放在下一行，使用两个空格缩进。
+- 对于方法声明，如果两行无法容纳下所有的参数，那么将每个参数单独放在一行，并使用 4 个空格进行缩进。返回类型可以与最后一个参数在同一行，也可以放在新的一行，使用两个空格缩进。
 
   ```scala
   def newAPIHadoopFile[K, V, F <: NewInputFormat[K, V]](
@@ -209,7 +209,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
       kClass: Class[K],
       vClass: Class[V],
       conf: Configuration = hadoopConfiguration): RDD[(K, V)] = {
-    // method body
+    // 方法体
   }
 
   def newAPIHadoopFile[K, V, F <: NewInputFormat[K, V]](
@@ -219,33 +219,49 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
       vClass: Class[V],
       conf: Configuration = hadoopConfiguration)
     : RDD[(K, V)] = {
-    // method body
+    // 方法体
   }
   ```
 
-- 如果一行无法容纳下类头（即 extends 后面那部分），则把它们放到新的一行，用两个空格缩进，然后在类内空一行再开始函数或字段的定义（或是包的导入）。
+- 如果两行无法容纳下类头（即 { 前面的部分），那么将每个类参数单独放在一行，并使用 4 个空格进行缩进；将 extends 关键字放在（最后一个参数的）下一行，并使用 2 个空格进行缩进。在类头定义结束后空一行，再开始类内函数或变量的定义。
 
   ```scala
   class Foo(
-      val param1: String,  // 4 space indent for parameters
+      val param1: String,  // 对参数使用 4 个空格进行缩进
       val param2: String,
       val param3: Array[Byte])
-    extends FooInterface  // 2 space here
+    extends FooInterface  // 这里使用 2 个空格进行缩进
     with Logging {
 
-    def firstMethod(): Unit = { ... }  // blank line above
+    def firstMethod(): Unit = { ... }  // 上面空一行
   }
+  ```
+
+- 对于方法和类的构造函数调用，如果两行无法容纳下所有的参数，那么将每个参数单独放在一行，并使用 2 个空格进行缩进。
+
+  ```scala
+  foo(
+    someVeryLongFieldName,  // 这里使用 2 个空格进行缩进
+    andAnotherVeryLongFieldName,
+    "this is a string",
+    3.1415)
+
+  new Bar(
+    someVeryLongFieldName,  // 这里使用 2 个空格进行缩进
+    andAnotherVeryLongFieldName,
+    "this is a string",
+    3.1415)
   ```
 
 - 不要使用垂直对齐。它使你的注意力放在代码的错误部分并增大了后人修改代码的难度。
 
   ```scala
-  // Don't align vertically
+  // 不要（对等于号）使用垂直对齐
   val plus     = "+"
   val minus    = "-"
   val multiply = "*"
 
-  // Do the following
+  // 使用下面的写法
   val plus = "+"
   val minus = "-"
   val multiply = "*"
@@ -269,10 +285,10 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 
   ```scala
   class Job {
-    // Wrong: killJob changes state. Should have ().
+    // 错误：killJob 会改变状态，应该加上括号。
     def killJob: Unit
 
-    // Correct:
+    // 正确：
     def killJob(): Unit
   }
   ```
@@ -288,8 +304,8 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     def foo: Foo
   }
 
-  new Bar().foo  // This returns a Foo
-  new Bar().foo()  // This returns an Int!
+  new Bar().foo  // 这里返回一个 Foo 对象
+  new Bar().foo()  // 这里返回一个 Int 值！
   ```
 
 
@@ -298,26 +314,26 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 即使条件语句或循环语句只有一行时，也请使用大括号。唯一的例外是，当你把 if/else 作为一个单行的三元操作符来使用并且没有副作用时，这时你可以不加大括号。
 
 ```scala
-// Correct:
+// 正确：
 if (true) {
   println("Wow!")
 }
 
-// Correct:
+// 正确：
 if (true) statement1 else statement2
 
-// Correct:
+// 正确：
 try {
   foo()
 } catch {
   ...
 }
 
-// Wrong:
+// 错误：
 if (true)
   println("Wow!")
 
-// Wrong:
+// 错误：
 try foo() catch {
   ...
 }
@@ -329,9 +345,9 @@ try foo() catch {
 长整型字面量使用大写的 `L` 作为后缀，不要使用小写，因为它和数字 `1` 长得很像，常常难以区分。
 
 ```scala
-val longValue = 5432L  // Do this
+val longValue = 5432L  // 这样写
 
-val longValue = 5432l  // Do NOT do this
+val longValue = 5432l  // 不要这样写
 ```
 
 
@@ -461,11 +477,11 @@ targets.foreach {
 __避免中缀表示法__，除非是符号方法（即运算符重载）。
 
 ```scala
-// Correct
+// 正确
 list.map(func)
 string.contains("foo")
 
-// Wrong
+// 错误
 list map (func)
 string contains "foo"
 
@@ -478,25 +494,25 @@ arrayBuffer += elem
 对于匿名方法，__避免使用过多的小括号和花括号__。
 
 ```scala
-// Correct
+// 正确
 list.map { item =>
   ...
 }
 
-// Correct
+// 正确
 list.map(item => ...)
 
-// Wrong
+// 错误
 list.map(item => {
   ...
 })
 
-// Wrong
+// 错误
 list.map { item => {
   ...
 }}
 
-// Wrong
+// 错误
 list.map({ item => ... })
 ```
 
@@ -514,10 +530,10 @@ list.map({ item => ... })
 对于样例类来说，构造器参数不应设为可变的，可以使用拷贝构造函数达到同样的效果。使用可变的样例类容易出错，例如，哈希表中，对象根据旧的哈希值被放在错误的位置上。
 
 ```scala
-// This is OK
+// 这是 OK 的
 case class Person(name: String, age: Int)
 
-// This is NOT OK
+// 这是不 OK 的
 case class Person(name: String, var age: Int)
 
 // 通过拷贝构造函数创建一个新的实例来改变其中的值
@@ -615,7 +631,7 @@ print(inc())
 __避免使用多参数列表__。它们使运算符重载变得复杂，并且会使不熟悉 Scala 的程序员感到困惑。例如：
 
 ```scala
-// Avoid this!
+// 避免出现下面的写法！
 case class Person(name: String, age: Int)(secret: String)
 ```
 
@@ -654,7 +670,7 @@ __闭包中避免使用 return__。`return` 会被编译器转成 ``scala.runtim
   def receive(rpc: WebSocketRPC): Option[Response] = {
     tableFut.onComplete { table =>
       if (table.isFailure) {
-        return None // Do not do that!
+        return None // 不要这样做！
       } else { ... }
     }
   }
@@ -771,7 +787,7 @@ object ImplicitHolder {
 
   ```scala
   class UserService {
-    /** Look up a user's profile in the user database. */
+    /** 在用户数据库中查找用户信息。 */
     def get(userId: Int): Try[User]
   }
   ```
@@ -780,9 +796,9 @@ object ImplicitHolder {
   ```scala
   class UserService {
     /**
-     * Look up a user's profile in the user database.
-     * @return None if the user is not found.
-     * @throws DatabaseConnectionException when we have trouble connecting to the database/
+     * 在用户数据库中查找用户信息。
+     * @return None 如果查找不到用户
+     * @throws DatabaseConnectionException 当连接数据库发生异常时
      */
     @throws(DatabaseConnectionException)
     def get(userId: Int): Option[User]
@@ -820,13 +836,13 @@ object ImplicitHolder {
 ```scala
 class Person(val data: Map[String, String])
 val database = Map[String, Person]
-// Sometimes the client can store "null" value in the  store "address"
+// 有时客户端会给 address 赋予一个 null 值，因此下面的代码用了 Option.apply 来处理这种情况
 
 // A monadic chaining approach
 def getAddress(name: String): Option[String] = {
   database.get(name).flatMap { elem =>
     elem.data.get("address")
-      .flatMap(Option.apply)  // handle null value
+      .flatMap(Option.apply)  // 处理 null 值
   }
 }
 
@@ -888,10 +904,10 @@ __优先考虑使用 `java.util.concurrent.ConcurrentHashMap` 而非 `scala.coll
   ```scala
   val map = java.util.Collections.synchronizedMap(new java.util.HashMap[String, String])
 
-  // This is broken!
+  // 这是有问题的！
   def values: Iterable[String] = map.values
 
-  // Instead, copy the elements
+  // 应用使用下面的写法，把元素拷贝一份。
   def values: Iterable[String] = map.synchronized { Seq(map.values: _*) }
   ```
 
