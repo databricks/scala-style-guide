@@ -265,7 +265,7 @@ In general:
     - Exception: A blank line between two consecutive fields (having no other code between them) is optional. Such blank lines are used as needed to create logical groupings of fields.
   - Within method bodies, as needed to create logical groupings of statements.
   - Optionally before the first member or after the last member of the class (neither encouraged nor discouraged).
-- Use one or two blank line(s) to separate class definitions.
+- Use one or two blank line(s) to separate class or object definitions.
 - Excessive number of blank lines is discouraged.
 
 
