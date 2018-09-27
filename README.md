@@ -517,7 +517,7 @@ case class Person(name: String, var age: Int)
 
 // To change values, use the copy constructor to create a new instance
 val p1 = Person("Peter", 15)
-val p2 = p2.copy(age = 16)
+val p2 = p1.copy(age = 16)
 ```
 
 
