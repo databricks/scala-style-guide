@@ -516,7 +516,7 @@ case class Person(name: String, var age: Int)
 
 // 값을 바꾸기 위해서는, 새로운 객체를 생성하는 복제 생성자를 사용합니다.
 val p1 = Person("Peter", 15)
-val p2 = p2.copy(age = 16)
+val p2 = p1.copy(age = 16)
 ```
 
 
