@@ -522,7 +522,7 @@ case class Person(name: String, var age: Int)
 
 // 通过拷贝构造函数创建一个新的实例来改变其中的值
 val p1 = Person("Peter", 15)
-val p2 = p2.copy(age = 16)
+val p2 = p1.copy(age = 16)
 ```
 
 
