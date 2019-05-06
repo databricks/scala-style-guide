@@ -1,4 +1,4 @@
-# Databricks Scala Guide
+# Databricks Scala Guide 
 
 With over 1000 contributors, Apache Spark is to the best of our knowledge the largest open-source project in Big Data and the most active project written in Scala. This guide draws from our experience coaching and working with engineers contributing to Spark as well as our [Databricks](http://databricks.com/) engineering team.
 
