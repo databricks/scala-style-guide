@@ -235,13 +235,15 @@ In general:
     someVeryLongFieldName,  // 2 space indent here
     andAnotherVeryLongFieldName,
     "this is a string",
-    3.1415)
+    3.1415
+  )
 
   new Bar(
     someVeryLongFieldName,  // 2 space indent here
     andAnotherVeryLongFieldName,
     "this is a string",
-    3.1415)
+    3.1415
+  )
   ```
 
 - Do NOT use vertical alignment. They draw attention to the wrong parts of the code and make the aligned code harder to change in the future.
@@ -493,6 +495,19 @@ list.map { item => {
 
 // Wrong
 list.map({ item => ... })
+```
+
+__Prefer curly braces for methods that span multiple lines.__
+```scala
+// Correct
+list.map { item =>
+  ...
+}
+
+// Wrong
+list.map(item =>
+  ...
+)
 ```
 
 
