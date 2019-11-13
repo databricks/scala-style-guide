@@ -120,7 +120,23 @@ We mostly follow Java's and Scala's standard naming conventions.
   }
   ```
 
-- Enums should be PascalCase.
+- An enumeration class or object which extends the `Enumeration` class shall follow the convention for classes and objects, i.e. its name should be in PascalCase style. Enumeration values shall be in the upper case with words separated by the underscore character `_`. For example:
+  ```scala
+    private object ParseState extends Enumeration {
+    type ParseState = Value
+
+    val PREFIX,
+        TRIM_BEFORE_SIGN,
+        SIGN,
+        TRIM_BEFORE_VALUE,
+        VALUE,
+        VALUE_FRACTIONAL_PART,
+        TRIM_BEFORE_UNIT,
+        UNIT_BEGIN,
+        UNIT_SUFFIX,
+        UNIT_END = Value
+  }
+  ```
 
 - Annotations should also follow Java convention, i.e. PascalCase. Note that this differs from Scala's official guide.
   ```scala
