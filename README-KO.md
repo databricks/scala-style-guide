@@ -117,7 +117,23 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
   }
   ```
 
-- Enum은 낙타등 표기법 (PascalCase)을 따라야 합니다.
+- `Enumeration` 클래스를 상속하는 열거형 클래스 혹은 객체(object)를 작성하는 경우, 클래스 이름은 낙타등 표기법 (PascalCase)으로 쓰고, 열거형 값들은 밑줄 문자 `_` 로 구분된 단어를 대문자로 써야 합니다. 예를 들면 아래와 같습니다:
+  ```scala
+    private object ParseState extends Enumeration {
+    type ParseState = Value
+
+    val PREFIX,
+        TRIM_BEFORE_SIGN,
+        SIGN,
+        TRIM_BEFORE_VALUE,
+        VALUE,
+        VALUE_FRACTIONAL_PART,
+        TRIM_BEFORE_UNIT,
+        UNIT_BEGIN,
+        UNIT_SUFFIX,
+        UNIT_END = Value
+  }
+  ```
 
 - Annotation 또한 낙타등 표기법 (PascalCase)을 따라야 합니다. 이 가이드라인이 Scala의 공식 가이드라인과 다름을 주의하시기 바랍니다.
   ```scala
