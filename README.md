@@ -45,6 +45,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
     * [Exception Handling (Try vs try)](#exception)
     * [Options](#option)
     * [Monadic Chaining](#chaining)
+    * [Symbol Literals](#symbol)
 
 1. [Concurrency](#concurrency)
     * [Scala concurrent.Map](#concurrency-scala-collection)
@@ -92,6 +93,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 - 2016-12-24: Added [Case Classes and Immutability](#case_class_immutability) section.
 - 2017-02-23: Added [Testing](#testing) section.
 - 2017-04-18: Added [Prefer existing well-tested methods over reinventing the wheel](#misc_well_tested_method) section.
+- 2019-12-18: Added [Symbol Literals](#symbol) section.
 
 ## <a name='syntactic'>Syntactic Style</a>
 
@@ -743,6 +745,10 @@ object ImplicitHolder {
   def longSeqToRdd(seq: Seq[Long]): RDD[Long] = ...
 }
 ```
+
+### <a name='symbol'>Symbol Literals</a>
+
+__Avoid using symbol literals__. Symbol literals (e.g. `'column`) were deprecated as of Scala 2.13 by [Proposal to deprecate and remove symbol literals](https://contributors.scala-lang.org/t/proposal-to-deprecate-and-remove-symbol-literals/2953). Apache Spark used to leverage this syntax to provide DSL; however, now it started to remove this deprecated usage away. See also [SPARK-29392](https://issues.apache.org/jira/browse/SPARK-29392).
 
 
 ## <a name='exception'>Exception Handling (Try vs try)</a>

@@ -44,6 +44,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
     - [예외 처리 (Try vs try)](#exception)
     - [Options](#option)
     - [모나드 채이닝](#chaining)
+    - [심볼 리터럴](#symbol)
 
 1. [동시성 제어](#concurrency)
     - [Scala concurrent.Map](#concurrency-scala-collection)
@@ -89,6 +90,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 - 2016-12-24: [케이스 클래스와 불변성](#case_class_immutability) 색션 추가.
 - 2017-02-23: [테스트](#testing) 섹션 추가.
 - 2017-04-18: [이미 존재 하는 함수를 다시 개발하는 것 보다는 기존의 잘 테스트 된 함수 사용](#misc_well_tested_method) 색션 추가.
+- 2019-12-18: [심볼 리터럴](#symbol) 색션 추가.
 
 ## <a name='syntactic'>구문 스타일</a>
 
@@ -742,6 +744,10 @@ object ImplicitHolder {
   def longSeqToRdd(seq: Seq[Long]): RDD[Long] = ...
 }
 ```
+
+### <a name='symbol'>심볼 리터럴</a>
+
+__심볼 리터럴의 사용은 피하도록 합니다__. 심볼 리터럴 (예를 들어 `'column`) 은 [심볼 리터럴 지원 중단 및 삭제 제안서](https://contributors.scala-lang.org/t/proposal-to-deprecate-and-remove-symbol-literals/2953)에 의하여 스칼라 2.13부터 사용을 권장하지 않습니다. 아파치 스파크에서는 도메인 특화 언어를 제공하기 위해 해당 문법을 사용하였습니다만, 이제는 해당 문법의 사용을 지우기 시작했습니다. [SPARK-29392](https://issues.apache.org/jira/browse/SPARK-29392)를 참고 하시기 바랍니다.
 
 
 ## <a name='exception'>예외 처리 (Try vs try)</a>
