@@ -52,6 +52,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
     - [异常处理 (Try 还是 try)](#exception)
     - [Options](#option)
     - [单子链接](#chaining)
+    - [符号文本](#symbol)
 
 1. [并发](#concurrency)
     - [Scala concurrent.Map](#concurrency-scala-collection)
@@ -97,6 +98,7 @@ Scala 是一种强大到令人难以置信的多范式编程语言。我们总�
 - 2016-12-24: 增加 [样例类与不可变性](#case_class_immutability) 一节。
 - 2017-02-23: 增加 [测试](#testing) 一节。
 - 2017-04-18: 增加 [优先使用现存的经过良好测试的方法而非重新发明轮子](#misc_well_tested_method) 一节。
+- 2019-12-18: 增加 [符号文本](#symbol) 一节。
 
 ## <a name='syntactic'>语法风格</a>
 
@@ -776,6 +778,10 @@ object ImplicitHolder {
   def longSeqToRdd(seq: Seq[Long]): RDD[Long] = ...
 }
 ```
+
+### <a name='symbol'>符号文本</a>
+
+__避免使用符号文本__。在 Scala 2.13 中，符号文本（如：`'column`）已根据 [关于弃用和删除符号文字的建议](https://contributors.scala-lang.org/t/proposal-to-deprecate-and-remove-symbol-literals/2953) 弃用. Apache Spark 曾经利用符号文本来实现其 DSL，但是目前它已经开始移除这项弃用的特性。参见：[SPARK-29392](https://issues.apache.org/jira/browse/SPARK-29392)。
 
 
 ## <a name='exception'>异常处理 (Try 还是 try)</a>
