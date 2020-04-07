@@ -1,6 +1,6 @@
 # Databricks Scala Guide
 
-With over 1000 contributors, Apache Spark is to the best of our knowledge the largest open-source project in Big Data and the most active project written in Scala. This guide draws from our experience coaching and working with engineers contributing to Spark as well as our [Databricks](http://databricks.com/) engineering team.
+At Databricks, our engineers work on some of the most actively developed Scala codebases in the world, including our own internal repo called "universe" as well as the various open source projects we contribute to, e.g. [Apache Spark](https://spark.apache.org) and [Delta Lake](https://delta.io/). This guide draws from our experience coaching and working with our engineering teams as well as the broader open source community.
 
 Code is __written once__ by its author, but __read and modified multiple times__ by lots of other engineers. As most bugs actually come from future modification of the code, we need to optimize our codebase for long-term, global readability and maintainability. The best way to achieve this is to write simple code.
 
