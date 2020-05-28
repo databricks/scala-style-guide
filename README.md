@@ -114,6 +114,9 @@ We mostly follow Java's and Scala's standard naming conventions.
   ```
 
 - Methods/functions should be named in camelCase style.
+  ```scala
+  def guruMeditation() = "#81000005.48454C50"
+  ```
 
 - Constants should be all uppercase letters and be put in a companion object.
   ```scala
