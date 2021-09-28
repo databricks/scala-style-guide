@@ -78,6 +78,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
     * [Prefer nanoTime over currentTimeMillis](#misc_currentTimeMillis_vs_nanoTime)
     * [Prefer URI over URL](#misc_uri_url)
     * [Prefer existing well-tested methods over reinventing the wheel](#misc_well_tested_method)
+    * [Add 'REMOVE BEFORE MERGE' comments for all debug statements](#misc_remove_before_merge)
 
 
 
@@ -94,6 +95,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 - 2017-02-23: Added [Testing](#testing) section.
 - 2017-04-18: Added [Prefer existing well-tested methods over reinventing the wheel](#misc_well_tested_method) section.
 - 2019-12-18: Added [Symbol Literals](#symbol) section.
+- 2021-09-28: Added [Add 'REMOVE BEFORE MERGE' comments for all debug statements](#misc_remove_before_merge) section.
 
 ## <a name='syntactic'>Syntactic Style</a>
 
@@ -1228,3 +1230,21 @@ When there is an existing well-tesed method and it doesn't cause any performance
 Exceptions:
 - Using an existing well-tesed method requires adding a new dependency. If such method is pretty simple, reimplementing it is better than adding a dependency. But remember to test it.
 - The existing method is not optimized for our usage and is too slow. But benchmark it first, avoid premature optimization.
+
+### <a name='misc_remove_before_merge'>Add 'REMOVE BEFORE MERGE' comments for all debug statements</a>
+
+It is common to add debug statements while working on code. Some common examples:
+ 1. Print statements (or verbose logging statements)
+ 2. Enable debug flags
+ 3. Hard code values to force specific branch logic to execute
+
+The danger of adding these statements is that they can accidentally be merged into the main branch. These statements can also confuse PR
+reviewers as to whether the statements were intentional. To more clearly document the intention of debug statements and avoid these
+statements being merged a lint checker has been added which looks specifically for single line 'REMOVE BEFORE MERGE' comments. For example,
+the following comment would fail the linter check:
+
+```
+   // REMOVE BEFORE MERGE - forcing race condition
+```
+To make this process easier for IntelliJ users, it's recommended to create a [live template](https://www.jetbrains.com/help/idea/using-live-templates.html)
+to generate these comment lines using just a few keystrokes.
