@@ -851,9 +851,9 @@ Another example is an if-else block that confuses if the chain is for the whole 
 // A monadic chaining approach
 val condition: Boolean = ...
 if (condition) {
-  Seq(1, 2, 3)  // Results in List(2, 3, 4)
-} else {
   Seq(1, 2, 3)  // Results in List(1, 2, 3)
+} else {
+  Seq(1, 2, 3)  // Results in List(2, 3, 4)
 }.map(_ + 1)
 
 // A more readable approach.
