@@ -94,6 +94,7 @@ Scala is an incredibly powerful language that is capable of many paradigms. We h
 - 2017-02-23: Added [Testing](#testing) section.
 - 2017-04-18: Added [Prefer existing well-tested methods over reinventing the wheel](#misc_well_tested_method) section.
 - 2019-12-18: Added [Symbol Literals](#symbol) section.
+- 2022-08-05: Updated [Monadic Chaining](#chaining) section: do not monadic-chain with an if-else block.
 
 ## <a name='syntactic'>Syntactic Style</a>
 
@@ -814,6 +815,7 @@ One of Scala's powerful features is monadic chaining. Almost everything (e.g. co
 - Avoid chaining (and/or nesting) more than 3 operations.
 - If it takes more than 5 seconds to figure out what the logic is, try hard to think about how you can express the same functionality without using monadic chaining. As a general rule, watch out for flatMaps and folds.
 - A chain should almost always be broken after a flatMap (because of the type change).
+- Do not chain it with if-else block.
 
 A chain can often be made more understandable by giving the intermediate result a variable name, by explicitly typing the variable, and by breaking it down into more procedural style. As a contrived example:
 ```scala
@@ -844,6 +846,24 @@ def getAddress(name: String): Option[String] = {
 
 ```
 
+Another example is an if-else block that confuses if the chain is for the whole if-else or only `else` block.
+```scala
+// A monadic chaining approach
+val condition: Boolean = ...
+if (condition) {
+  Seq(1, 2, 3)  // Results in List(1, 2, 3)
+} else {
+  Seq(1, 2, 3)  // Results in List(2, 3, 4)
+}.map(_ + 1)
+
+// A more readable approach.
+val ret = if (condition) {
+  Seq(1, 2, 3)
+} else {
+  Seq(1, 2, 3)
+}
+ret.map(_ + 1)  // Results in List(2, 3, 4)
+```
 
 ## <a name='concurrency'>Concurrency</a>
 
