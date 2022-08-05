@@ -91,6 +91,7 @@ Scala는 매우 강력하며 여러가지 페러다임에 적용 가능한 언�
 - 2017-02-23: [테스트](#testing) 섹션 추가.
 - 2017-04-18: [이미 존재 하는 함수를 다시 개발하는 것 보다는 기존의 잘 테스트 된 함수 사용](#misc_well_tested_method) 색션 추가.
 - 2019-12-18: [심볼 리터럴](#symbol) 색션 추가.
+- 2022-08-05: [모나드 채이닝](#chaining) 색션 갱신: if-else에 모나드 체이닝을 하지 않습니다.
 
 ## <a name='syntactic'>구문 스타일</a>
 
@@ -812,6 +813,7 @@ Scala의 강력한 특징중 하나는 모나드 채이닝 입니다. 거의 모
 - 3개 이상의 (내부를 포함)모나드 채이닝은 피하도록 합니다. 
 - 만약 코드의 논리를 이해하는데 5초 이상이 걸린다면, 모나드 체이닝을 사용 하지 않고, 같은 성과를 이룰수 있는 방법을 생각해 볼 필요가 있습니다. 일반적으로 `flatMap` 혹은 `fold`가 이에 해당 됩니다.
 - `flatMap` 후에는 거의 항상 모나드 채이닝을 이어가지 않습니다 (왜냐하면 타입이 바뀌기 때문입니다).
+- if-else에 모나드 체이닝을 하지 않습니다.
 
 모나드 체인은 종종 명시적으로 타입이 주어진 중간 값을 저장하는 식으로 채이닝을 끊어 더 이해하기 쉽도록 만듭니다. 예를 들어:
 ```scala
@@ -840,6 +842,25 @@ def getAddress(name: String): Option[String] = {
   }
 }
 
+```
+
+다른 예로는 if-else가 전체 if-else의 모나드 체인인지 아니면 else 절의 모나드 체인인지 햇갈리는 경우가 있습니다.
+```scala
+// A monadic chaining approach
+val condition: Boolean = ...
+if (condition) {
+  Seq(1, 2, 3)  // Results in List(2, 3, 4)
+} else {
+  Seq(1, 2, 3)  // Results in List(1, 2, 3)
+}.map(_ + 1)
+
+// A more readable approach.
+val ret = if (condition) {
+  Seq(1, 2, 3)
+} else {
+  Seq(1, 2, 3)
+}
+ret.map(_ + 1)  // Results in List(2, 3, 4)
 ```
 
 
